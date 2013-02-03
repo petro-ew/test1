@@ -16,5 +16,6 @@ l1 = []
 if n>0 and n%n == 0:
     for i in range(1, n+1):
         if n % i ==0 and n % 1 ==0:
-           l1.append(i)
+            if i in range(1,10):
+                l1.append(i)
 print(l1)
