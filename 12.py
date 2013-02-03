@@ -2,7 +2,7 @@ __author__ = 'petro-ew'
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import sys
-#__import__ (globals = sys)
+
 """
 12.
 Программа запрашивает натуральное число n.

@@ -1,9 +1,6 @@
 __author__ = 'petro-ew'
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import sys
-import cmath
-import math
 """
 14.
 Написать функцию, возвращающую минимальный и максимальный элемент списка в виде кортежа из двух элементов.
