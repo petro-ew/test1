@@ -1,6 +1,9 @@
 __author__ = 'petro-ew'
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import sys
+import cmath
+import math
 #закомментировал на время... надо разобраться...
 """
 Zero = ["  ***  ", " *   * ", "*     *", "*     *", "*     *", " *   * ", "  ***  "]
