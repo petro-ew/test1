@@ -16,6 +16,6 @@ def quadl1 ():
     summ = 0
     for i in range(len(l1)):
         summ = summ +  l1[i]
-    print(summ)
-    return []
-quadl1()
+    #print(summ)
+    return [summ]
+print(quadl1())
