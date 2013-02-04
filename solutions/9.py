@@ -29,7 +29,8 @@ l4 = [(l1[i], l2[i]) for i in range(len(l2))]
 l4 = sorted(l4, key=lambda x:x[1])
 
 #d2 = dict(zip(l1, l2))
-print (l4)
+for i in l4:
+    print("'%s':%d" % (i[0], i[1]))
 """
 dict([(x, x**2) for x in (2, 4, 6)])
 items = [('name','sveta'),('age',20)]
