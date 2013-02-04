@@ -1,12 +1,10 @@
-__author__ = 'petro-ew'
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import sys
 import cmath
 import math
 
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
+__author__ = 'petro-ew'
 #zadacha number 1
 """
 #список квадратов чисел от 1 до 10

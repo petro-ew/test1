@@ -1,3 +1,8 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+import sys
+import cmath
+import math
 __author__ = 'petro-ew'
 """
 11.
