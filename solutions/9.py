@@ -23,9 +23,12 @@ for key, value in d.items():
     l2.append(value)
 print(l1,l2)
 l2.sort() # sort() сортирует элементы списка по возрастанию.
+d2 = dict([(x, y) for x y  in l1 l2])
+#for i in range(len(l2))
 
-print(l2)
+print(l2, d2)
 """
+dict([(x, x**2) for x in (2, 4, 6)])
 items = [('name','sveta'),('age',20)]
 >>> d = dict(items)
 ------------
