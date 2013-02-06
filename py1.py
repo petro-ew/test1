@@ -1,6 +1,6 @@
-__author__ = 'petro-ew'
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+__author__ = 'petro-ew'
 import sys
 import cmath
 import math
