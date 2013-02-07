@@ -10,6 +10,24 @@ import sys
 Пример: ['ab', 'bac', 'sss', 'cab', 'ex', 'ba'] -> [('ab', 'ba'), ('bac', 'cab')]
 """
 l1 = ['ab', 'bac', 'sss', 'cab', 'ex', 'ba']
+
+def funck(l1):
+	k1 = ()
+	k2 = []
+	s1 = set()
+	l2=set(l1)
+	print(l1, l2)
+	for i in range(len(l1)):
+		x = l1[i]
+		xx = x[::-1]
+		if xx != x:
+			if xx in l2:
+				zz = x
+				s1.add(zz) 
+				print(s1)
+	return k2
+print(funck(l1))
+
 """
 def funck(l1):
 	l2=[]
@@ -53,6 +71,7 @@ def funck(l1):
 	return k2
 print(funck(l1))
 """
+"""
 def funck(l1):
 	l = []
 	for i in range(len(l1)):
@@ -61,8 +80,9 @@ def funck(l1):
 				l.append((l1[i], l1[j]))
 	return l
 
-#print(funck(l1))
-
+print(funck(l1))
+"""
+"""
 def funck2(l1):
 	l = []
 	i = 0
@@ -75,3 +95,4 @@ def funck2(l1):
 		i += 1
 	return l				
 print(funck2(l1))
+"""

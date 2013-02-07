@@ -10,7 +10,7 @@ __author__ = 'petro-ew'
 import sys
 import cmath
 import math
-import str
+import string
 """
 Zero = ["  ***  ", " *   * ", "*     *", "*     *", "*     *", " *   * ", "  ***  "]
 One = ["   *   ", "  **   ", " * *   ", "   *   ", "   *   ", "   *   ", " ***** "]
