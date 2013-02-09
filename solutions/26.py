@@ -13,6 +13,18 @@ n1 = 7
 n2 = 2
 n3 = 2013
 def funcz(n1, n2, n3):
-    print(n1, n2, n3)
-    print("%d/%d/%d")
+    """
+
+    :param n1:
+    :param n2:
+    :param n3:
+    """
+    #print(n1, n2, n3)
+    #n = str(n1) + "/" + str(n2) + "/" + str(n3)
+    n = '%d/%d/%d' % (n1, n2, n3)
+    n2 = '{day}/{month}/{year}'.format(day = n1, month = n2, year = n3)
+    print("n2 = " , n2)
+    #print(n)
+    #print(str(n1), "/", str(n2), "/", str(n3))
+    return n
 print(funcz(n1, n2, n3))
