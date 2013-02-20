@@ -12,28 +12,53 @@ import copy
       удалением от 1 до k элементов.
 Пример: [1, 2, 3] -> [[], [1], [2], [3], [1,2], [1,3], [2,3]]
 """
-l = [1, 2, 3]
-def funkz(l):
+l = [1, 2, 3, 6]
+def fuckt(l):
     k = len(l)
-
     print(l)
     l2 = []
-    l3 = copy.deepcopy(l)
-    #j = 1
-    #x = 1
-    #for i in range(len(l)):
+    j = 1
+    x = 1
     #функция вычисляющая факториал
-    #for x in l:
-    #    x *= j
-    #    #l2.append(x)
-    #    j = x
-    #    x=x+1 # + пустой элемент для конкретной задачи
-    for i in range(len(l)):
-        x = l[i]
-        l3.remove(x)
-        l2 = l2 + l3
-        print(x, l3, l2)
-    print(l2)
+    for x in l:
+        x *= j
+        l2.append(x)
+        j = x
+    x=x+1 # + пустой элемент для конкретной задачи
+    print(x)
+    return x
+#print(fuckt(l))
 
-    return l2
-print(funkz(l))
+
+def funct(l):
+    """
+
+    :param l:
+    """
+    l3 = []
+    for i in range(len(l)):
+        t = 0
+
+    #    print(l)
+    n = len(l)
+    a = l
+    if t == n:
+        for i in range(len(l)):
+            x = l[i]
+            return x
+    else:
+        for j in range(t+1, n):
+            t = t + 1
+            z = a[t+1]
+            zz = a[j]
+            a[t+1] = a[j]
+            a[j] = z
+            fuckt(l)
+            t = t - 1
+            z = a[t+1]
+            zz = a[j]
+            a[t+1] = a[j]
+            a[j] = z
+
+print(funct(l))
+

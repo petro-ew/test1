@@ -24,6 +24,17 @@ def funcz(l1):
         l2 += funcz(x) if isinstance(x, list) else [x]
     return l2
 
+def funcz2(l1):
+    l2 = []
+    a=0
+    for x in l1:
+        if isinstance(x, list):
 
-print(funcz(l1))
+            a=a+1
+            l2.append(x)
+    print( z)
+
+print(funcz2(l1))
+
+#print(funcz(l1))
 
