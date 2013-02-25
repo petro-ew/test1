@@ -11,7 +11,8 @@ __author__ = 'petro-ew'
     и возврашающую число слов в строке.
 """
 
-s = "Д митрий Вячеславович Платонов, Хороший человек"
+s = "Дмитрий Вячеславович Платонов, Хороший человек"
+#s = " Д м т"
 
 def funcz(s):
 
@@ -24,22 +25,13 @@ def funcz(s):
     return p
 #print(funcz(s))
 
-def fuck(s, i):
 
-    col = 0
-    if s[i] == " ":
-        col = col + 1
-        return fuck(s, i+1)
-        return col
-    i += 1
-    return fuck(s, i)
-
-def funkk(s):
-    print(s)
-    i = 0
-    return fuck(s, i)
-    i = i + 1
-
-
-
-print(funkk(s))
+print(s)
+def fun(s):
+    if s == "":
+        return 0
+    elif s[0] != " ":
+        return 0 + fun(s[1:])
+    else:
+        return 1 + fun(s[1:])
+print(fun(s)+1)
