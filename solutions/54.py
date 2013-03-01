@@ -24,30 +24,94 @@ __author__ = 'petro-ew'
           возвращающий список дел, не выполненных в течении дня.
 
 """
+"""
+print ('\033[1;30mGray like Ghost\033[1;m')
+print ('\033[1;31mRed like Radish\033[1;m')
+print ('\033[1;32mGreen like Grass\033[1;m')
+print ('\033[1;33mYellow like Yolk\033[1;m')
+print ('\033[1;34mBlue like Blood\033[1;m')
+print ('\033[1;35mMagenta like Mimosa\033[1;m')
+print ('\033[1;36mCyan like Caribbean\033[1;m')
+print ('\033[1;37mWhite like Whipped Cream\033[1;m')
+print ('\033[1;38mCrimson like Chianti\033[1;m')
+print ('\033[1;41mHighlighted Red like Radish\033[1;m')
+print ('\033[1;42mHighlighted Green like Grass\033[1;m')
+print ('\033[1;43mHighlighted Brown like Bear\033[1;m')
+print ('\033[1;44mHighlighted Blue like Blood\033[1;m')
+print ('\033[1;45mHighlighted Magenta like Mimosa\033[1;m')
+print ('\033[1;46mHighlighted Cyan like Caribbean\033[1;m')
+print ('\033[1;47mHighlighted Gray like Ghost\033[1;m')
+print ('\033[1;48mHighlighted Crimson like Chianti\033[1;m')
+"""
+import sys
+
 class DailyItem:
     #запись в списке запланированных дел.
+    def __init__(self, t_st, t_ed, w_data, pr_w_ok):
+        self.t_start = t_st
+        self.t_end = t_ed
+        self.work_data = w_data
+        self.pr_work_ok = pr_w_ok
+
+        print("\033[1;32mkonstruktor bzovogo klassa DailyItem\033[1;m")
     def time_start(self):
-        print("date start")
-
+        print("date start время начала", self.t_start)
+        return  self.t_start
     def time_end(self):
-        print("date end")
-
+        print("date end окончания работы", self.t_end)
+        return  self.t_end
     def data(self):
-        print("data")
-
+        print("data описание", self.work_data)
+        return self.work_data
     def pr_end(self):
-        print("priznak vipolneniya")
-
-
-
+        print("priznak vipolneniya признак выполнения", self.pr_work_ok)
+        return self.pr_work_ok
 
 class DailyShedule:
 
-    def add(self):
-        print("add work")
-
+    def __init__(self):
+        self.sp_time_start = []
+        self.sp_time_stop = []
+        self.sp_work_data = []
+        self.sp_pr_work_ok = []
+        print("konstruktor bzovogo klassa  план работ на день")
+    def add(self, t_st, t_ed, w_data, pr_w_ok):
+        print("add work добавления")
+        self.sp_time_start.append(t_st)
+        self.sp_time_stop.append(t_ed)
+        self.sp_work_data.append(w_data)
+        self.sp_pr_work_ok.append(pr_w_ok)
+#        t_st = 6
+#        t_ed = 6.30
+#        w_data = "Завтрак"
+#        pr_w_ok = "не лезет"
+        #di = DailyItem(6, 6.30, "Завтрак", "не лезет")
+        DailyItem(t_st, t_ed, w_data, pr_w_ok)
     def delete(self):
-        print("delete work")
+        print("delete work удаления")
 
     def change(self):
-        print("change work")
+        print("change work изменения планируемой работы")
+
+    def plan(self):
+        print("plan work  план работ на день")
+        print(self.sp_time_start, self.sp_time_stop, self.sp_work_data, self.sp_pr_work_ok)
+
+
+    def search(self):
+        print("search time метод поиска свободного промежутка времени.")
+
+    def redo(self):
+        print("redo возвращающий список дел, не выполненных в течении дня.")
+
+#di = DailyItem(6, 6.30, "Завтрак", "не лезет")
+
+dsh = DailyShedule()
+dsh.add(6, 6.30, "Завтрак", "не лезет")
+dsh.add(10, 19.30, "Работа", "отбой")
+dsh.add(22, 22.30, "Ужин", "не лезет")
+
+
+
+
+dsh.plan()
