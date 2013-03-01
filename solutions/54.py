@@ -52,7 +52,7 @@ class DailyItem:
         self.t_end = t_ed
         self.work_data = w_data
         self.pr_work_ok = pr_w_ok
-
+        #dsh.add()
         print("\033[1;32mkonstruktor bzovogo klassa DailyItem\033[1;m")
     def time_start(self):
         print("date start время начала", self.t_start)
@@ -75,18 +75,18 @@ class DailyShedule:
         self.sp_work_data = []
         self.sp_pr_work_ok = []
         print("konstruktor bzovogo klassa  план работ на день")
-    def add(self, t_st, t_ed, w_data, pr_w_ok):
+    def add(self):
         print("add work добавления")
-        self.sp_time_start.append(t_st)
-        self.sp_time_stop.append(t_ed)
-        self.sp_work_data.append(w_data)
-        self.sp_pr_work_ok.append(pr_w_ok)
+        self.sp_time_start.append(di.t_start)
+        self.sp_time_stop.append(di.t_end)
+        self.sp_work_data.append(di.work_data)
+        self.sp_pr_work_ok.append(di.pr_work_ok)
 #        t_st = 6
 #        t_ed = 6.30
 #        w_data = "Завтрак"
 #        pr_w_ok = "не лезет"
         #di = DailyItem(6, 6.30, "Завтрак", "не лезет")
-        DailyItem(t_st, t_ed, w_data, pr_w_ok)
+        #DailyItem(t_st, t_ed, w_data, pr_w_ok)
     def delete(self):
         print("delete work удаления")
 
@@ -103,13 +103,16 @@ class DailyShedule:
 
     def redo(self):
         print("redo возвращающий список дел, не выполненных в течении дня.")
-
-#di = DailyItem(6, 6.30, "Завтрак", "не лезет")
-
 dsh = DailyShedule()
-dsh.add(6, 6.30, "Завтрак", "не лезет")
-dsh.add(10, 19.30, "Работа", "отбой")
-dsh.add(22, 22.30, "Ужин", "не лезет")
+di = DailyItem(6, 6.30, "Завтрак", "не лезет")
+dsh.add()
+di = DailyItem(10, 19.30, "Работа", "отбой")
+dsh.add()
+di = DailyItem(22, 22.30, "Ужин", "не лезет")
+dsh.add()
+#dsh.add(6, 6.30, "Завтрак", "не лезет")
+#dsh.add(10, 19.30, "Работа", "отбой")
+#dsh.add(22, 22.30, "Ужин", "не лезет")
 
 
 
