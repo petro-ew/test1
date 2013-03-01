@@ -74,6 +74,8 @@ class DailyShedule:
         self.sp_time_stop = []
         self.sp_work_data = []
         self.sp_pr_work_ok = []
+        #self.old_name = "искомое значение"
+        #self.new_name = "новое значение"
         print("konstruktor bzovogo klassa  план работ на день")
     def add(self):
         print("add work добавления")
@@ -90,7 +92,14 @@ class DailyShedule:
     def delete(self):
         print("delete work удаления")
 
-    def change(self):
+    def change(self, old_name, new_name):
+        print(old_name)
+        if old_name in self.sp_work_data:
+            ind = self.sp_work_data.index(old_name)
+            del self.sp_work_data[ind]
+            self.sp_work_data.insert(ind, new_name)
+            print("есть такое!", old_name, "index = ", ind, "new_name = ", new_name)
+
         print("change work изменения планируемой работы")
 
     def plan(self):
@@ -110,6 +119,10 @@ di = DailyItem(10, 19.30, "Работа", "отбой")
 dsh.add()
 di = DailyItem(22, 22.30, "Ужин", "не лезет")
 dsh.add()
+dsh.plan()
+dsh.change("Работа", "Отдых блин")
+
+
 #dsh.add(6, 6.30, "Завтрак", "не лезет")
 #dsh.add(10, 19.30, "Работа", "отбой")
 #dsh.add(22, 22.30, "Ужин", "не лезет")
