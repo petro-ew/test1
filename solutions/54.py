@@ -116,7 +116,7 @@ class DailyShedule:
     def search(self):
         print("search time метод поиска свободного промежутка времени.")
         for x in self.sp_time_stop:
-
+        #end of home suchkov
 
 
     def redo(self):
