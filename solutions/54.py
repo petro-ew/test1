@@ -130,7 +130,7 @@ dsh.change("Работа", "Отдых блин")
 
 dsh.delete("Ужин")
 dsh.plan()
-di = DailyItem(22, 22.30, "Ужин", "не лезет")
+di = DailyItem(24, 24.30, "2-й Ужин", "не лезет")
 dsh.add()
 dsh.plan()
 
