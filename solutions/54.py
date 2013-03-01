@@ -24,3 +24,30 @@ __author__ = 'petro-ew'
           возвращающий список дел, не выполненных в течении дня.
 
 """
+class DailyItem:
+    #запись в списке запланированных дел.
+    def time_start(self):
+        print("date start")
+
+    def time_end(self):
+        print("date end")
+
+    def data(self):
+        print("data")
+
+    def pr_end(self):
+        print("priznak vipolneniya")
+
+
+
+
+class DailyShedule:
+
+    def add(self):
+        print("add work")
+
+    def delete(self):
+        print("delete work")
+
+    def change(self):
+        print("change work")
