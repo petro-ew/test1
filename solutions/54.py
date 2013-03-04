@@ -54,7 +54,7 @@ class DailyItem:
         self.t_end = t_ed
         self.work_data = w_data
         self.pr_work_ok = pr_w_ok
-        print("\033[1;32mkonstruktor bzovogo klassa DailyItem\033[1;m")
+        print("konstruktor bzovogo klassa DailyItem")
     def time_start(self):
         print("date start время начала", self.t_start)
         return  self.t_start
@@ -76,6 +76,7 @@ class DailyShedule:
         self.sp_work_data = []
         self.sp_pr_work_ok = []
         self.lt_svob = []
+        self.sp_plan = []
         #self.old_name = "искомое значение"
         #self.new_name = "новое значение"
         print("konstruktor bzovogo klassa  план работ на день")
@@ -98,7 +99,7 @@ class DailyShedule:
             del self.sp_pr_work_ok[ind]
             del self.sp_time_start[ind]
             del self.sp_time_stop[ind]
-            print("delete work удаления", name)
+            print(Fore.RED + Style.BRIGHT + "удалено:" + Fore.RESET + Style.RESET_ALL, name)
 
     def change(self, old_name, new_name):
         print(old_name)
@@ -111,9 +112,16 @@ class DailyShedule:
         print("change work изменения планируемой работы")
 
     def plan(self):
-        print("plan work  план работ на день")
-        print(self.sp_time_start, self.sp_time_stop, self.sp_work_data, self.sp_pr_work_ok)
-
+        #print("plan work  план работ на день")
+        #print(self.sp_time_start, self.sp_time_stop, self.sp_work_data, self.sp_pr_work_ok)
+        for i in range(len(self.sp_time_start)):
+            l2 = (self.sp_time_start[i], self.sp_time_stop[i], self.sp_work_data[i], self.sp_pr_work_ok[i])
+            #l2 = list(l2)
+            self.sp_plan.append(l2)
+        spmn = copy.deepcopy(self.sp_plan)
+        mn = set(spmn)
+        spmn = list(mn)
+        print(Fore.GREEN + Style.BRIGHT + "План работ на день" + Fore.RESET + Style.RESET_ALL, spmn)
 
     def search(self):
         print("search time метод поиска свободного промежутка времени.")
@@ -123,13 +131,12 @@ class DailyShedule:
         lt_stop.insert(0,0)
         #print(lt_stop, lt_start)
         for i in range(len(lt_stop)):
-            #end of home suchkov
-            #l1 = []
+
             l1 = (lt_stop[i], lt_start[i])
             l1 = list(l1)
             self.lt_svob.append(l1)
             #print(l1)
-        print(Fore.GREEN + Style.BRIGHT + "свободные промежутки времени: " + Fore.RESET + Style.RESET_ALL, self.lt_svob)
+        print(Fore.BLUE + Style.BRIGHT + "свободные промежутки времени: " + Fore.RESET + Style.RESET_ALL, self.lt_svob)
 
     def redo(self):
         print("redo возвращающий список дел, не выполненных в течении дня.")
