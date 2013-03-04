@@ -44,6 +44,8 @@ print ('\033[1;47mHighlighted Gray like Ghost\033[1;m')
 print ('\033[1;48mHighlighted Crimson like Chianti\033[1;m')
 """
 import sys
+import copy
+from colorama import Fore, Back, Style, init
 
 class DailyItem:
     #запись в списке запланированных дел.
@@ -52,7 +54,6 @@ class DailyItem:
         self.t_end = t_ed
         self.work_data = w_data
         self.pr_work_ok = pr_w_ok
-        #dsh.add()
         print("\033[1;32mkonstruktor bzovogo klassa DailyItem\033[1;m")
     def time_start(self):
         print("date start время начала", self.t_start)
@@ -74,6 +75,7 @@ class DailyShedule:
         self.sp_time_stop = []
         self.sp_work_data = []
         self.sp_pr_work_ok = []
+        self.lt_svob = []
         #self.old_name = "искомое значение"
         #self.new_name = "новое значение"
         print("konstruktor bzovogo klassa  план работ на день")
@@ -115,12 +117,24 @@ class DailyShedule:
 
     def search(self):
         print("search time метод поиска свободного промежутка времени.")
-        for x in self.sp_time_stop:
-        #end of home suchkov
-
+        lt_stop = copy.deepcopy(self.sp_time_stop)
+        lt_start = copy.deepcopy(self.sp_time_start)
+        lt_start.append(24)
+        lt_stop.insert(0,0)
+        #print(lt_stop, lt_start)
+        for i in range(len(lt_stop)):
+            #end of home suchkov
+            #l1 = []
+            l1 = (lt_stop[i], lt_start[i])
+            l1 = list(l1)
+            self.lt_svob.append(l1)
+            #print(l1)
+        print(Fore.GREEN + Style.BRIGHT + "свободные промежутки времени: " + Fore.RESET + Style.RESET_ALL, self.lt_svob)
 
     def redo(self):
         print("redo возвращающий список дел, не выполненных в течении дня.")
+
+
 dsh = DailyShedule()
 di = DailyItem(6, 6.30, "Завтрак", "не лезет")
 dsh.add()
@@ -136,7 +150,7 @@ dsh.plan()
 di = DailyItem(24, 24.30, "2-й Ужин", "не лезет")
 dsh.add()
 dsh.plan()
-
+dsh.search()
 #dsh.add(6, 6.30, "Завтрак", "не лезет")
 #dsh.add(10, 19.30, "Работа", "отбой")
 #dsh.add(22, 22.30, "Ужин", "не лезет")
