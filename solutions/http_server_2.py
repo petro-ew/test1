@@ -10,7 +10,7 @@ def do_something(x):
     lst.reverse()
     return string.join(lst, "")
 
-HOST = ""    #localhost
+HOST = "127.0.0.1"    #localhost
 PORT = 888
 srv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 srv.bind((HOST, PORT))

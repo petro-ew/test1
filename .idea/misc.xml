@@ -1,5 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.2 (/usr/bin/python3.2)" project-jdk-type="Python SDK" />
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Internationalization issues</id>
+          </State>
+          <State>
+            <id>Python</id>
+          </State>
+          <State>
+            <id>SQL</id>
+          </State>
+          <State>
+            <id>Spelling</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Python</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectResources">
+    <default-html-doctype>jar:file:\C:\Program Files (x86)\JetBrains\PyCharm 2.6.3\lib\pycharm.jar!\resources\html5-schema\html5.rnc</default-html-doctype>
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.2.3 (C:/Python32/python.exe)" project-jdk-type="Python SDK" />
 </project>
 
