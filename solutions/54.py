@@ -47,6 +47,7 @@ import sys
 import copy
 from colorama import Fore, Back, Style, init
 
+
 class DailyItem:
     #запись в списке запланированных дел.
     def __init__(self, t_st, t_ed, w_data, pr_w_ok):
@@ -55,21 +56,25 @@ class DailyItem:
         self.work_data = w_data
         self.pr_work_ok = pr_w_ok
         print("konstruktor bzovogo klassa DailyItem")
+
     def time_start(self):
         print("date start время начала", self.t_start)
-        return  self.t_start
+        return self.t_start
+
     def time_end(self):
         print("date end окончания работы", self.t_end)
-        return  self.t_end
+        return self.t_end
+
     def data(self):
         print("data описание", self.work_data)
         return self.work_data
+
     def pr_end(self):
         print("priznak vipolneniya признак выполнения", self.pr_work_ok)
         return self.pr_work_ok
 
-class DailyShedule:
 
+class DailyShedule:
     def __init__(self):
         self.sp_time_start = []
         self.sp_time_stop = []
@@ -80,18 +85,37 @@ class DailyShedule:
         #self.old_name = "искомое значение"
         #self.new_name = "новое значение"
         print("konstruktor bzovogo klassa  план работ на день")
+
     def add(self):
         print("add work добавления")
-        self.sp_time_start.append(di.t_start)
-        self.sp_time_stop.append(di.t_end)
-        self.sp_work_data.append(di.work_data)
-        self.sp_pr_work_ok.append(di.pr_work_ok)
-#        t_st = 6
-#        t_ed = 6.30
-#        w_data = "Завтрак"
-#        pr_w_ok = "не лезет"
-        #di = DailyItem(6, 6.30, "Завтрак", "не лезет")
-        #DailyItem(t_st, t_ed, w_data, pr_w_ok)
+        """
+            opredelyaem svobodnie promegutki dlya funccii add
+
+        """
+        xxx = self.search()
+        print(Fore.YELLOW + Style.BRIGHT + "свободные промежутки времени: "+
+          Fore.RESET + Style.RESET_ALL, xxx)
+        for x in xxx:
+            print(x)
+
+            if di.t_start > x[0] and di.t_start < x[1]:
+                if di.t_end > x[0] and di.t_end < x[1]:
+                    print("URAAAAAAAAAAAAAA")
+                    self.sp_time_start.append(di.t_start)
+                    self.sp_time_stop.append(di.t_end)
+                    self.sp_work_data.append(di.work_data)
+                    self.sp_pr_work_ok.append(di.pr_work_ok)
+            else:
+                print("ИСКЛЮЧЕНИЕ БЛИН!!!")
+
+
+
+    #        t_st = 6
+    #        t_ed = 6.30
+    #        w_data = "Завтрак"
+    #        pr_w_ok = "не лезет"
+    #di = DailyItem(6, 6.30, "Завтрак", "не лезет")
+    #DailyItem(t_st, t_ed, w_data, pr_w_ok)
     def delete(self, name):
         if name in self.sp_work_data:
             ind = self.sp_work_data.index(name)
@@ -101,19 +125,23 @@ class DailyShedule:
             del self.sp_time_stop[ind]
             print(Fore.RED + Style.BRIGHT + "удалено:" + Fore.RESET + Style.RESET_ALL, name)
 
-    def change(self, old_name, new_name):
-        print(old_name)
-        if old_name in self.sp_work_data:
-            ind = self.sp_work_data.index(old_name)
+    def change(self, time_start_zad, new_name):
+        print(Fore.YELLOW + Style.BRIGHT + str(time_start_zad) + Fore.RESET + Style.RESET_ALL)
+        if time_start_zad in self.sp_time_start:
+            print(Fore.YELLOW + Style.BRIGHT + "меняем тут !!!" + Fore.RESET + Style.RESET_ALL)
+
+            ind = self.sp_time_start.index(time_start_zad)
             del self.sp_work_data[ind]
             self.sp_work_data.insert(ind, new_name)
-            print("есть такое!", old_name, "index = ", ind, "new_name = ", new_name)
+            print(Fore.YELLOW + Style.BRIGHT + "есть такое! - время задачи", time_start_zad,
+                  ", index = ", ind, ", new_name = ", new_name + Fore.RESET + Style.RESET_ALL)
 
         print("change work изменения планируемой работы")
 
     def plan(self):
         #print("plan work  план работ на день")
         #print(self.sp_time_start, self.sp_time_stop, self.sp_work_data, self.sp_pr_work_ok)
+        self.sp_plan = []
         for i in range(len(self.sp_time_start)):
             l2 = (self.sp_time_start[i], self.sp_time_stop[i], self.sp_work_data[i], self.sp_pr_work_ok[i])
             #l2 = list(l2)
@@ -124,20 +152,27 @@ class DailyShedule:
         print(Fore.GREEN + Style.BRIGHT + "План работ на день" + Fore.RESET + Style.RESET_ALL, spmn)
 
     def search(self):
+        """
+        poisk vremeni
+
+        :rtype : list
+        """
+        self.lt_svob = []
         print("search time метод поиска свободного промежутка времени.")
         lt_stop = copy.deepcopy(self.sp_time_stop)
         lt_start = copy.deepcopy(self.sp_time_start)
         lt_start.append(24)
-        lt_stop.insert(0,0)
+        lt_stop.insert(0, 0)
         #print(lt_stop, lt_start)
         for i in range(len(lt_stop)):
-
             l1 = (lt_stop[i], lt_start[i])
             l1 = list(l1)
             self.lt_svob.append(l1)
             #print(l1)
-        print(Fore.BLUE + Style.BRIGHT + "свободные промежутки времени: " + Fore.RESET + Style.RESET_ALL, self.lt_svob)
-
+        print(Fore.BLUE + Style.BRIGHT + "свободные промежутки времени: "+
+              Fore.RESET + Style.RESET_ALL, self.lt_svob)
+        return self.lt_svob
+        
     def redo(self):
         print("redo возвращающий список дел, не выполненных в течении дня.")
 
@@ -150,7 +185,7 @@ dsh.add()
 di = DailyItem(22, 22.30, "Ужин", "не лезет")
 dsh.add()
 dsh.plan()
-dsh.change("Работа", "Отдых блин")
+dsh.change(10, "Отдых блин")
 
 dsh.delete("Ужин")
 dsh.plan()
