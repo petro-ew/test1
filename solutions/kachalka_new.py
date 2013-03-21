@@ -114,4 +114,4 @@ cmd_rmz ="/bin/rm " + some_dir + "*.iod"
 os.system(cmd_rmz)
 cmd_rmz = "/bin/rm " + some_dir + "*.ele"
 os.system(cmd_rmz)
-#com  "some_dir2/day_kachalka.pl mend ".ARGV[0]." ".ARGV[1] 
+#com  "some_dir2/day_kachalka.pl mend ".ARGV[0]." ".ARGV[1]
