@@ -16,13 +16,12 @@ some_dir2='/home/petro-ew/work/crx2rnx'
 zz_year=2013
 year_fn = 13; # последние две цифры нужного вам года. двухзначный год что используется в команде grep .
 sta = "brap"
-fdata = 76
+fdata = 39
 ldata = 78
-"""
-sta = sys.argv[1] #название станции
-fdata = int(sys.argv[2]) #first data вводится как первый аргумент  (начало расчета)
-ldata = int(sys.argv[3]) #last data вводится как второй аргумент (конец расчета)
-"""
+#sta = sys.argv[1] #название станции
+#fdata = int(sys.argv[2]) #first data вводится как первый аргумент  (начало расчета)
+#ldata = int(sys.argv[3]) #last data вводится как второй аргумент (конец расчета)
+
 print(time.gmtime())
 #print ("\n year=",year," месяц= ",mon, " день= ", mday, " час= ", hour," минут ", min, " секунд= ", sec,"\n";)
 def execscr(cmd):
@@ -34,7 +33,7 @@ def execscr(cmd):
     print(args)
     proc = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     out = proc.communicate()[0]
-    print(out)
+    #print(out)
 
 
 def fileopen(f_name, curday):
@@ -129,13 +128,13 @@ while(i < ldata+1):
     execscr(cmd_rmz)
 
     filename = some_dir + sta + str(cday) + "0." + str(year_fn) + "S"
-    filename = some_dir + "text\\"+ sta + str(cday) + "0." + str(year_fn) + "S"
+#    filename = some_dir + "text\\"+ sta + str(cday) + "0." + str(year_fn) + "S"
     l =  fileopen(filename, cday)
     print(l)
     filewriter(l)
     i+=1
 
-os.system("/bin/chmod 777 *")
+#os.system("/bin/chmod 777 *")
 cmd_rmz = "/bin/rm " + some_dir + "*.Z "
 os.system(cmd_rmz)
 cmd_rmz ="/bin/rm " + some_dir + "*.azi"
@@ -162,6 +161,13 @@ cmd_rmz ="/bin/rm " + some_dir + "*.iod"
 os.system(cmd_rmz)
 cmd_rmz = "/bin/rm " + some_dir + "*.ele"
 os.system(cmd_rmz)
+cmd_plot = "/usr/bin/gnuplot 1.plt"
+os.system(cmd_plot)
+
+#cmd_rmptext = "/bin/rm " + some_dir + "plan.txt"
+#os.system(cmd_rmptext)
+#cmd_rmzs ="/bin/rm " + some_dir + "*.S"
+#os.system(cmd_rmzs)
 
 """
 #содержимое plt файла для гнуплота
