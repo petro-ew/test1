@@ -11,7 +11,7 @@ import shlex
 import os.path
 some_dir ='/home/petro-ew/work/2013/'
 #some_dir ='d:\\py_work\\test1\\solutions\\'
-some_dir2='/home/petro-ew/work/crx2rnx'
+some_dir2='/home/petro-ew/work/2013/text'
 #some_dir_all = '/home/petro-ew/work/crx2rnx/txt/all/'
 zz_year=2013
 year_fn = 13; # последние две цифры нужного вам года. двухзначный год что используется в команде grep .
@@ -26,7 +26,6 @@ print(time.gmtime())
 #print ("\n year=",year," месяц= ",mon, " день= ", mday, " час= ", hour," минут ", min, " секунд= ", sec,"\n";)
 def execscr(cmd):
     """
-
     :param cmd: команда исполняемая
     """
     args = shlex.split(cmd)
@@ -34,7 +33,6 @@ def execscr(cmd):
     proc = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     out = proc.communicate()[0]
     #print(out)
-
 
 def fileopen(f_name, curday):
     """
@@ -56,7 +54,6 @@ def fileopen(f_name, curday):
         for line in f:
             if simvol1 in line:
                 q = line.strip(strip)
-
                 l1 = q.split()
                 z = q[:24]
                 cort = (cday, l1[6])
@@ -65,7 +62,6 @@ def fileopen(f_name, curday):
             #    print(z, l1[6], cday, cort)
             if simvol2 in line:
                 q = line.strip(strip)
-
                 l1 = q.split()
                 z = q[:24]
                 cort = (cday, l1[6])
@@ -73,7 +69,6 @@ def fileopen(f_name, curday):
            #     print(z, l1[6], cday, cort)
             if simvol3 in line:
                 q = line.strip(strip)
-
                 l1 = q.split()
                 z = q[:24]
                 cort = (cday, l1[6])
@@ -109,11 +104,9 @@ while(i < ldata+1):
     cday = i  #cday новый\следующий current day
     if cday < 100:
         cday = "0"+str(cday)
-
     cmd01 = "wget -t 1  --ftp-user=petro-ew --ftp-password=fvbjksdx ftp://192.168.0.21/rinex/" + str(zz_year) + "/" + str(cday) + "/" +  sta + str(cday) + "0." + str(year_fn) + "d.Z"
     cmd02 = "wget -t 1  --ftp-user=petro-ew --ftp-password=fvbjksdx ftp://192.168.0.21/rinex/" + str(zz_year) + "/" + str(cday) + "/" +  sta + str(cday) + "0." + str(year_fn) + "g.Z"
     cmd03 = "wget -t 1  --ftp-user=petro-ew --ftp-password=fvbjksdx ftp://192.168.0.21/rinex/" + str(zz_year) + "/" + str(cday) + "/" +  sta + str(cday) + "0." + str(year_fn) + "n.Z"
-
     execscr(cmd01)
     execscr(cmd02)
     execscr(cmd03)
@@ -126,20 +119,18 @@ while(i < ldata+1):
     execscr(cmd06)
     cmd_rmz = "rm " + some_dir + "*.Z " + some_dir + "*.azi" + some_dir + "*.n" + some_dir + "*.mp1" + some_dir + "*.mp2" + some_dir + "*.ion" + some_dir + "*.o" + some_dir + "*.g" + some_dir + "*.sn1" + some_dir + "*.sn2" + some_dir + "*.iod" + some_dir + "*.ele"
     execscr(cmd_rmz)
-
     filename = some_dir + sta + str(cday) + "0." + str(year_fn) + "S"
 #    filename = some_dir + "text\\"+ sta + str(cday) + "0." + str(year_fn) + "S"
-    l =  fileopen(filename, cday)
+    l = fileopen(filename, cday)
     print(l)
     filewriter(l)
-    i+=1
+    i += 1
 
-#os.system("/bin/chmod 777 *")
 cmd_rmz = "/bin/rm " + some_dir + "*.Z "
 os.system(cmd_rmz)
 cmd_rmz ="/bin/rm " + some_dir + "*.azi"
 os.system(cmd_rmz)
-cmd_rmz ="/bin/rm " + some_dir +  "*." + str(year_fn) + "n"
+cmd_rmz ="/bin/rm " + some_dir + "*." + str(year_fn) + "n"
 os.system(cmd_rmz)
 cmd_rmz ="/bin/rm " + some_dir + "*.mp1"
 os.system(cmd_rmz)
@@ -147,11 +138,11 @@ cmd_rmz ="/bin/rm " + some_dir + "*.mp2"
 os.system(cmd_rmz)
 cmd_rmz ="/bin/rm " + some_dir + "*.ion"
 os.system(cmd_rmz)
-cmd_rmz ="/bin/rm " + some_dir +   "*." +   str(year_fn) + "o"
+cmd_rmz ="/bin/rm " + some_dir + "*." + str(year_fn) + "o"
 os.system(cmd_rmz)
-cmd_rmz ="/bin/rm " + some_dir +  "*." +   str(year_fn) + "g"
+cmd_rmz ="/bin/rm " + some_dir + "*." + str(year_fn) + "g"
 os.system(cmd_rmz)
-cmd_rmz ="/bin/rm " + some_dir +   "*." +   str(year_fn) + "d"
+cmd_rmz ="/bin/rm " + some_dir + "*." + str(year_fn) + "d"
 os.system(cmd_rmz)
 cmd_rmz ="/bin/rm " + some_dir + "*.sn1"
 os.system(cmd_rmz)
@@ -163,6 +154,10 @@ cmd_rmz = "/bin/rm " + some_dir + "*.ele"
 os.system(cmd_rmz)
 cmd_plot = "/usr/bin/gnuplot 1.plt"
 os.system(cmd_plot)
+cmd_mv = "/bin/mv " + some_dir + "*." + str(year_fn) + "S " + some_dir2
+os.system(cmd_mv)
+cmd_mv = "/bin/mv " + some_dir + "plan.txt " + "plot* " + some_dir2
+os.system(cmd_mv)
 
 #cmd_rmptext = "/bin/rm " + some_dir + "plan.txt"
 #os.system(cmd_rmptext)
