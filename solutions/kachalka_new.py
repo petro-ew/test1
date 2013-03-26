@@ -4,6 +4,7 @@
 __author__ = 'petro-ew'
 import sys
 import time
+import datetime
 import os
 import subprocess
 import string
@@ -21,9 +22,13 @@ ldata = 78
 #sta = sys.argv[1] #название станции
 #fdata = int(sys.argv[2]) #first data вводится как первый аргумент  (начало расчета)
 #ldata = int(sys.argv[3]) #last data вводится как второй аргумент (конец расчета)
-
-print(time.gmtime())
-#print ("\n year=",year," месяц= ",mon, " день= ", mday, " час= ", hour," минут ", min, " секунд= ", sec,"\n";)
+#datetime.datetime(2013, 3, 26, 14, 21, 27, 218346)
+"""
+#заготовка для автоматической генерации уникальных имен файлов по времени запуска.
+d = datetime.datetime.today()
+d = d.strftime("%d.%m.%Y-%H:%M:%S")
+print(d)
+"""
 def execscr(cmd):
     """
     :param cmd: команда исполняемая
@@ -167,8 +172,12 @@ os.system(cmd_mv)
 """
 #содержимое plt файла для гнуплота
 set term png
-set output "plot.png"
+set output "plot-histeps.png"
 set xtics 1
-plot [] [0:] "./plan.txt" using 1:2 with lines title "aaa", "./plan.txt" using 1:3 with lines title "bbb", "./plan.txt" using 1:4 with lines title "ccc"
+plot [] [0:] "./plan.txt" using 1:2 with histeps title "slips < 10", "./plan.txt" using 1:3 with histeps title "slips > 10", "./plan.txt" using 1:4 with histeps title "MP < 10", "./plan.txt" using 1:5 with histeps title "MP > 10"
+set term png
+set output "plot-lines.png"
+set xtics 1
+plot [] [0:] "./plan.txt" using 1:2 with lines title "slips < 10", "./plan.txt" using 1:3 with lines title "slips > 10", "./plan.txt" using 1:4 with lines title "MP < 10", "./plan.txt" using 1:5 with lines title "MP > 10"
 
 """
