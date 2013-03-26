@@ -170,7 +170,6 @@ cmd_mv = "/bin/mv " + some_dir + "plot-lines.png " + sta + "*" + str(year_fn) + 
 os.system(cmd_mv)
 cmd_mv = "/bin/mv " + some_dir + "plan.txt " + some_dir2 + "plan" + sta + ".txt"
 os.system(cmd_mv)
-
 #cmd_rmptext = "/bin/rm " + some_dir + "plan.txt"
 #os.system(cmd_rmptext)
 #cmd_rmzs ="/bin/rm " + some_dir + "*.S"
