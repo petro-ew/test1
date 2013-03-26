@@ -104,16 +104,7 @@ print (sta, fdata, ldata)
 while(i < ldata+1):
     print(i)
     cday = i  #cday новый\следующий current day
-    if i < 10:
-        #cday = str(i)
-        ccday = "00" + str(cday)
-#        i = int(i)
-        print("i < 10 !!!", ccday, i)
-
-    if i < 100:
-        cday = str(i)
-        ccday = "0"+cday
-        #i = int(i)
+    ccday = "03d"%(i,)
     cmd01 = "wget -t 1  --ftp-user=petro-ew --ftp-password=fvbjksdx ftp://192.168.0.21/rinex/" + str(zz_year) + "/" + str(cday) + "/" +  sta + ccday + "0." + str(year_fn) + "d.Z"
     cmd02 = "wget -t 1  --ftp-user=petro-ew --ftp-password=fvbjksdx ftp://192.168.0.21/rinex/" + str(zz_year) + "/" + str(cday) + "/" +  sta + ccday + "0." + str(year_fn) + "g.Z"
     cmd03 = "wget -t 1  --ftp-user=petro-ew --ftp-password=fvbjksdx ftp://192.168.0.21/rinex/" + str(zz_year) + "/" + str(cday) + "/" +  sta + ccday + "0." + str(year_fn) + "n.Z"
