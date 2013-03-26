@@ -4,7 +4,6 @@
 __author__ = 'petro-ew'
 import sys
 import time
-import datetime
 import os
 import subprocess
 import string
@@ -13,22 +12,20 @@ import os.path
 some_dir ='/home/petro-ew/work/2013/'
 #some_dir ='d:\\py_work\\test1\\solutions\\'
 some_dir2='/home/petro-ew/work/2013/text'
+cmd = "cp /home/petro-ew/test1/solutions/kachalka_new.py /home/petro-ew/work/2013/text"
+os.system(cmd)
 #some_dir_all = '/home/petro-ew/work/crx2rnx/txt/all/'
 zz_year=2013
 year_fn = 13; # последние две цифры нужного вам года. двухзначный год что используется в команде grep .
-sta = "brap"
-fdata = 39
-ldata = 78
-#sta = sys.argv[1] #название станции
-#fdata = int(sys.argv[2]) #first data вводится как первый аргумент  (начало расчета)
-#ldata = int(sys.argv[3]) #last data вводится как второй аргумент (конец расчета)
-#datetime.datetime(2013, 3, 26, 14, 21, 27, 218346)
-"""
-#заготовка для автоматической генерации уникальных имен файлов по времени запуска.
-d = datetime.datetime.today()
-d = d.strftime("%d.%m.%Y-%H:%M:%S")
-print(d)
-"""
+#sta = "brap"
+#fdata = 39
+#ldata = 78
+sta = sys.argv[1] #название станции
+fdata = int(sys.argv[2]) #first data вводится как первый аргумент  (начало расчета)
+ldata = int(sys.argv[3]) #last data вводится как второй аргумент (конец расчета)
+
+print(time.gmtime())
+#print ("\n year=",year," месяц= ",mon, " день= ", mday, " час= ", hour," минут ", min, " секунд= ", sec,"\n";)
 def execscr(cmd):
     """
     :param cmd: команда исполняемая
@@ -107,26 +104,35 @@ print (sta, fdata, ldata)
 while(i < ldata+1):
     print(i)
     cday = i  #cday новый\следующий current day
-    if cday < 100:
-        cday = "0"+str(cday)
-    cmd01 = "wget -t 1  --ftp-user=petro-ew --ftp-password=fvbjksdx ftp://192.168.0.21/rinex/" + str(zz_year) + "/" + str(cday) + "/" +  sta + str(cday) + "0." + str(year_fn) + "d.Z"
-    cmd02 = "wget -t 1  --ftp-user=petro-ew --ftp-password=fvbjksdx ftp://192.168.0.21/rinex/" + str(zz_year) + "/" + str(cday) + "/" +  sta + str(cday) + "0." + str(year_fn) + "g.Z"
-    cmd03 = "wget -t 1  --ftp-user=petro-ew --ftp-password=fvbjksdx ftp://192.168.0.21/rinex/" + str(zz_year) + "/" + str(cday) + "/" +  sta + str(cday) + "0." + str(year_fn) + "n.Z"
-    execscr(cmd01)
-    execscr(cmd02)
-    execscr(cmd03)
+    if i < 10:
+        #cday = str(i)
+        ccday = "00" + str(cday)
+#        i = int(i)
+        print("i < 10 !!!", ccday, i)
+
+    if i < 100:
+        cday = str(i)
+        ccday = "0"+cday
+        #i = int(i)
+    cmd01 = "wget -t 1  --ftp-user=petro-ew --ftp-password=fvbjksdx ftp://192.168.0.21/rinex/" + str(zz_year) + "/" + str(cday) + "/" +  sta + ccday + "0." + str(year_fn) + "d.Z"
+    cmd02 = "wget -t 1  --ftp-user=petro-ew --ftp-password=fvbjksdx ftp://192.168.0.21/rinex/" + str(zz_year) + "/" + str(cday) + "/" +  sta + ccday + "0." + str(year_fn) + "g.Z"
+    cmd03 = "wget -t 1  --ftp-user=petro-ew --ftp-password=fvbjksdx ftp://192.168.0.21/rinex/" + str(zz_year) + "/" + str(cday) + "/" +  sta + ccday + "0." + str(year_fn) + "n.Z"
+#    execscr(cmd01)
+#    execscr(cmd02)
+#    execscr(cmd03)
     os.chdir(some_dir)
     cmd04 = "/bin/uncompress /home/petro-ew/work/2013/*.Z"
-    os.system(cmd04)
-    cmd05 = some_dir + "CRX2RNX " +  sta + str(cday) + "0." + str(year_fn) + "d"
-    os.system(cmd05)
-    cmd06 = some_dir + "teqc +qc " +  sta + str(cday) + "0." + str(year_fn) + "o"
-    execscr(cmd06)
+#    os.system(cmd04)
+    cmd05 = some_dir + "CRX2RNX " +  sta + ccday + "0." + str(year_fn) + "d"
+#    os.system(cmd05)
+    cmd06 = some_dir + "teqc +qc " +  sta + ccday + "0." + str(year_fn) + "o"
+#    execscr(cmd06)
     cmd_rmz = "rm " + some_dir + "*.Z " + some_dir + "*.azi" + some_dir + "*.n" + some_dir + "*.mp1" + some_dir + "*.mp2" + some_dir + "*.ion" + some_dir + "*.o" + some_dir + "*.g" + some_dir + "*.sn1" + some_dir + "*.sn2" + some_dir + "*.iod" + some_dir + "*.ele"
     execscr(cmd_rmz)
-    filename = some_dir + sta + str(cday) + "0." + str(year_fn) + "S"
+    filename = some_dir + sta + ccday + "0." + str(year_fn) + "S"
+    print(filename)
 #    filename = some_dir + "text\\"+ sta + str(cday) + "0." + str(year_fn) + "S"
-    l = fileopen(filename, cday)
+    l = fileopen(filename, ccday)
     print(l)
     filewriter(l)
     i += 1
@@ -159,9 +165,10 @@ cmd_rmz = "/bin/rm " + some_dir + "*.ele"
 os.system(cmd_rmz)
 cmd_plot = "/usr/bin/gnuplot 1.plt"
 os.system(cmd_plot)
-cmd_mv = "/bin/mv " + some_dir + "*." + str(year_fn) + "S " + some_dir2
+#cmd_mv = "/bin/mv " + some_dir + "plot-lines.png" + str(year_fn) + "S " + some_dir2 + "plot-lines" + sta + ".png"
+cmd_mv = "/bin/mv " + some_dir + "plot-lines.png " + sta + "*" + str(year_fn) + "S " + some_dir2 + "plot-lines" + sta + ".png"
 os.system(cmd_mv)
-cmd_mv = "/bin/mv " + some_dir + "plan.txt " + "plot* " + some_dir2
+cmd_mv = "/bin/mv " + some_dir + "plan.txt " + some_dir2 + "plan" + sta + ".txt"
 os.system(cmd_mv)
 
 #cmd_rmptext = "/bin/rm " + some_dir + "plan.txt"
@@ -172,12 +179,8 @@ os.system(cmd_mv)
 """
 #содержимое plt файла для гнуплота
 set term png
-set output "plot-histeps.png"
+set output "plot.png"
 set xtics 1
-plot [] [0:] "./plan.txt" using 1:2 with histeps title "slips < 10", "./plan.txt" using 1:3 with histeps title "slips > 10", "./plan.txt" using 1:4 with histeps title "MP < 10", "./plan.txt" using 1:5 with histeps title "MP > 10"
-set term png
-set output "plot-lines.png"
-set xtics 1
-plot [] [0:] "./plan.txt" using 1:2 with lines title "slips < 10", "./plan.txt" using 1:3 with lines title "slips > 10", "./plan.txt" using 1:4 with lines title "MP < 10", "./plan.txt" using 1:5 with lines title "MP > 10"
+plot [] [0:] "./plan.txt" using 1:2 with lines title "aaa", "./plan.txt" using 1:3 with lines title "bbb", "./plan.txt" using 1:4 with lines title "ccc"
 
 """
