@@ -7,7 +7,7 @@ import socketserver
 import logging
 import cgi
 
-PORT = 888
+PORT = 88
 
 class ServerHandler(http.server.SimpleHTTPRequestHandler):
 
