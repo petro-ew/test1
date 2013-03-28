@@ -105,9 +105,9 @@ while(i < ldata+1):
     print(i)
     cday = i  #cday новый\следующий current day
     ccday = "03d"%(i,)
-    cmd01 = "wget -t 1  --ftp-user=petro-ew --ftp-password=fvbjksdx ftp://192.168.0.21/rinex/" + str(zz_year) + "/" + str(cday) + "/" +  sta + ccday + "0." + str(year_fn) + "d.Z"
-    cmd02 = "wget -t 1  --ftp-user=petro-ew --ftp-password=fvbjksdx ftp://192.168.0.21/rinex/" + str(zz_year) + "/" + str(cday) + "/" +  sta + ccday + "0." + str(year_fn) + "g.Z"
-    cmd03 = "wget -t 1  --ftp-user=petro-ew --ftp-password=fvbjksdx ftp://192.168.0.21/rinex/" + str(zz_year) + "/" + str(cday) + "/" +  sta + ccday + "0." + str(year_fn) + "n.Z"
+    cmd01 = "wget -t 1  --ftp-user=user --ftp-password=pass ftp://ip/rinex/" + str(zz_year) + "/" + str(cday) + "/" +  sta + ccday + "0." + str(year_fn) + "d.Z"
+    cmd02 = "wget -t 1  --ftp-user=user --ftp-password=pass ftp://ip/rinex/" + str(zz_year) + "/" + str(cday) + "/" +  sta + ccday + "0." + str(year_fn) + "g.Z"
+    cmd03 = "wget -t 1  --ftp-user=user --ftp-password=pass ftp://ip/rinex/" + str(zz_year) + "/" + str(cday) + "/" +  sta + ccday + "0." + str(year_fn) + "n.Z"
 #    execscr(cmd01)
 #    execscr(cmd02)
 #    execscr(cmd03)
