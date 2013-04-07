@@ -24,12 +24,18 @@ class MyWindow(QtGui.QMainWindow, Form):
         self.lineEdit1.setPlaceholderText("Введите Бяку")
         self.lineEdit2.setPlaceholderText("Введите Бяку")
 
-        def find():
+        def lineedit1():
             word = self.lineEdit1.text()
             print("word = ", word)
+        def lineedit2():
+            word2 = self.lineEdit2.text()
+            print("word = ", word2)
 
-        QtCore.QObject.connect(self.lineEdit1, QtCore.SIGNAL("returnPressed()"), find)
-        QtCore.QObject.connect(self.pushButton1, QtCore.SIGNAL("clicked()"), find)
+        QtCore.QObject.connect(self.lineEdit1, QtCore.SIGNAL("returnPressed()"), lineedit1)
+        QtCore.QObject.connect(self.pushButton1, QtCore.SIGNAL("clicked()"), lineedit1)
+        QtCore.QObject.connect(self.lineEdit2, QtCore.SIGNAL("returnPressed()"), lineedit2)
+        QtCore.QObject.connect(self.pushButton2, QtCore.SIGNAL("clicked()"), lineedit2)
+
 
 if __name__ == "__main__":
     import sys
