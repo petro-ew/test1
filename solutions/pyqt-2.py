@@ -2,18 +2,24 @@
 # -*- coding: utf-8 -*-
 __author__ = 'petro-ew'
 import sys
+from os import path, curdir
 from PyQt4 import QtGui, QtCore, uic, Qt
 
 Form, Base = uic.loadUiType("1-06-04-13.ui")
 
-def on_clicked():
 
-    print("Кнопка нажата. Функция on_clicked()")
+#def on_clicked_button1(self, x, status):
+#    print("Нажата кнопка button1", x, status)
+
+def on_clicked():
+    #print("x=", text)
+    print("Нажата кнопка button1", text)
+    #print("Кнопка нажата. Функция on_clicked()")
 
 def editing_finished():
     print ("Editing Finished Закончили редактировать Едит")
-    self.zz  = MyWindow.lineEdit.text()
-    print("zz = ", self.zz)
+    #self.zz  = QtCore.QObject.connect.lineEdit.text()
+    #print("zz = ", self.zz)
 
 
 class MyClass():
@@ -26,8 +32,8 @@ class MyClass():
         print("Кнопка нажата. Метод MyClass.on_clicked()")
     def editing_finished():
         print("Кнопка нажата. Метод get_text1.on_clicked()")
-      #  zz  = QtGui.QMainWindow.__init__.lineEdit.text()
-      #  print("zz = ", zz)
+       #zz  = QtGui.QMainWindow.__init__.lineEdit.text()
+       #print("zz = ", zz)
 
 
 class MyWindow(QtGui.QMainWindow, Form):
@@ -103,6 +109,12 @@ class MyWindow(QtGui.QMainWindow, Form):
         self.lineEdit.setToolTip("Введите что нибудь")
         self.lineEdit.setPlaceholderText("Введите Бяку")
         self.lineEdit.setPlaceholderText("Введите Бяку")
+        def find():
+            """поиск и вывод синонима"""
+            word = self.lineEdit.text()
+            #result = ''
+            print("word = ", word)
+
         #self.lineEdit.textChanged[str].connect(onChanged) #не убирать !!! работает как начинаешь набирать в едите !!!
         #self.lineEdit.textEdited[str].connect(onChanged)
         #self.lineEdit.editingFinished().connect(onChanged())
@@ -116,9 +128,11 @@ class MyWindow(QtGui.QMainWindow, Form):
         QtCore.QObject.connect(self.lineEdit, QtCore.SIGNAL("editingFinished()"), MyClass())
         #print("text =", self.text)
         # Передача параметра в обработчик
-        QtCore.QObject.connect(self.pushButton_input, QtCore.SIGNAL("clicked()"), MyClass(10))
+        #QtCore.QObject.connect(self.pushButton_input, QtCore.SIGNAL("clicked()"), lambda x = self.lineEdit.text(): on_clicked(x))
         QtCore.QObject.connect(self.pushButton_input, QtCore.SIGNAL("clicked()"), MyClass(5))
        # QtCore.QObject.connect(self.lineEdit, QtCore.SIGNAL("editingFinished()"), get_text1(self.lineEdit.text()))
+       # self.connect(self.pushButton_input, QtCore.SIGNAL("clicked()"), lambda x=self.lineEdit.text(): on_clicked(x))
+        QtCore.QObject.connect(self.lineEdit, QtCore.SIGNAL("returnPressed()"), find)
 
 if __name__ == "__main__":
     import sys
