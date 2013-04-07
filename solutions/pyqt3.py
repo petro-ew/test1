@@ -3,10 +3,10 @@
 __author__ = 'petro-ew'
 
 import sys
-from os import path, curdir
+#from os import path, curdir
 from PyQt4 import QtGui, QtCore, uic, Qt
 
-Form, Base = uic.loadUiType("pyqt3.ui")
+Form, Base = uic.loadUiType("2-06-04-13.ui")
 
 class MyWindow(QtGui.QMainWindow, Form):
     def __init__(self, parent=None):
