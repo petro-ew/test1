@@ -26,6 +26,7 @@ class MyWindow(QtGui.QMainWindow, Form):
 
         def lineedit1():
             word = self.lineEdit1.text()
+            self.label1.setText("<b>"+word+"<b>")
             print("word = ", word)
         def lineedit2():
             word2 = self.lineEdit2.text()
