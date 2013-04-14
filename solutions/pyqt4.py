@@ -53,15 +53,6 @@ def sql_data(sql):
     cur = conn.cursor()
     cur.execute(sql)
     records = cur.fetchall()
-    # print out the records using pretty print
-    # note that the NAMES of the columns are not shown, instead just indexes.
-    # for most people this isn't very useful so we'll show you how to return
-    # columns as a dictionary (hash) in the next example.
-    #row_count = 0
-    #for row in cur:
-    #    row_count += 1
-    #    print("row: %s    %s\n" % (row_count, row))
-    #pprint.pprint(records)
     conn.commit()
     cur.close()
     conn.close()
@@ -94,17 +85,17 @@ class MyWindow(QtGui.QMainWindow, Form):
         :param parent:
         """
         QtGui.QMainWindow.__init__(self, parent)
-
-        self.setupUi(self)
-        self.connect(self.pushButton_exit, QtCore.SIGNAL("clicked()"), QtGui.qApp.quit)
-        self.pushButton_exit.setToolTip("Нажав эту кнопку покидаем программу")
-        #self.setToolTip("Главное Окно")
-        self.lineEdit_name.setToolTip("Введите Имя")
-        self.lineEdit_otchestvo.setPlaceholderText("Введите Отчество")
-        self.lineEdit_shortname.setPlaceholderText("Введите Короткое Имя")
+        def close():
+            #app = QtGui.QApplication(sys.argv)
+            """
 
 
-        def dataline():
+            """
+            qb = MessageBox()
+            qb.show()
+            #sys.exit(app.exec_())
+
+        def dataline_man():
             """
             :return: word
             """
@@ -164,13 +155,18 @@ class MyWindow(QtGui.QMainWindow, Form):
                     StringGrid1->Cells[col][row+1] = s;
                 }
             }
+            'ID', 'Имя', 'Фамилия', 'Отчество', 'ФИО', 'Логин', 'Админ', '№КП', '№Дог', 'Активен', 'tel', 'email'
             """
-            sql = 'SELECT * FROM manager_fio'
-            sql = 'SELECT * FROM manager_fio'
-            print(sql)
+            sql = 'SELECT manager_fio.manager_id,  manager_fio.manager_name, manager_fio.manager_otchestvo,' \
+                ' manager_fio.manager_family, manager_fio.manager_short_fio, manager_fio.manager_login, ' \
+                ' manager_fio.manager_admin_ok, manager_fio.manager_lastkp, manager_fio.manager_lastdog, ' \
+                ' manager_fio.manager_active,  manager_fio.manager_tel,' \
+                ' manager_fio.manager_email  FROM public.manager_fio;'
+            #sql = 'SELECT * FROM manager_fio'
+            #print(sql)
             data = sql_data(sql)
-            print(len(data))
-            self.tableWidget.setRowCount(len(data))
+            #print(len(data))
+            self.tableWidget_manager.setRowCount(len(data))
             """
             for row in range(len(data)):
                 i = row
@@ -182,27 +178,92 @@ class MyWindow(QtGui.QMainWindow, Form):
             rows = len(data)
             cols = len(data[1])
             entries = data
-            self.tableWidget.setRowCount(len(entries))
-            self.tableWidget.setColumnCount(len(entries[0]))
+            self.tableWidget_manager.setRowCount(len(entries))
+            self.tableWidget_manager.setColumnCount(len(entries[0]))
             for i, row in enumerate(entries):
                 for j, col in enumerate(row):
                     item = QtGui.QTableWidgetItem(str(col))
-                    print(col)
-                    self.tableWidget.setItem(i, j, item)
+                    #print(col)
+                    self.tableWidget_manager.setItem(i, j, item)
 
                     #index = self.tableWidget.index(row, column, QtCore.QModelIndex())
                     #self.tableWidget.setData(index, (row + 1) * (column + 1))
-            #print(data)
-            #for raw in data:
-            #manager_name, manager_family, manager_otchestvo, manager_short_fio, manager_admin_ok, manager_active = raw
-                #print(manager_name, manager_family, manager_otchestvo, manager_short_fio, manager_admin_ok, manager_active)
-                #print(raw)
+                    #print(data)
+                    #for raw in data:
+                    #manager_name, manager_family, manager_otchestvo, manager_short_fio, manager_admin_ok, manager_active = raw
+                    #print(manager_name, manager_family, manager_otchestvo, manager_short_fio, manager_admin_ok, manager_active)
+                    #print(raw)
+
+        def cell_was_clicked(row, column):
+            """
+
+            :param row: строка ячейки таблицы на которую нажали
+            :param column: столбец ячейки таблицы на которую нажали
+            """
+            self.lineEdit_name.clear()
+            self.lineEdit_otchestvo.clear()
+            self.lineEdit_family.clear()
+            self.lineEdit_shortname.clear()
+            self.lineEdit_number_m_lastkp.clear()
+            self.lineEdit_number_m_lastdog.clear()
+            self.lineEdit_tel_manager.clear()
+            self.lineEdit_email_manager.clear()
+
+
+
+
+            m_id = self.tableWidget_manager.item(row, 0).text()
+            m_name = self.tableWidget_manager.item(row, 1).text()
+            m_otchestvo = self.tableWidget_manager.item(row, 2).text()
+            m_family = self.tableWidget_manager.item(row, 3).text()
+            m_shortname = self.tableWidget_manager.item(row, 4).text()
+            m_login = self.tableWidget_manager.item(row, 5).text()
+            m_admin = self.tableWidget_manager.item(row, 6).text()
+            m_lastkp = self.tableWidget_manager.item(row, 7).text()
+            m_lastdog = self.tableWidget_manager.item(row, 8).text()
+            m_active = self.tableWidget_manager.item(row, 9).text()
+            m_email = self.tableWidget_manager.item(row, 10).text()
+            m_tel = self.tableWidget_manager.item(row, 11).text()
+
+            d_manager = {"id": m_id, "name": m_name, "otchestvo": m_otchestvo, "family": m_family, "shortname": m_shortname, "login": m_login, "active": m_active,
+                       "admin": m_admin, "lastkp": m_lastkp, "lastdog": m_lastdog, "email": m_email,"tel": m_tel}
+            self.lineEdit_name.insert(m_name)
+            self.lineEdit_otchestvo.insert(m_otchestvo)
+            self.lineEdit_family.insert(m_family)
+            self.lineEdit_shortname.insert(m_shortname)
+            self.lineEdit_number_m_lastkp.insert(m_lastkp)
+            self.lineEdit_number_m_lastdog.insert(m_lastdog)
+            self.lineEdit_tel_manager.insert(m_tel)
+            self.lineEdit_email_manager.insert(m_email)
+
+            print("Row %d and Column %d was clicked" % (row, column))
+            item = self.tableWidget_manager.item(row, column).text()
+
+            print (item, d_manager)
+
+        self.setupUi(self)
+        #запрещаем редактировать ячейки таблицы
+        self.tableWidget_manager.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
+        self.connect(self.pushButton_exit, QtCore.SIGNAL("clicked()"), QtGui.qApp.quit)
+        self.pushButton_exit.setToolTip("Нажав эту кнопку покидаем программу")
+        #self.setToolTip("Главное Окно")
+        self.lineEdit_name.setToolTip("Введите Имя")
+        self.lineEdit_otchestvo.setPlaceholderText("Введите Отчество")
+        self.lineEdit_shortname.setPlaceholderText("Введите Короткое Имя")
+        #Устанавливаем количество столбцов таблицы манагеров
+        self.tableWidget_manager.setColumnCount(12)
+        #делаем заголовки над каждым столбцом таблицы манагеров
+        self.tableWidget_manager.setHorizontalHeaderLabels(('ID', 'Имя', 'Отчество', 'Фамилия',  'ФИО', 'Логин', 'Админ', '№КП', '№Дог', 'Активен', 'Телефон', 'e-mail'))
+        self.tableWidget_manager.cellClicked.connect(cell_was_clicked)
+
+        #self.tableWidget_manager.cellPressed.connect(cell_was_clicked)
+        #QtCore.QObject.connect(self.tableWidget_manager, QtCore.SIGNAL(cellClicked(int,int)), this, QtCore.SLOT(myCellClicked(int,int)))
 
         #QtCore.QObject.connect(self.lineEdit_name, QtCore.SIGNAL("returnPressed()"), lineedit1)
         #QtCore.QObject.connect(self.lineEdit_otchestvo, QtCore.SIGNAL("returnPressed()"), lineedit2)
 
         #QtCore.QObject.connect(self.pushButton_table_refresh, QtCore.SIGNAL("clicked()"), lineedit2)
-        QtCore.QObject.connect(self.pushButton_insert_table1, QtCore.SIGNAL("clicked()"), dataline)
+        QtCore.QObject.connect(self.pushButton_insert_table1, QtCore.SIGNAL("clicked()"), dataline_man)
         QtCore.QObject.connect(self.pushButton_manager_delete, QtCore.SIGNAL("clicked()"), manager_del)
         QtCore.QObject.connect(self.pushButton_table1_refresh, QtCore.SIGNAL("clicked()"), refresh_mtab)
 
