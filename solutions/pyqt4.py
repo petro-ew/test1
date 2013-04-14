@@ -140,23 +140,7 @@ class MyWindow(QtGui.QMainWindow, Form):
             print(d1)
 
         def refresh_mtab():
-            #sql = 'SELECT manager_fio.manager_name, manager_fio.manager_family, manager_fio.manager_otchestvo,' \
-            #          ' manager_fio.manager_short_fio, manager_fio.manager_admin_ok, manager_fio.manager_active FROM public.manager_fio;'
-            """
-            tableWidget->setColumnCount( 2 );
-            tableWidget->setRowCount( 2 );
-            QTableWidgetItem *newItem = new QTableWidgetItem( "Preved!" );
-            tableWidget->setItem( 1, 1, newItem );
-             for (row=0; row < rec_count; row++)
-            {
-                 for (col=0; col < 10; col++)
-                {
-                    strcpy(s, PQgetvalue(res, row, col));
-                    StringGrid1->Cells[col][row+1] = s;
-                }
-            }
-            'ID', 'Имя', 'Фамилия', 'Отчество', 'ФИО', 'Логин', 'Админ', '№КП', '№Дог', 'Активен', 'tel', 'email'
-            """
+            #формируем sql запрос
             sql = 'SELECT manager_fio.manager_id,  manager_fio.manager_name, manager_fio.manager_otchestvo,' \
                 ' manager_fio.manager_family, manager_fio.manager_short_fio, manager_fio.manager_login, ' \
                 ' manager_fio.manager_admin_ok, manager_fio.manager_lastkp, manager_fio.manager_lastdog, ' \
@@ -164,6 +148,7 @@ class MyWindow(QtGui.QMainWindow, Form):
                 ' manager_fio.manager_email  FROM public.manager_fio;'
             #sql = 'SELECT * FROM manager_fio'
             #print(sql)
+            #записываем полученные данные от базы данных в таблицу манагеров
             data = sql_data(sql)
             #print(len(data))
             self.tableWidget_manager.setRowCount(len(data))
@@ -200,6 +185,9 @@ class MyWindow(QtGui.QMainWindow, Form):
             :param row: строка ячейки таблицы на которую нажали
             :param column: столбец ячейки таблицы на которую нажали
             """
+            #-----------------------------------------------------
+            #очищаем данные что были записаны ранее в LineEdits
+
             self.lineEdit_name.clear()
             self.lineEdit_otchestvo.clear()
             self.lineEdit_family.clear()
@@ -208,10 +196,9 @@ class MyWindow(QtGui.QMainWindow, Form):
             self.lineEdit_number_m_lastdog.clear()
             self.lineEdit_tel_manager.clear()
             self.lineEdit_email_manager.clear()
-
-
-
-
+            #----------------------------------------------------
+            #----------------------------------------------------------------
+            #Записываем данные в переменные
             m_id = self.tableWidget_manager.item(row, 0).text()
             m_name = self.tableWidget_manager.item(row, 1).text()
             m_otchestvo = self.tableWidget_manager.item(row, 2).text()
@@ -224,9 +211,16 @@ class MyWindow(QtGui.QMainWindow, Form):
             m_active = self.tableWidget_manager.item(row, 9).text()
             m_email = self.tableWidget_manager.item(row, 10).text()
             m_tel = self.tableWidget_manager.item(row, 11).text()
+            #-------------------------------------------------------------
 
+            #---------------------------------------------------------------------------------------------------
+            #Создаем словарь с данными (авось потом пригодится ) аналог структуры в С-ях)
             d_manager = {"id": m_id, "name": m_name, "otchestvo": m_otchestvo, "family": m_family, "shortname": m_shortname, "login": m_login, "active": m_active,
                        "admin": m_admin, "lastkp": m_lastkp, "lastdog": m_lastdog, "email": m_email,"tel": m_tel}
+            #-----------------------------------------------------------------------------------------------------
+
+            #----------------------------------------------------------
+            #Записываем данные в LineEdits
             self.lineEdit_name.insert(m_name)
             self.lineEdit_otchestvo.insert(m_otchestvo)
             self.lineEdit_family.insert(m_family)
@@ -235,36 +229,48 @@ class MyWindow(QtGui.QMainWindow, Form):
             self.lineEdit_number_m_lastdog.insert(m_lastdog)
             self.lineEdit_tel_manager.insert(m_tel)
             self.lineEdit_email_manager.insert(m_email)
+            #-----------------------------------------------------------
 
+            #----------------------------------------------------------------------------------------------
+            #Отладочный принт выдает номер столбца и колонки ячейки на которую нажала мышка
             print("Row %d and Column %d was clicked" % (row, column))
             item = self.tableWidget_manager.item(row, column).text()
-
             print (item, d_manager)
+            #-----------------------------------------------------------------------------------------------
 
-        self.setupUi(self)
-        #запрещаем редактировать ячейки таблицы
+    self.setupUi(self)
+        #----------------------------------------------------------------------------------------------------
+        #Запрещаем редактировать ячейки таблицы манагеров
         self.tableWidget_manager.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
+        #----------------------------------------------------------------------------------------------------
         self.connect(self.pushButton_exit, QtCore.SIGNAL("clicked()"), QtGui.qApp.quit)
         self.pushButton_exit.setToolTip("Нажав эту кнопку покидаем программу")
         #self.setToolTip("Главное Окно")
         self.lineEdit_name.setToolTip("Введите Имя")
         self.lineEdit_otchestvo.setPlaceholderText("Введите Отчество")
         self.lineEdit_shortname.setPlaceholderText("Введите Короткое Имя")
+        #-----------------------------------------------------------------------------------------------------
         #Устанавливаем количество столбцов таблицы манагеров
         self.tableWidget_manager.setColumnCount(12)
-        #делаем заголовки над каждым столбцом таблицы манагеров
+        #-----------------------------------------------------------------------------------------------------
+        #Делаем заголовки над каждым столбцом таблицы манагеров
         self.tableWidget_manager.setHorizontalHeaderLabels(('ID', 'Имя', 'Отчество', 'Фамилия',  'ФИО', 'Логин', 'Админ', '№КП', '№Дог', 'Активен', 'Телефон', 'e-mail'))
+        #------------------------------------------------------------------------------------------------------
+        #Назначаем действием на клик мышки по ячейки таблицы манагеров, а именно функцию cell_was_clicked
         self.tableWidget_manager.cellClicked.connect(cell_was_clicked)
-
-        #self.tableWidget_manager.cellPressed.connect(cell_was_clicked)
+        #------------------------------------------------------------------------------------------------------
         #QtCore.QObject.connect(self.tableWidget_manager, QtCore.SIGNAL(cellClicked(int,int)), this, QtCore.SLOT(myCellClicked(int,int)))
 
         #QtCore.QObject.connect(self.lineEdit_name, QtCore.SIGNAL("returnPressed()"), lineedit1)
         #QtCore.QObject.connect(self.lineEdit_otchestvo, QtCore.SIGNAL("returnPressed()"), lineedit2)
 
         #QtCore.QObject.connect(self.pushButton_table_refresh, QtCore.SIGNAL("clicked()"), lineedit2)
+
+        #Назначаем действием на клик мышки по кнопке Добавить манагра, а именно функцию dataline_man
         QtCore.QObject.connect(self.pushButton_insert_table1, QtCore.SIGNAL("clicked()"), dataline_man)
+        #Назначаем действием на клик мышки по кнопке Удалить манагра, а именно функцию manager_del
         QtCore.QObject.connect(self.pushButton_manager_delete, QtCore.SIGNAL("clicked()"), manager_del)
+        #Назначаем действием на клик мышки по кнопке Обновить таблицу, обновляем таблицу манагеров, вызывая функцию refresh_mtab
         QtCore.QObject.connect(self.pushButton_table1_refresh, QtCore.SIGNAL("clicked()"), refresh_mtab)
 
 
