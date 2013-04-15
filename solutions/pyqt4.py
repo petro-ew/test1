@@ -187,7 +187,6 @@ class MyWindow(QtGui.QMainWindow, Form):
             """
             #-----------------------------------------------------
             #очищаем данные что были записаны ранее в LineEdits
-
             self.lineEdit_name.clear()
             self.lineEdit_otchestvo.clear()
             self.lineEdit_family.clear()
@@ -238,7 +237,7 @@ class MyWindow(QtGui.QMainWindow, Form):
             print (item, d_manager)
             #-----------------------------------------------------------------------------------------------
 
-    self.setupUi(self)
+        self.setupUi(self)
         #----------------------------------------------------------------------------------------------------
         #Запрещаем редактировать ячейки таблицы манагеров
         self.tableWidget_manager.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
