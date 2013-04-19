@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-import pprint
 
 
 __author__ = 'petro-ew'
 import sys
-import os
 import psycopg2
 from PyQt4.QtCore import QSettings
 
@@ -69,8 +67,6 @@ def sql_data(sql):
         return(data)
     """
 
-
-#from os import path, curdir
 
 from PyQt4 import QtGui, QtCore, uic
 
