@@ -23,6 +23,18 @@
       <height>211</height>
      </rect>
     </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOn</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOn</enum>
+    </property>
+    <property name="autoScroll">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QCheckBox" name="checkBox_all">
     <property name="geometry">
@@ -95,7 +107,7 @@
       <x>10</x>
       <y>40</y>
       <width>1001</width>
-      <height>81</height>
+      <height>101</height>
      </rect>
     </property>
    </widget>
