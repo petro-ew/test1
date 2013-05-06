@@ -53,6 +53,27 @@ def sql_data(sql):
     conn.close()
     return records
 #---------------------------------------
+def sql_update(sql):
+    l_db = read_ini()
+    print(l_db)
+    HOST = l_db[2]        #'127.0.0.1'
+    DB_NAME = l_db[3]     #'firma1'
+    DB_USER = l_db[0]     #'postgres'
+    DB_PASS = l_db[1]     #'texnolog'
+    print(HOST, DB_NAME, DB_USER, DB_PASS)
+    try:
+        conn = psycopg2.connect(host=HOST, database=DB_NAME, user=DB_USER, password=DB_PASS)
+    except:
+        print("Не могу подключиться к базе данных(def sql_data(sql))!! Do not connect to Database!!")
+    cur = conn.cursor()
+    cur.execute(sql)
+    #records = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return
+#---------------------------------------
+
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -78,32 +99,46 @@ class MyWindow(QtGui.QMainWindow, Form):
         #palette.setColor(palette.Background, Qt.transparent)
         #self.setPalette(palette)
         #--------------------------------------------------------------
+
+
+        def check_box_on_off_on(id_akt_uslug):
+            """
+            #------------------------------------------------------------------
+            #Узнаем стоит ли флажок ок
+            #------------------------------------------------------------------
+            :param id_akt_uslug: передается в функцию , береться из таблицы с базы. или с нее же но с таблицы программа текстом.
+            """
+            id_akt_uslug = id_akt_uslug
+            sql = 'SELECT usl_perfomed FROM public.akt_uslug WHERE id_akt_uslug =' + id_akt_uslug + ';'
+            #try:
+            data = sql_data(sql)
+            #except:
+                #print("Не могу подключиться к базе данных!! Do not connect to Database!!")
+            #делаем неактивным checkBox_ok если флажок стоит.
+            data = data[0]
+            data = data[0]
+            data = str(data)
+            print("data=", data)
+            if data == "True":
+                print("зашли в иф на True")
+                self.checkBox_ok.setEnabled(False)
+            else:
+                self.checkBox_ok.setEnabled(True)
+            return
+            #---------------------------------------------------------------------------------------------------
+
         def write_table_one(id_akt_uslug):
             id = id_akt_uslug
             print("id =", id)
             sql = 'SELECT akt_uslug.srok_sdachi,  akt_uslug.name_uslugi, akt_uslug.id_client_card,' \
                 ' akt_uslug.fio_manager, akt_uslug.adres_object, akt_uslug.fio_contact_lico, ' \
-                ' akt_uslug.start_work, akt_uslug.usl_perfomed,  id_akt_uslug FROM public.akt_uslug WHERE usl_perfomed = false;'
-            sql = 'SELECT akt_uslug.srok_sdachi,  akt_uslug.name_uslugi, akt_uslug.id_client_card,' \
-                ' akt_uslug.fio_manager, akt_uslug.adres_object, akt_uslug.fio_contact_lico, ' \
                 ' akt_uslug.start_work, akt_uslug.usl_perfomed, akt_uslug.id_akt_uslug FROM public.akt_uslug WHERE id_akt_uslug =' + id + ';'
             data = sql_data(sql)
             self.tableWidget_one.setRowCount(len(data))
-            """
-            for row in range(len(data)):
-                i = row
-                for column in range(row):
-                    item = data[(row)]
-                    print("item=",item)
-                    self.table.setItem(1, 0, QtGui.QTableWidgetItem(self.led.text()))
-            """
             rows = len(data)
             cols = len(data[0])
             print("rows=" + str(rows) + "cols=" + str(cols))
             entries = data
-            #data = list(data)
-            #print(data)
-            #print("len=", len(data))
             self.tableWidget_one.setRowCount(len(entries))
             self.tableWidget_one.setColumnCount(cols)
             for i, row in enumerate(entries):
@@ -158,13 +193,6 @@ class MyWindow(QtGui.QMainWindow, Form):
                     item = QtGui.QTableWidgetItem(str(col))
                     #print(col)
                     self.tableWidget.setItem(i, j, item)
-                    #index = self.tableWidget.index(row, column, QtCore.QModelIndex())
-                    #self.tableWidget.setData(index, (row + 1) * (column + 1))
-                    #print(data)
-                    #for raw in data:
-                        #manager_name, manager_family, manager_otchestvo, manager_short_fio, manager_admin_ok, manager_active = raw
-                        #print(manager_name, manager_family, manager_otchestvo, manager_short_fio, manager_admin_ok, manager_active)
-                        #print(raw)
             #включаем сортировку в таблицы после ее заполнения что бы не было багов и косяков
             self.tableWidget.setSortingEnabled(True)
 
@@ -178,7 +206,6 @@ class MyWindow(QtGui.QMainWindow, Form):
             sql = 'SELECT akt_uslug.srok_sdachi,  akt_uslug.name_uslugi, akt_uslug.id_client_card,' \
                 ' akt_uslug.fio_manager, akt_uslug.adres_object, akt_uslug.fio_contact_lico, ' \
                 ' akt_uslug.start_work, akt_uslug.usl_perfomed,  id_akt_uslug FROM public.akt_uslug WHERE usl_perfomed = false;'
-            #sql = 'SELECT * FROM manager_fio'
             #print(sql)
             #записываем полученные данные от базы данных в таблицу манагеров
             #try:
@@ -218,17 +245,9 @@ class MyWindow(QtGui.QMainWindow, Form):
             id_akt_uslug = self.tableWidget.item(row, 8).text()
             print("id_akt_uslug cell_was_clicked =", id_akt_uslug)
             #-------------------------------------------------------------
-            #---------------------------------------------------------------
+            #------------------------------------------------------------------
             #Узнаем стоит ли флажок ок
-            sql = 'SELECT akt_uslug.usl_perfomed FROM public.akt_uslug WHERE id_akt_uslug =' + id_akt_uslug
-            #try:
-            data = sql_data(sql)
-            #except:
-                #print("Не могу подключиться к базе данных!! Do not connect to Database!!")
-            #делаем неактивным checkBox_ok если флажок стоит.
-            print(data)
-            if data is "true":
-                self.checkBox_ok.setEnabled(False)
+            check_box_on_off_on(id_akt_uslug)
             #---------------------------------------------------------------------------------------------------
             #Создаем словарь с данными (авось потом пригодится ) аналог структуры в С-ях)
             #d_manager = {"id": m_id, "name": m_name, "otchestvo": m_otchestvo, "family": m_family, "shortname": m_shortname, "login": m_login, "active": m_active,
@@ -240,6 +259,15 @@ class MyWindow(QtGui.QMainWindow, Form):
             #Записываем данные в tableWidget_one
             write_table_one(id_akt_uslug)
             #----------------------------------------------------------------------------------------
+            """
+            ok_true = self.tableWidget_one.item(0, 7).text()
+            print ("was_clicked!! ok_true=", ok_true)
+            if ok_true == 'True':
+                print("IF сработал!")
+                self.checkBox_ok.setEnabled(False)
+            else:
+                self.checkBox_ok.setEnabled(True)
+            """
             #----------------------------------------------------------------------------------------------
             #Отладочный принт выдает номер столбца и колонки ячейки на которую нажала мышка
             #print("Row %d and Column %d was clicked" % (row, column))
@@ -253,20 +281,42 @@ class MyWindow(QtGui.QMainWindow, Form):
 
                 фуккция обновления
             """
+            #------------------------------------------------------------------
+            #Узнаем стоит ли флажок ок
+            id = self.tableWidget_one.item(0, 8).text()
+            check_box_on_off_on(id)
+            #---------------------------------------------------------------------------------------------------
+            ok_true = self.tableWidget_one.item(0, 7).text()
+            print("ok_true= ", ok_true)
             if self.checkBox_ok.checkState():
-                ok = "false"
-                print("ok = ", ok)
-            else:
                 ok = "true"
                 print("ok = ", ok)
-                sql = 'UPDATE INTO akt_uslug (usl_perfomed) VALUES ("true")'
-                try:
-                    data = sql_data(sql)
-                    print(data)
-                except:
-                    print("Не могу подключиться к базе данных!! Do not connect to Database!!")
+                """
+                SQL = "INSERT INTO authors (name) VALUES (%s);" # Note: no quotes
+                data = ("O'Reilly", )
+                cur.execute(SQL, data) # Note: no % operator
+                """
+                sql = "UPDATE akt_uslug SET usl_perfomed = 'True' WHERE id_akt_uslug = " + id + ";"
+                #try:
+                sql_update(sql)
+                #print(data)
+                #except:
+                #print("Не могу подключиться к базе данных!! Do not connect to Database!!")
                 #обновляем таблицу tableWidget
+
+                self.checkBox_ok.setChecked(0)
                 refresh_mtab()
+            else:
+                ok = "false"
+                print("ok = ", ok)
+
+        """
+        def changeTitle(self, value):
+            if self.checkBox_ok.isChecked():
+                self.setWindowTitle('Checkbox')
+            else:
+                self.setWindowTitle('')
+        """
         #----------------------------------------------------------------------------------------
         #-функция выбора показания всех услуг
         def eng_usl_all():
@@ -276,8 +326,8 @@ class MyWindow(QtGui.QMainWindow, Form):
                 #формируем SQL запрос
                 sql = 'SELECT akt_uslug.srok_sdachi,  akt_uslug.name_uslugi, akt_uslug.id_client_card,' \
                 ' akt_uslug.fio_manager, akt_uslug.adres_object, akt_uslug.fio_contact_lico, ' \
-                ' akt_uslug.start_work FROM public.akt_uslug;'
-                #записываем полученные данные от базы данных в таблицу манагеров
+                ' akt_uslug.start_work, akt_uslug.usl_perfomed,  id_akt_uslug FROM public.akt_uslug'
+                 #записываем полученные данные от базы данных в таблицу манагеров
                 try:
                     data = sql_data(sql)
                 except:
@@ -294,8 +344,8 @@ class MyWindow(QtGui.QMainWindow, Form):
                 #формируем SQL запрос
                 sql = 'SELECT akt_uslug.srok_sdachi,  akt_uslug.name_uslugi, akt_uslug.id_client_card,' \
                 ' akt_uslug.fio_manager, akt_uslug.adres_object, akt_uslug.fio_contact_lico, ' \
-                ' akt_uslug.start_work FROM public.akt_uslug WHERE usl_perfomed = false;'
-                #записываем полученные данные от базы данных в таблицу манагеров
+                ' akt_uslug.start_work, akt_uslug.usl_perfomed,  id_akt_uslug FROM public.akt_uslug WHERE usl_perfomed = false;'
+                 #записываем полученные данные от базы данных в таблицу манагеров
                 try:
                     data = sql_data(sql)
                 except:
@@ -308,7 +358,9 @@ class MyWindow(QtGui.QMainWindow, Form):
                     write_table(data)
                 except:
                     print("Не могу подключиться к базе данных, по этому нет данных!! Do not connect to Database!!")
+
         #----------------------------------------------------------------------------------------------------
+        self.setWindowTitle('Программа модуль для КДМ ДБ для инженеров')
         #Запрещаем редактировать ячейки таблицы манагеров и таблицы выделенного манагера.
         self.tableWidget.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
         self.tableWidget_one.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
@@ -338,13 +390,11 @@ class MyWindow(QtGui.QMainWindow, Form):
         #-----------------------------------------------------------------------------------------------------
         QtCore.QObject.connect(self.pushButton_connect, QtCore.SIGNAL("clicked()"), refresh_mtab)
         self.tableWidget.cellClicked.connect(cell_was_clicked)
-        #eng_usl_all()
-        #p = self.checkBox_ok.palette();
-        #p.setColor(QtGui.QPalette.Active, QtGui.QPalette.WindowText, QtGui.QColor(255, 0, 0, 127));
-        #p.setColor(QtGui.QPalette.Active, QtGui.QPalette.WindowText, QtGui.QColor('red'));
-        #p.setColor(QtGui.QPalette.WindowText, QtGui.QColor('red'));
-        #self.checkBox_ok.setPalette(p);
-        #self.checkBox_ok.show()
+        #----------------------------------------------------
+        #реакция на чекбокс ОК то есть работа выполнена.
+        self.connect(self.checkBox_ok, QtCore.SIGNAL('stateChanged(int)'), eng_usl_update)
+
+        self.connect(self.checkBox_all, QtCore.SIGNAL('stateChanged(int)'), eng_usl_all)
 
 if __name__ == "__main__":
     import sys
