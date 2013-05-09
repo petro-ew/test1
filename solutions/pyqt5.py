@@ -222,8 +222,32 @@ class MyWindow(QtGui.QMainWindow, Form):
             #вызываем функцию заполнения таблицы из данных базы данных
             #try:
             write_table(data)
+            self.tableWidget_one.removeRow(0)
             #except:
             #    print("Не могу подключиться к базе данных, по этому нет данных!! Do not connect to Database!!")
+
+        def refresh_mtab_one():
+            #очищение и обновление маленькой таблицы.
+            id = self.tableWidget_one.item(0, 8).text()
+            sql = 'SELECT akt_uslug.srok_sdachi,  akt_uslug.name_uslugi, akt_uslug.id_client_card,' \
+                ' akt_uslug.fio_manager, akt_uslug.adres_object, akt_uslug.fio_contact_lico, ' \
+                ' akt_uslug.start_work, akt_uslug.usl_perfomed, akt_uslug.id_akt_uslug FROM public.akt_uslug WHERE id_akt_uslug =' + id + ';'
+            data = sql_data(sql)
+            self.tableWidget_one.setRowCount(len(data))
+            rows = len(data)
+            cols = len(data[0])
+            print("rows=" + str(rows) + "cols=" + str(cols))
+            entries = data
+            self.tableWidget_one.setRowCount(len(entries))
+            self.tableWidget_one.setColumnCount(cols)
+            for i, row in enumerate(entries):
+                for j, col in enumerate(row):
+                    item = QtGui.QTableWidgetItem(str(col))
+                    #print(col)
+                    self.tableWidget_one.setItem(i, j, item)
+            #включаем сортировку в таблицы после ее заполнения что бы не было багов и косяков
+            self.tableWidget_one.setSortingEnabled(True)
+
 
         def cell_was_clicked(row, column):
             """
@@ -306,6 +330,7 @@ class MyWindow(QtGui.QMainWindow, Form):
 
                 self.checkBox_ok.setChecked(0)
                 refresh_mtab()
+                refresh_mtab_one()
             else:
                 ok = "false"
                 print("ok = ", ok)
@@ -375,8 +400,8 @@ class MyWindow(QtGui.QMainWindow, Form):
         #-----------------------------------------------------------------------------------------------------
         #Выставляем ширину столбцов для каждого участка
         #self.tableWidget.horizontalHeader().setStretchLastSection(True)
-        #self.tableWidget.horizontalHeader().resizeSection(0, 90)
-        #self.tableWidget.horizontalHeader().resizeSection(4, 150)
+        self.tableWidget.horizontalHeader().resizeSection(0, 90)
+        self.tableWidget.horizontalHeader().resizeSection(4, 150)
         #self.tableWidget.horizontalHeader().resizeSection(1, 250)
         self.tableWidget.horizontalHeader().resizeSection(2, 80)
         self.tableWidget_one.horizontalHeader().resizeSection(0, 90)
@@ -392,9 +417,10 @@ class MyWindow(QtGui.QMainWindow, Form):
         self.tableWidget.cellClicked.connect(cell_was_clicked)
         #----------------------------------------------------
         #реакция на чекбокс ОК то есть работа выполнена.
-        self.connect(self.checkBox_ok, QtCore.SIGNAL('stateChanged(int)'), eng_usl_update)
-
-        self.connect(self.checkBox_all, QtCore.SIGNAL('stateChanged(int)'), eng_usl_all)
+        #self.connect(self.checkBox_ok, QtCore.SIGNAL('stateChanged(int)'), eng_usl_update)
+        self.connect(self.checkBox_ok, QtCore.SIGNAL('toggled(bool)'), eng_usl_update)
+        #self.connect(self.checkBox_all, QtCore.SIGNAL('stateChanged(int)'), eng_usl_all)
+        self.connect(self.checkBox_all, QtCore.SIGNAL('toggled(bool)'), eng_usl_all)
 
 if __name__ == "__main__":
     import sys
