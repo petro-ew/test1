@@ -342,6 +342,11 @@ class MyWindow(QtGui.QMainWindow, Form):
             else:
                 self.setWindowTitle('')
         """
+        def button_clear():
+            clear_table()
+            clear_table_one()
+            refresh_mtab()
+            #refresh_mtab_one()
         #----------------------------------------------------------------------------------------
         #-функция выбора показания всех услуг
         def eng_usl_all():
@@ -393,6 +398,7 @@ class MyWindow(QtGui.QMainWindow, Form):
         self.connect(self.pushButton_exit, QtCore.SIGNAL("clicked()"), QtGui.qApp.quit)
         self.pushButton_exit.setToolTip("Нажав эту кнопку покидаем программу")
         self.connect(self.pushButton_update, QtCore.SIGNAL("clicked()"), eng_usl_update)
+        self.connect(self.pushButton_clear, QtCore.SIGNAL("clicked()"), button_clear)
         #-----------------------------------------------------------------------------------------------------
         #Устанавливаем количество столбцов таблиц
         self.tableWidget.setColumnCount(9)
