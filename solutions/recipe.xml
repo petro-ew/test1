@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<recipe>
+    <title>
+    Famous Gaucamole
+    </title>
+    <description>
+    A soutwest favorite!
+    </description>
+    <ingredients>
+        <item num="4"> Large avocados chopped </item>
+        <item num="1"> Tomatto chopped </item>
+        <item num="1/2" units="C"> White onion, chopped </item>
+    </ingredients>
+    <directions>
+    Combine all ingredients and hand whiskto desired consistency.
+    Serve and enjoy with ice-cold beers
+    </directions>
+</recipe>

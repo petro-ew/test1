@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<recipe xmlns:r="http://www.dabeaz.com/namespaces/recipe">
+    <r:title>
+        Famous Gaucamole
+    </r:title>
+    <r:description>
+        A soutwest favorite
+    </r:description>
+    <r:indigrients>
+        <r:item num="4"> Large avocados chopped </r:item>
+    </r:indigrients>
+    <r:directions>
+        Combine all ingredients and hand whiskto desired consistency.
+        Serve and enjoy with ice-cold beers
+    </r:directions>
+</recipe>
