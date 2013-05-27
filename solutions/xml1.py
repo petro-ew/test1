@@ -41,11 +41,9 @@ parse("recipe.xml",RecipeHandler())
 print("ElementTree parser")
 
 from xml.etree.ElementTree import ElementTree
-def element_tree():
-    #file = file
-    #print(file)
-    doc = ElementTree(file="recipe.xml")
-    #ingredients = doc.find('ingredients')
+def element_tree(file_name):
+    file_name = file_name
+    doc = ElementTree(file=file_name)
 
     for item in doc.findall(".//item"):
         num = item.get('num')
@@ -54,6 +52,6 @@ def element_tree():
         quantity = "%s %s" % (num, units)
         print("%-10s %s" % (quantity, text))
 
-#file = "recipe.xml"
-element_tree()
+file_name = "recipe.xml"
+element_tree(file_name)
 
