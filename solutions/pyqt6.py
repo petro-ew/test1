@@ -122,9 +122,9 @@ class MyWindow(QtGui.QMainWindow, Form):
             print("data=", data)
             if data == "True":
                 print("зашли в иф на True")
-                self.checkBox_ok.setEnabled(False)
-            else:
                 self.checkBox_ok.setEnabled(True)
+            else:
+                self.checkBox_ok.setEnabled(True)  #поменял на фалсе
             return
             #---------------------------------------------------------------------------------------------------
 
@@ -223,7 +223,7 @@ class MyWindow(QtGui.QMainWindow, Form):
             #вызываем функцию заполнения таблицы из данных базы данных
             #try:
             write_table(data)
-            self.tableWidget_one.removeRow(0)
+            #self.tableWidget_one.removeRow(0)
             #except:
             #    print("Не могу подключиться к базе данных, по этому нет данных!! Do not connect to Database!!")
 
@@ -304,7 +304,7 @@ class MyWindow(QtGui.QMainWindow, Form):
         def eng_usl_update():
             """
 
-                фуккция обновления
+                фуккция обновления eng_usl_update
             """
             #------------------------------------------------------------------
             #Узнаем стоит ли флажок ок
@@ -329,9 +329,9 @@ class MyWindow(QtGui.QMainWindow, Form):
                 #print("Не могу подключиться к базе данных!! Do not connect to Database!!")
                 #обновляем таблицу tableWidget
 
-                self.checkBox_ok.setChecked(0)
+                #self.checkBox_ok.setChecked(0)
                 refresh_mtab()
-                refresh_mtab_one()
+                refresh_mtab_one() #тут не нужна потому что это программа главного инженера .
             else:
                 ok = "false"
                 print("ok = ", ok)
