@@ -107,7 +107,9 @@ class MyWindow(QtGui.QMainWindow, Form):
             #------------------------------------------------------------------
             #Узнаем стоит ли флажок ок
             #------------------------------------------------------------------
-            :param id_akt_uslug: передается в функцию , береться из таблицы с базы. или с нее же но с таблицы программа текстом.
+            :param id_akt_uslug:
+             передается в функцию, береться из таблицы с базы. или с нее же,
+             но с таблицы программа текстом.
             """
             id_akt_uslug = id_akt_uslug
             sql = 'SELECT usl_perfomed FROM public.akt_uslug WHERE id_akt_uslug =' + id_akt_uslug + ';'
@@ -123,8 +125,10 @@ class MyWindow(QtGui.QMainWindow, Form):
             if data == "True":
                 print("зашли в иф на True")
                 self.checkBox_ok.setEnabled(True)
+                #self.checkBox_ok.setCheckState(2)
             else:
                 self.checkBox_ok.setEnabled(True)  #поменял на фалсе
+
             return
             #---------------------------------------------------------------------------------------------------
 
@@ -335,6 +339,18 @@ class MyWindow(QtGui.QMainWindow, Form):
             else:
                 ok = "false"
                 print("ok = ", ok)
+                sql = "UPDATE akt_uslug SET usl_perfomed = 'False' WHERE id_akt_uslug = " + id + ";"
+                #try:
+                sql_update(sql)
+                #print(data)
+                #except:
+                #print("Не могу подключиться к базе данных!! Do not connect to Database!!")
+                #обновляем таблицу tableWidget
+
+                #self.checkBox_ok.setChecked(0)
+                refresh_mtab()
+                refresh_mtab_one() #тут не нужна потому что это программа главного инженера.
+
 
         """
         def changeTitle(self, value):
