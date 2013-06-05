@@ -3,6 +3,9 @@
 
 
 __author__ = 'petro-ew'
+"""
+Программа Админка
+"""
 import sys
 import psycopg2
 from PyQt4.QtCore import QSettings

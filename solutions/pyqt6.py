@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 __author__ = 'petro-ew'
-
+"""
+Программа Главного Инженера
+"""
 import sys
 import os
 import psycopg2
@@ -125,7 +127,7 @@ class MyWindow(QtGui.QMainWindow, Form):
             if data == "True":
                 print("зашли в иф на True")
                 self.checkBox_ok.setEnabled(True)
-                #self.checkBox_ok.setCheckState(2)
+                #self.checkBox_ok.setCheckState(2)  # пока не получается сделать так ччто бы когда ид_акт_услуг труе одноразово включался чек бокс на труе с возможностью переключения
             else:
                 self.checkBox_ok.setEnabled(True)  #поменял на фалсе
 
@@ -207,29 +209,56 @@ class MyWindow(QtGui.QMainWindow, Form):
         def refresh_mtab():
             #очищаем таблицу и отключаем сортировку в таблице, вызвав функцию clear_table()
             clear_table()
-            #формируем sql запрос
-            sql = 'SELECT akt_uslug.srok_sdachi,  akt_uslug.name_uslugi, akt_uslug.id_client_card,' \
-                ' akt_uslug.fio_manager, akt_uslug.adres_object, akt_uslug.fio_contact_lico, ' \
-                ' akt_uslug.start_work, akt_uslug.usl_perfomed,  id_akt_uslug FROM public.akt_uslug WHERE usl_perfomed = false;'
-            #print(sql)
-            #записываем полученные данные от базы данных в таблицу манагеров
-            #try:
-            data = sql_data(sql)
-            print(data)
-            data_str = []
-            for i in data:
-                i = str(i)
-                data_str.append(i)
-            print("data_str refresh_mtab= ", data_str)
-            #except:
-            #    print("Не могу подключиться к базе данных!! Do not connect to Database!!")
-            #print(len(data))
-            #вызываем функцию заполнения таблицы из данных базы данных
-            #try:
-            write_table(data)
-            #self.tableWidget_one.removeRow(0)
-            #except:
-            #    print("Не могу подключиться к базе данных, по этому нет данных!! Do not connect to Database!!")
+            state = self.checkBox_all.checkState()
+            print("state = ", state)
+            if state == 0:
+                #формируем sql запрос
+                sql = 'SELECT akt_uslug.srok_sdachi,  akt_uslug.name_uslugi, akt_uslug.id_client_card,' \
+                    ' akt_uslug.fio_manager, akt_uslug.adres_object, akt_uslug.fio_contact_lico, ' \
+                    ' akt_uslug.start_work, akt_uslug.usl_perfomed,  id_akt_uslug FROM public.akt_uslug WHERE usl_perfomed = false;'
+                #print(sql)
+                #записываем полученные данные от базы данных в таблицу манагеров
+                #try:
+                data = sql_data(sql)
+                print(data)
+                data_str = []
+                for i in data:
+                    i = str(i)
+                    data_str.append(i)
+                print("data_str refresh_mtab= ", data_str)
+                #except:
+                #    print("Не могу подключиться к базе данных!! Do not connect to Database!!")
+                #print(len(data))
+                #вызываем функцию заполнения таблицы из данных базы данных
+                #try:
+                write_table(data)
+                #self.tableWidget_one.removeRow(0)
+                #except:
+                #    print("Не могу подключиться к базе данных, по этому нет данных!! Do not connect to Database!!")
+            else:
+                #формируем sql запрос
+                sql = 'SELECT akt_uslug.srok_sdachi,  akt_uslug.name_uslugi, akt_uslug.id_client_card,' \
+                    ' akt_uslug.fio_manager, akt_uslug.adres_object, akt_uslug.fio_contact_lico, ' \
+                    ' akt_uslug.start_work, akt_uslug.usl_perfomed,  id_akt_uslug FROM public.akt_uslug;'
+                #print(sql)
+                #записываем полученные данные от базы данных в таблицу манагеров
+                #try:
+                data = sql_data(sql)
+                print(data)
+                data_str = []
+                for i in data:
+                    i = str(i)
+                    data_str.append(i)
+                print("data_str refresh_mtab= ", data_str)
+                #except:
+                #    print("Не могу подключиться к базе данных!! Do not connect to Database!!")
+                #print(len(data))
+                #вызываем функцию заполнения таблицы из данных базы данных
+                #try:
+                write_table(data)
+                #self.tableWidget_one.removeRow(0)
+                #except:
+                #    print("Не могу подключиться к базе данных, по этому нет данных!! Do not connect to Database!!")
 
         def refresh_mtab_one():
             #очищение и обновление маленькой таблицы.
@@ -304,9 +333,12 @@ class MyWindow(QtGui.QMainWindow, Form):
             #print (item, d_manager)
             #-----------------------------------------------------------------------------------------------
         #---------------------------------------------------------------------------------------------------
-        #-Функция дл обновления услуги
+        #-Функция дл обновления услуги при нажатии checkBox_ok (записать в таблицу True или False)
         def eng_usl_update():
             """
+            проблема флажок надо сначла нажать, потом отжать что бы сделать фальсе.... сначала он неактивен (((
+             Не смог сделать так, что бы он был при труе сразу нажатым, когда так сделал , он не отжимался,
+              потому что чекал труе если труе ... я делал проверку на труе (
 
                 фуккция обновления eng_usl_update
             """

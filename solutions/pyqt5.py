@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 __author__ = 'petro-ew'
-
+"""
+Программа рядового Инженера
+"""
 import sys
 import os
 import psycopg2
