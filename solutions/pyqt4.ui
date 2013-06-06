@@ -200,6 +200,16 @@
             </property>
            </widget>
           </item>
+          <item row="11" column="4">
+           <widget class="QLabel" name="label_ip_manager">
+            <property name="text">
+             <string>IP менеджера</string>
+            </property>
+           </widget>
+          </item>
+          <item row="12" column="4">
+           <widget class="QLineEdit" name="lineEdit_ip_manager"/>
+          </item>
          </layout>
         </widget>
         <widget class="QWidget" name="tab_2">
@@ -297,14 +307,14 @@
            <widget class="QLineEdit" name="lineEdit_tel_eng"/>
           </item>
           <item row="5" column="1">
-           <widget class="QLabel" name="label_6">
+           <widget class="QLabel" name="label_tel_eng">
             <property name="text">
              <string>Моб. телефон инженера</string>
             </property>
            </widget>
           </item>
           <item row="5" column="2">
-           <widget class="QLabel" name="label_7">
+           <widget class="QLabel" name="label_email_eng">
             <property name="text">
              <string>E-Mail инженера</string>
             </property>
@@ -317,7 +327,7 @@
            <widget class="QTableWidget" name="tableWidget_eng"/>
           </item>
           <item row="5" column="3">
-           <widget class="QLabel" name="label_8">
+           <widget class="QLabel" name="label_ip_eng">
             <property name="text">
              <string>IP машины инженера</string>
             </property>

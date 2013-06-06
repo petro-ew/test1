@@ -233,7 +233,7 @@ class MyWindow(QtGui.QMainWindow, Form):
 
             #----------------------------------------------------------------------------------------------
             #Отладочный принт выдает номер столбца и колонки ячейки на которую нажала мышка
-            print("Row %d and Column %d was clicked" % (row, column))
+            print("Row %d and Column %d was clicked manager" % (row, column))
             item = self.tableWidget_manager.item(row, column).text()
             print (item, d_manager)
             #-----------------------------------------------------------------------------------------------
@@ -271,7 +271,7 @@ class MyWindow(QtGui.QMainWindow, Form):
 
                 #---------------------------------------------------------------------------------------------------
                 #Создаем словарь с данными (авось потом пригодится ) аналог структуры в С-ях)
-                d_manager = {"id": eng_id, "name": eng_name, "otchestvo": eng_otchestvo, "family": eng_family, "shortname": eng_shortname, "login": eng_login, "active": eng_active,
+                d_eng = {"id": eng_id, "name": eng_name, "otchestvo": eng_otchestvo, "family": eng_family, "shortname": eng_shortname, "login": eng_login, "active": eng_active,
                            "admin": eng_admin, "lastkp": eng_lastkp, "lastdog": eng_lastdog, "email": eng_email,"tel": eng_tel, "ip":eng_ip}
                 #-----------------------------------------------------------------------------------------------------
 
@@ -280,7 +280,8 @@ class MyWindow(QtGui.QMainWindow, Form):
                 self.lineEdit_name_eng.insert(eng_name)
                 self.lineEdit_otchestvo_eng.insert(eng_otchestvo)
                 self.lineEdit_family_eng.insert(eng_family)
-                self.lineEdit_shortname.insert(eng_shortname)
+                self.lineEdit_shortname_eng.insert(eng_shortname)
+                self.lineEdit_login_eng.insert(eng_shortname)
                 self.lineEdit_tel_eng.insert(eng_tel)
                 self.lineEdit_email_eng.insert(eng_email)
                 self.lineEdit_ip_eng.insert(eng_ip)
@@ -288,9 +289,9 @@ class MyWindow(QtGui.QMainWindow, Form):
 
                 #----------------------------------------------------------------------------------------------
                 #Отладочный принт выдает номер столбца и колонки ячейки на которую нажала мышка
-                print("Row %d and Column %d was clicked" % (row, column))
-                item = self.tableWidget_manager.item(row, column).text()
-                print (item, d_manager)
+                print("Row %d and Column %d was clicked engeneer" % (row, column))
+                item = self.tableWidget_eng.item(row, column).text()
+                print (item, d_eng)
                 #-----------------------------------------------------------------------------------------------
 
 
