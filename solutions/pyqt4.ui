@@ -42,7 +42,7 @@
          </font>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="tab">
          <property name="font">
@@ -54,7 +54,7 @@
           <string/>
          </property>
          <attribute name="title">
-          <string>Спесиок менеджеров</string>
+          <string>Список менеджеров</string>
          </attribute>
          <layout class="QGridLayout" name="gridLayout">
           <item row="10" column="0">
@@ -120,18 +120,6 @@
           <item row="12" column="0">
            <widget class="QLineEdit" name="lineEdit_number_m_lastkp"/>
           </item>
-          <item row="5" column="2">
-           <widget class="QCheckBox" name="checkBox_acticve">
-            <property name="font">
-             <font>
-              <pointsize>10</pointsize>
-             </font>
-            </property>
-            <property name="text">
-             <string>Менеджер неактивен!</string>
-            </property>
-           </widget>
-          </item>
           <item row="11" column="0">
            <widget class="QLabel" name="label_number_m_lastkp">
             <property name="text">
@@ -187,6 +175,28 @@
            <widget class="QLabel" name="label_email_manager">
             <property name="text">
              <string>E-mail менеджера</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="3">
+           <widget class="QCheckBox" name="checkBox_acticve">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Менеджер неактивен!</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="2">
+           <widget class="QLineEdit" name="lineEdit_login_manager"/>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>Логин менеджера</string>
             </property>
            </widget>
           </item>
@@ -617,7 +627,7 @@
      <x>0</x>
      <y>0</y>
      <width>1047</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuO_Ghjuhfvvt">

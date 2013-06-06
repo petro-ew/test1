@@ -178,7 +178,7 @@ class MyWindow(QtGui.QMainWindow, Form):
                     #print(manager_name, manager_family, manager_otchestvo, manager_short_fio, manager_admin_ok, manager_active)
                     #print(raw)
 
-        def cell_was_clicked(row, column):
+        def cell_was_clicked_manager(row, column):
             """
 
             :param row: строка ячейки таблицы на которую нажали
@@ -194,6 +194,7 @@ class MyWindow(QtGui.QMainWindow, Form):
             self.lineEdit_number_m_lastdog.clear()
             self.lineEdit_tel_manager.clear()
             self.lineEdit_email_manager.clear()
+            self.lineEdit_login_manager.clear()
             #----------------------------------------------------
             #----------------------------------------------------------------
             #Записываем данные в переменные
@@ -227,6 +228,7 @@ class MyWindow(QtGui.QMainWindow, Form):
             self.lineEdit_number_m_lastdog.insert(m_lastdog)
             self.lineEdit_tel_manager.insert(m_tel)
             self.lineEdit_email_manager.insert(m_email)
+            self.lineEdit_login_manager.insert(m_login)
             #-----------------------------------------------------------
 
             #----------------------------------------------------------------------------------------------
@@ -236,12 +238,67 @@ class MyWindow(QtGui.QMainWindow, Form):
             print (item, d_manager)
             #-----------------------------------------------------------------------------------------------
 
+            #-------------------------------------------------------------------------------------------------------------------------
+            # Инженеры! ******************************************** Инженеры! *******************************************************
+            def cell_was_clicked_eng(row, column):
+                #-----------------------------------------------------
+                #очищаем данные что были записаны ранее в LineEdits
+                self.lineEdit_name_eng.clear()
+                self.lineEdit_otch_eng.clear()
+                self.lineEdit_family_eng.clear()
+                self.lineEdit_fio_eng.clear()
+                self.lineEdit_login_eng.clear()
+                #----------------------------------------------------
+                #----------------------------------------------------------------
+                #Записываем данные в переменные
+                m_id = self.tableWidget_manager.item(row, 0).text()
+                m_name = self.tableWidget_manager.item(row, 1).text()
+                m_otchestvo = self.tableWidget_manager.item(row, 2).text()
+                m_family = self.tableWidget_manager.item(row, 3).text()
+                m_shortname = self.tableWidget_manager.item(row, 4).text()
+                m_login = self.tableWidget_manager.item(row, 5).text()
+                m_admin = self.tableWidget_manager.item(row, 6).text()
+                m_lastkp = self.tableWidget_manager.item(row, 7).text()
+                m_lastdog = self.tableWidget_manager.item(row, 8).text()
+                m_active = self.tableWidget_manager.item(row, 9).text()
+                m_email = self.tableWidget_manager.item(row, 10).text()
+                m_tel = self.tableWidget_manager.item(row, 11).text()
+                #-------------------------------------------------------------
+
+                #---------------------------------------------------------------------------------------------------
+                #Создаем словарь с данными (авось потом пригодится ) аналог структуры в С-ях)
+                d_manager = {"id": m_id, "name": m_name, "otchestvo": m_otchestvo, "family": m_family, "shortname": m_shortname, "login": m_login, "active": m_active,
+                           "admin": m_admin, "lastkp": m_lastkp, "lastdog": m_lastdog, "email": m_email,"tel": m_tel}
+                #-----------------------------------------------------------------------------------------------------
+
+                #----------------------------------------------------------
+                #Записываем данные в LineEdits
+                self.lineEdit_name.insert(m_name)
+                self.lineEdit_otchestvo.insert(m_otchestvo)
+                self.lineEdit_family.insert(m_family)
+                self.lineEdit_shortname.insert(m_shortname)
+                self.lineEdit_number_m_lastkp.insert(m_lastkp)
+                self.lineEdit_number_m_lastdog.insert(m_lastdog)
+                self.lineEdit_tel_manager.insert(m_tel)
+                self.lineEdit_email_manager.insert(m_email)
+                #-----------------------------------------------------------
+
+                #----------------------------------------------------------------------------------------------
+                #Отладочный принт выдает номер столбца и колонки ячейки на которую нажала мышка
+                print("Row %d and Column %d was clicked" % (row, column))
+                item = self.tableWidget_manager.item(row, column).text()
+                print (item, d_manager)
+                #-----------------------------------------------------------------------------------------------
+
+
+
         self.setupUi(self)
         #---------------------------------------------------------------------------------------------------
-        #ставим титл главного окна программы
+        # ставим титл главного окна программы
         self.setWindowTitle('Программа модуль для КДМ ДБ для Администратора без разрешения руководства не трогать')
-        #----------------------------------------------------------------------------------------------------
-        #Запрещаем редактировать ячейки таблицы манагеров
+        # Манагеры! ******************************************* Манагеры! ************************************
+        #-----------------------------------------------------------------------------------------------------
+        # Запрещаем редактировать ячейки таблицы манагеров
         self.tableWidget_manager.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
         #----------------------------------------------------------------------------------------------------
         self.connect(self.pushButton_exit, QtCore.SIGNAL("clicked()"), QtGui.qApp.quit)
@@ -251,29 +308,31 @@ class MyWindow(QtGui.QMainWindow, Form):
         self.lineEdit_otchestvo.setPlaceholderText("Введите Отчество")
         self.lineEdit_shortname.setPlaceholderText("Введите Короткое Имя")
         #-----------------------------------------------------------------------------------------------------
-        #Устанавливаем количество столбцов таблицы манагеров
+        # Устанавливаем количество столбцов таблицы манагеров
         self.tableWidget_manager.setColumnCount(12)
-        #-----------------------------------------------------------------------------------------------------
-        #Делаем заголовки над каждым столбцом таблицы манагеров
+        #---------------------------------------------------------------------------------------------------------------
+        # Делаем заголовки над каждым столбцом таблицы манагеров
         self.tableWidget_manager.setHorizontalHeaderLabels(('ID', 'Имя', 'Отчество', 'Фамилия',  'ФИО', 'Логин', 'Админ', '№КП', '№Дог', 'Активен', 'Телефон', 'e-mail'))
-        #------------------------------------------------------------------------------------------------------
-        #Назначаем действием на клик мышки по ячейки таблицы манагеров, а именно функцию cell_was_clicked
-        self.tableWidget_manager.cellClicked.connect(cell_was_clicked)
-        #------------------------------------------------------------------------------------------------------
+        #----------------------------------------------------------------------------------------------------------------------------------
+        # Назначаем действием на клик мышки по ячейки таблицы манагеров, а именно функцию cell_was_clicked_manager
+        self.tableWidget_manager.cellClicked.connect(cell_was_clicked_manager)
+        #----------------------------------------------------------------------------------------------------------------------------------
         #QtCore.QObject.connect(self.tableWidget_manager, QtCore.SIGNAL(cellClicked(int,int)), this, QtCore.SLOT(myCellClicked(int,int)))
 
         #QtCore.QObject.connect(self.lineEdit_name, QtCore.SIGNAL("returnPressed()"), lineedit1)
         #QtCore.QObject.connect(self.lineEdit_otchestvo, QtCore.SIGNAL("returnPressed()"), lineedit2)
-
         #QtCore.QObject.connect(self.pushButton_table_refresh, QtCore.SIGNAL("clicked()"), lineedit2)
-
-        #Назначаем действием на клик мышки по кнопке Добавить манагра, а именно функцию dataline_man
+        #---------------------------------------------------------------------------------------------------
+        # Назначаем действием на клик мышки по кнопке Добавить манагра, а именно функцию dataline_man
         QtCore.QObject.connect(self.pushButton_insert_table1, QtCore.SIGNAL("clicked()"), dataline_man)
-        #Назначаем действием на клик мышки по кнопке Удалить манагра, а именно функцию manager_del
+        #---------------------------------------------------------------------------------------------------
+        # Назначаем действием на клик мышки по кнопке Удалить манагра, а именно функцию manager_del
         QtCore.QObject.connect(self.pushButton_manager_delete, QtCore.SIGNAL("clicked()"), manager_del)
-        #Назначаем действием на клик мышки по кнопке Обновить таблицу, обновляем таблицу манагеров, вызывая функцию refresh_mtab
+        #------------------------------------------------------------------------------------------------------------------------
+        # Назначаем действием на клик мышки по кнопке Обновить таблицу, обновляем таблицу манагеров, вызывая функцию refresh_mtab
         QtCore.QObject.connect(self.pushButton_table1_refresh, QtCore.SIGNAL("clicked()"), refresh_mtab)
-
+        #-------------------------------------------------------------------------------------------------------------------------
+        # Инженеры! ******************************************** Инженеры! *******************************************************
 
 
 if __name__ == "__main__":
