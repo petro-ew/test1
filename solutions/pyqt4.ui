@@ -42,7 +42,7 @@
          </font>
         </property>
         <property name="currentIndex">
-         <number>2</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="tab">
          <property name="font">
@@ -207,8 +207,15 @@
           <string>Список инженеров</string>
          </attribute>
          <layout class="QGridLayout" name="gridLayout_5">
-          <item row="0" column="0">
-           <layout class="QGridLayout" name="gridLayout_2"/>
+          <item row="3" column="2">
+           <widget class="QLabel" name="label_fio_eng">
+            <property name="text">
+             <string>Введите ФИО инженера</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QLineEdit" name="lineEdit_family_eng"/>
           </item>
           <item row="1" column="1">
            <widget class="QLabel" name="label_name_eng">
@@ -223,6 +230,9 @@
              <string>Введите отчество инженера</string>
             </property>
            </widget>
+          </item>
+          <item row="0" column="0">
+           <layout class="QGridLayout" name="gridLayout_2"/>
           </item>
           <item row="1" column="3">
            <widget class="QLabel" name="label_login_eng">
@@ -242,7 +252,7 @@
            <widget class="QLineEdit" name="lineEdit_name_eng"/>
           </item>
           <item row="2" column="2">
-           <widget class="QLineEdit" name="lineEdit_otch_eng"/>
+           <widget class="QLineEdit" name="lineEdit_otchestvo_eng"/>
           </item>
           <item row="2" column="3">
            <widget class="QLineEdit" name="lineEdit_login_eng"/>
@@ -261,22 +271,12 @@
             </property>
            </widget>
           </item>
-          <item row="3" column="2">
-           <widget class="QLabel" name="label_fio_eng">
-            <property name="text">
-             <string>Введите ФИО инженера</string>
-            </property>
-           </widget>
-          </item>
           <item row="3" column="4" rowspan="2">
            <widget class="QPushButton" name="pushButton_refresh_eng_table">
             <property name="text">
              <string>Обновить таблицу инженеров</string>
             </property>
            </widget>
-          </item>
-          <item row="4" column="1">
-           <widget class="QLineEdit" name="lineEdit_family_eng"/>
           </item>
           <item row="4" column="2">
            <widget class="QLineEdit" name="lineEdit_fio_eng"/>
@@ -293,8 +293,38 @@
             </property>
            </widget>
           </item>
-          <item row="5" column="1" colspan="4">
+          <item row="6" column="1">
+           <widget class="QLineEdit" name="lineEdit_tel_eng"/>
+          </item>
+          <item row="5" column="1">
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>Моб. телефон инженера</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="2">
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string>E-Mail инженера</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="2">
+           <widget class="QLineEdit" name="lineEdit_mail_eng"/>
+          </item>
+          <item row="7" column="1" colspan="4">
            <widget class="QTableWidget" name="tableWidget_eng"/>
+          </item>
+          <item row="5" column="3">
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>IP машины инженера</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="3">
+           <widget class="QLineEdit" name="lineEdit_ip_eng"/>
           </item>
          </layout>
         </widget>

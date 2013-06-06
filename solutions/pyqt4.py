@@ -244,43 +244,46 @@ class MyWindow(QtGui.QMainWindow, Form):
                 #-----------------------------------------------------
                 #очищаем данные что были записаны ранее в LineEdits
                 self.lineEdit_name_eng.clear()
-                self.lineEdit_otch_eng.clear()
+                self.lineEdit_otchestvo_eng.clear()
                 self.lineEdit_family_eng.clear()
                 self.lineEdit_fio_eng.clear()
                 self.lineEdit_login_eng.clear()
+                self.lineEdit_email_eng.clear()
+                self.lineEdit_tel_eng.clear()
+                self.lineEdit_ip_eng.clear()
+
+
                 #----------------------------------------------------
                 #----------------------------------------------------------------
                 #Записываем данные в переменные
-                m_id = self.tableWidget_manager.item(row, 0).text()
-                m_name = self.tableWidget_manager.item(row, 1).text()
-                m_otchestvo = self.tableWidget_manager.item(row, 2).text()
-                m_family = self.tableWidget_manager.item(row, 3).text()
-                m_shortname = self.tableWidget_manager.item(row, 4).text()
-                m_login = self.tableWidget_manager.item(row, 5).text()
-                m_admin = self.tableWidget_manager.item(row, 6).text()
-                m_lastkp = self.tableWidget_manager.item(row, 7).text()
-                m_lastdog = self.tableWidget_manager.item(row, 8).text()
-                m_active = self.tableWidget_manager.item(row, 9).text()
-                m_email = self.tableWidget_manager.item(row, 10).text()
-                m_tel = self.tableWidget_manager.item(row, 11).text()
+                eng_id = self.tableWidget_eng.item(row, 0).text()
+                eng_name = self.tableWidget_eng.item(row, 1).text()
+                eng_otchestvo = self.tableWidget_eng.item(row, 2).text()
+                eng_family = self.tableWidget_eng.item(row, 3).text()
+                eng_shortname = self.tableWidget_eng.item(row, 4).text()
+                eng_login = self.tableWidget_eng.item(row, 5).text()
+                eng_admin = self.tableWidget_eng.item(row, 6).text()
+                eng_active = self.tableWidget_eng.item(row, 9).text()
+                eng_email = self.tableWidget_eng.item(row, 10).text()
+                eng_tel = self.tableWidget_eng.item(row, 11).text()
+                eng_ip = self.tableWidget_eng.item(row, 12).text()
                 #-------------------------------------------------------------
 
                 #---------------------------------------------------------------------------------------------------
                 #Создаем словарь с данными (авось потом пригодится ) аналог структуры в С-ях)
-                d_manager = {"id": m_id, "name": m_name, "otchestvo": m_otchestvo, "family": m_family, "shortname": m_shortname, "login": m_login, "active": m_active,
-                           "admin": m_admin, "lastkp": m_lastkp, "lastdog": m_lastdog, "email": m_email,"tel": m_tel}
+                d_manager = {"id": eng_id, "name": eng_name, "otchestvo": eng_otchestvo, "family": eng_family, "shortname": eng_shortname, "login": eng_login, "active": eng_active,
+                           "admin": eng_admin, "lastkp": eng_lastkp, "lastdog": eng_lastdog, "email": eng_email,"tel": eng_tel, "ip":eng_ip}
                 #-----------------------------------------------------------------------------------------------------
 
                 #----------------------------------------------------------
                 #Записываем данные в LineEdits
-                self.lineEdit_name.insert(m_name)
-                self.lineEdit_otchestvo.insert(m_otchestvo)
-                self.lineEdit_family.insert(m_family)
-                self.lineEdit_shortname.insert(m_shortname)
-                self.lineEdit_number_m_lastkp.insert(m_lastkp)
-                self.lineEdit_number_m_lastdog.insert(m_lastdog)
-                self.lineEdit_tel_manager.insert(m_tel)
-                self.lineEdit_email_manager.insert(m_email)
+                self.lineEdit_name_eng.insert(eng_name)
+                self.lineEdit_otchestvo_eng.insert(eng_otchestvo)
+                self.lineEdit_family_eng.insert(eng_family)
+                self.lineEdit_shortname.insert(eng_shortname)
+                self.lineEdit_tel_eng.insert(eng_tel)
+                self.lineEdit_email_eng.insert(eng_email)
+                self.lineEdit_ip_eng.insert(eng_ip)
                 #-----------------------------------------------------------
 
                 #----------------------------------------------------------------------------------------------
