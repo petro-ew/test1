@@ -16,7 +16,6 @@ from PyQt4.QtCore import QSettings
 def store_ini():
     #s = QSettings()
     s = QSettings("geng.ini", QSettings.IniFormat)
-    #s.settings(QSettings.IniFormat, QSettings.UserScope, "MySoft", "Star Runner")
     s.setValue("base/login", "postgres")
     s.setValue("base/password", "texnolog")
     s.setValue("base/ip", "127.0.0.1")
@@ -27,12 +26,17 @@ def store_ini():
 #----------------------------------------------------------------------------------------------------------
 #Функция которая читает из файла ini настройки.
 def read_ini():
-    s = QSettings("pyqt4.ini", QSettings.IniFormat)
-    base_login = str(s.value("base/login", "postgres"))
-    base_password = str(s.value("base/password", "texnolog"))
-    ip_base = str(s.value("base/ip", "127.0.0.1"))
-    base_name = str(s.value("base/name", "firma1"))
-    l1 = (base_login, base_password, ip_base, base_name)
+    s = QSettings("geng.ini", QSettings.IniFormat)
+     #QSettings settings("/home/petra/misc/myapp.ini", QSettings::IniFormat);
+    s.beginGroup("base");
+    base_login = str(s.value("base/login"))
+    base_password = str(s.value("base/password"))
+    ip_base = str(s.value("base/ip"))
+    base_name = str(s.value("base/name"))
+    s.beginGroup("pass");
+    login = str(s.value("pass/geng_login"))
+    password = str(s.value("pass/geng_password"))
+    l1 = (base_login, base_password, ip_base, base_name, login, password)
     #print(base_login, base_password, ip_base, base_name)
     return l1
 
@@ -483,6 +487,7 @@ class MyWindow(QtGui.QMainWindow, Form):
 if __name__ == "__main__":
     import sys
     store_ini()
+    read_ini()
     app = QtGui.QApplication(sys.argv)
     window = MyWindow()
     window.show()
