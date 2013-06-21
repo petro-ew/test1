@@ -15,12 +15,14 @@ from PyQt4.QtCore import QSettings
 #Функция которая достает из файла ini настройки.
 def store_ini():
     #s = QSettings()
-    s = QSettings("pyqt4.ini", QSettings.IniFormat)
+    s = QSettings("geng.ini", QSettings.IniFormat)
     #s.settings(QSettings.IniFormat, QSettings.UserScope, "MySoft", "Star Runner")
     s.setValue("base/login", "postgres")
     s.setValue("base/password", "texnolog")
     s.setValue("base/ip", "127.0.0.1")
     s.setValue("base/name", "firma1")
+    s.setValue("pass/geng_login", "geng")
+    s.setValue("pass/geng_password", "gengeneer")
 
 #----------------------------------------------------------------------------------------------------------
 #Функция которая читает из файла ini настройки.
@@ -35,6 +37,7 @@ def read_ini():
     return l1
 
 #----------------------------------------------------------------------------------------------------------
+
 #Исполнение SQL запросов, коннект к базе данных
 def sql_data(sql):
     l_db = read_ini()

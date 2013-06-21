@@ -15,12 +15,14 @@ from PyQt4.QtCore import QSettings
 #Функция которая достает из файла ini настройки.
 def store_ini():
     #s = QSettings()
-    s = QSettings("pyqt4.ini", QSettings.IniFormat)
+    s = QSettings("eng.ini", QSettings.IniFormat)
     #s.settings(QSettings.IniFormat, QSettings.UserScope, "MySoft", "Star Runner")
     s.setValue("base/login", "postgres")
     s.setValue("base/password", "texnolog")
     s.setValue("base/ip", "127.0.0.1")
     s.setValue("base/name", "firma1")
+    s.setValue("pass/eng_login", "eng")
+    s.setValue("pass/eng_password", "engeneer")
 
 
 def read_ini():
@@ -79,8 +81,26 @@ def sql_update(sql):
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
+
 from PyQt4 import QtGui, QtCore, uic
-#--------------------------------------------------------
+
+
+#------------------------------------------------------------------------------------------------------------
+#----Попытка сделать графический логин--------------неудачно-------------------------------------------------
+#Подгружаем графический интерфейс из XML файла "login_v2.ui"
+"""
+Form, Base = uic.loadUiType("login_v2.ui")
+class MyLogin(QtGui.QWidget, Form):
+    def __init__(self, parent=None):
+        QtGui.QWidget.__init__(self, parent)
+
+        self.setupUi(self)
+        window = MyWindow()
+        window.show()
+
+
+"""
+#-----------------------------------------------------------------------------------------------------------------------
 #Подгружаем графический интерфейс из XML файла "pyqt5.ui"
 Form, Base = uic.loadUiType("pyqt5.ui")
 
@@ -91,6 +111,8 @@ class MyWindow(QtGui.QMainWindow, Form):
         :type self: object MainWindow
         :param parent:
         """
+        MyLogin().setVisible(False)
+
         QtGui.QMainWindow.__init__(self, parent)
 
         self.setupUi(self)
@@ -434,6 +456,9 @@ if __name__ == "__main__":
     import sys
     store_ini()
     app = QtGui.QApplication(sys.argv)
+    #indow1 = MyLogin()
+    #indow1.show()
+    # надо как нибудь передать потом в программу параметр имя инженера , менеджера илди администратора .
     window = MyWindow()
     window.show()
     sys.exit(app.exec_())
