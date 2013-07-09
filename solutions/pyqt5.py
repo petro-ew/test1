@@ -111,7 +111,7 @@ class MyWindow(QtGui.QMainWindow, Form):
         :type self: object MainWindow
         :param parent:
         """
-        MyLogin().setVisible(False)
+       # MyLogin().setVisible(False)
 
         QtGui.QMainWindow.__init__(self, parent)
 

@@ -10,12 +10,12 @@ import psycopg2
 #-----------------------------------------------------------------------------
 # чтение из INI файла, почему то на массе операционных систем на работает ...
 
-from PyQt4.QtCore import QSettings
+import PyQt4.QtCore
 #----------------------------------------------------------------------------------
 #Функция которая достает из файла ini настройки.
 def store_ini():
     #s = QSettings()
-    s = QSettings("geng.ini", QSettings.IniFormat)
+    s = PyQt4.QtCore.QSettings("geng.ini", PyQt4.QtCore.QSettings.IniFormat)
     s.setValue("base/login", "postgres")
     s.setValue("base/password", "texnolog")
     s.setValue("base/ip", "127.0.0.1")
@@ -26,7 +26,7 @@ def store_ini():
 #----------------------------------------------------------------------------------------------------------
 #Функция которая читает из файла ini настройки.
 def read_ini():
-    s = QSettings("geng.ini", QSettings.IniFormat)
+    s = PyQt4.QtCore.QSettings("geng.ini", PyQt4.QtCore.QSettings.IniFormat)
      #QSettings settings("/home/petra/misc/myapp.ini", QSettings::IniFormat);
     s.beginGroup("base");
     base_login = str(s.value("base/login"))

@@ -238,61 +238,115 @@ class MyWindow(QtGui.QMainWindow, Form):
             print (item, d_manager)
             #-----------------------------------------------------------------------------------------------
 
-            #-------------------------------------------------------------------------------------------------------------------------
-            # Инженеры! ******************************************** Инженеры! *******************************************************
-            def cell_was_clicked_eng(row, column):
-                #-----------------------------------------------------
-                #очищаем данные что были записаны ранее в LineEdits
-                self.lineEdit_name_eng.clear()
-                self.lineEdit_otchestvo_eng.clear()
-                self.lineEdit_family_eng.clear()
-                self.lineEdit_fio_eng.clear()
-                self.lineEdit_login_eng.clear()
-                self.lineEdit_email_eng.clear()
-                self.lineEdit_tel_eng.clear()
-                self.lineEdit_ip_eng.clear()
+        #-------------------------------------------------------------------------------------------------------------------------
+        # Инженеры! ******************************************** Инженеры! *******************************************************
+        """
+              engeneer_id integer NOT NULL DEFAULT nextval('auto_id_engeneer_fio'::regclass),
+              engeneer_name text,
+              engeneer_family text,
+              engeneer_otchestvo text,
+              engeneer_short_fio text,
+              engeneer_login_ok boolean,
+              engeneer_login text,
+              engeneer_admin_ok boolean,
+              engeneer_active boolean,
+              CONSTRAINT engeneer_fio_pkey PRIMARY KEY (engeneer_id),
+              CONSTRAINT login_engeneer_key UNIQUE (engeneer_login)
+        """
+        def refresh_etab():
+            #формируем sql запрос
+            sql = 'SELECT engeneer_fio.engeneer_id,  engeneer_fio.engeneer_name, engeneer_fio.engeneer_otchestvo,' \
+                ' engeneer_fio.engeneer_family, engeneer_fio.engeneer_short_fio, engeneer_fio.engeneer_login, ' \
+                ' engeneer_fio.engeneer_admin_ok,  ' \
+                ' engeneer_fio.engeneer_active,  engeneer_fio.engeneer_tel,' \
+                ' engeneer_fio.engeneer_email  FROM public.engeneer_fio;'
+            #sql = 'SELECT * FROM manager_fio'
+            #print(sql)
+            #записываем полученные данные от базы данных в таблицу манагеров
+            data = sql_data(sql)
+            print(len(data))
+            self.tableWidget_eng.setRowCount(len(data))
+            """
+            for row in range(len(data)):
+                i = row
+                for column in range(row):
+                    item = data[(row)]
+                    print("item=",item)
+                    self.table.setItem(1, 0, QtGui.QTableWidgetItem(self.led.text()))
+            """
+            rows = len(data)
+            cols = len(data[1])
+            entries = data
+            self.tableWidget_eng.setRowCount(len(entries))
+            self.tableWidget_eng.setColumnCount(len(entries[0]))
+            for i, row in enumerate(entries):
+                for j, col in enumerate(row):
+                    item = QtGui.QTableWidgetItem(str(col))
+                    #print(col)
+                    self.tableWidget_eng.setItem(i, j, item)
 
+                    #index = self.tableWidget.index(row, column, QtCore.QModelIndex())
+                    #self.tableWidget.setData(index, (row + 1) * (column + 1))
+                    #print(data)
+                    #for raw in data:
+                    #manager_name, manager_family, manager_otchestvo, manager_short_fio, manager_admin_ok, manager_active = raw
+                    #print(manager_name, manager_family, manager_otchestvo, manager_short_fio, manager_admin_ok, manager_active)
+                    #print(raw)
 
-                #----------------------------------------------------
-                #----------------------------------------------------------------
-                #Записываем данные в переменные
-                eng_id = self.tableWidget_eng.item(row, 0).text()
-                eng_name = self.tableWidget_eng.item(row, 1).text()
-                eng_otchestvo = self.tableWidget_eng.item(row, 2).text()
-                eng_family = self.tableWidget_eng.item(row, 3).text()
-                eng_shortname = self.tableWidget_eng.item(row, 4).text()
-                eng_login = self.tableWidget_eng.item(row, 5).text()
-                eng_admin = self.tableWidget_eng.item(row, 6).text()
-                eng_active = self.tableWidget_eng.item(row, 9).text()
-                eng_email = self.tableWidget_eng.item(row, 10).text()
-                eng_tel = self.tableWidget_eng.item(row, 11).text()
-                eng_ip = self.tableWidget_eng.item(row, 12).text()
-                #-------------------------------------------------------------
+        def cell_was_clicked_eng(row, column):
+            print("Zashli v func cell_was_clicked_eng!!!")
+            refresh_etab()
+            #-----------------------------------------------------
+            #очищаем данные что были записаны ранее в LineEdits
+            self.lineEdit_name_eng.clear()
+            self.lineEdit_otchestvo_eng.clear()
+            self.lineEdit_family_eng.clear()
+            self.lineEdit_fio_eng.clear()
+            self.lineEdit_login_eng.clear()
+            self.lineEdit_email_eng.clear()
+            self.lineEdit_tel_eng.clear()
+            self.lineEdit_ip_eng.clear()
 
-                #---------------------------------------------------------------------------------------------------
-                #Создаем словарь с данными (авось потом пригодится ) аналог структуры в С-ях)
-                d_eng = {"id": eng_id, "name": eng_name, "otchestvo": eng_otchestvo, "family": eng_family, "shortname": eng_shortname, "login": eng_login, "active": eng_active,
-                           "admin": eng_admin, "lastkp": eng_lastkp, "lastdog": eng_lastdog, "email": eng_email,"tel": eng_tel, "ip":eng_ip}
-                #-----------------------------------------------------------------------------------------------------
+            #----------------------------------------------------
+            #----------------------------------------------------------------
+            #Записываем данные в переменные
+            eng_id = self.tableWidget_eng.item(row, 0).text()
+            eng_name = self.tableWidget_eng.item(row, 1).text()
+            eng_otchestvo = self.tableWidget_eng.item(row, 2).text()
+            eng_family = self.tableWidget_eng.item(row, 3).text()
+            eng_shortname = self.tableWidget_eng.item(row, 4).text()
+            eng_login = self.tableWidget_eng.item(row, 5).text()
+            eng_admin = self.tableWidget_eng.item(row, 6).text()
+            eng_active = self.tableWidget_eng.item(row, 9).text()
+            eng_email = self.tableWidget_eng.item(row, 10).text()
+            eng_tel = self.tableWidget_eng.item(row, 11).text()
+            eng_ip = self.tableWidget_eng.item(row, 12).text()
+            #-------------------------------------------------------------
 
-                #----------------------------------------------------------
-                #Записываем данные в LineEdits
-                self.lineEdit_name_eng.insert(eng_name)
-                self.lineEdit_otchestvo_eng.insert(eng_otchestvo)
-                self.lineEdit_family_eng.insert(eng_family)
-                self.lineEdit_shortname_eng.insert(eng_shortname)
-                self.lineEdit_login_eng.insert(eng_shortname)
-                self.lineEdit_tel_eng.insert(eng_tel)
-                self.lineEdit_email_eng.insert(eng_email)
-                self.lineEdit_ip_eng.insert(eng_ip)
-                #-----------------------------------------------------------
+            #---------------------------------------------------------------------------------------------------
+            #Создаем словарь с данными (авось потом пригодится ) аналог структуры в С-ях)
+            d_eng = {"id": eng_id, "name": eng_name, "otchestvo": eng_otchestvo, "family": eng_family, "shortname": eng_shortname, "login": eng_login, "active": eng_active,
+                        "admin": eng_admin, "lastkp": eng_lastkp, "lastdog": eng_lastdog, "email": eng_email,"tel": eng_tel, "ip":eng_ip}
+            #-----------------------------------------------------------------------------------------------------
 
-                #----------------------------------------------------------------------------------------------
-                #Отладочный принт выдает номер столбца и колонки ячейки на которую нажала мышка
-                print("Row %d and Column %d was clicked engeneer" % (row, column))
-                item = self.tableWidget_eng.item(row, column).text()
-                print (item, d_eng)
-                #-----------------------------------------------------------------------------------------------
+            #----------------------------------------------------------
+            #Записываем данные в LineEdits
+            self.lineEdit_name_eng.insert(eng_name)
+            self.lineEdit_otchestvo_eng.insert(eng_otchestvo)
+            self.lineEdit_family_eng.insert(eng_family)
+            self.lineEdit_shortname_eng.insert(eng_shortname)
+            self.lineEdit_login_eng.insert(eng_shortname)
+            self.lineEdit_tel_eng.insert(eng_tel)
+            self.lineEdit_email_eng.insert(eng_email)
+            self.lineEdit_ip_eng.insert(eng_ip)
+            #-----------------------------------------------------------
+
+            #----------------------------------------------------------------------------------------------
+            #Отладочный принт выдает номер столбца и колонки ячейки на которую нажала мышка
+            print("Row %d and Column %d was clicked engeneer" % (row, column))
+            item = self.tableWidget_eng.item(row, column).text()
+            print (item, d_eng)
+            #-----------------------------------------------------------------------------------------------
 
 
 
@@ -335,9 +389,26 @@ class MyWindow(QtGui.QMainWindow, Form):
         #------------------------------------------------------------------------------------------------------------------------
         # Назначаем действием на клик мышки по кнопке Обновить таблицу, обновляем таблицу манагеров, вызывая функцию refresh_mtab
         QtCore.QObject.connect(self.pushButton_table1_refresh, QtCore.SIGNAL("clicked()"), refresh_mtab)
-        #-------------------------------------------------------------------------------------------------------------------------
-        # Инженеры! ******************************************** Инженеры! *******************************************************
-
+        #----------------------------------------------------------------------------------------------------------------------------------
+        # Инженеры! ******************************************** Инженеры! *****************************************************************
+        #----------------------------------------------------------------------------------------------------------------------------------
+        #------------------------------------------------------------------------------------------------------------------------
+        # Назначаем действием на клик мышки по кнопке Обновить таблицу, обновляем таблицу манагеров, вызывая функцию refresh_mtab
+        QtCore.QObject.connect(self.pushButton_refresh_eng_table, QtCore.SIGNAL("clicked()"), refresh_etab)
+        #----------------------------------------------------------------------------------------------------------------------------------
+        #-----------------------------------------------------------------------------------------------------
+        # Устанавливаем количество столбцов таблицы манагеров
+        self.tableWidget_eng.setColumnCount(12)
+        #---------------------------------------------------------------------------------------------------------------
+        # Запрещаем редактировать ячейки таблицы манагеров
+        self.tableWidget_eng.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
+        #---------------------------------------------------------------------------------------------------------------
+        # Делаем заголовки над каждым столбцом таблицы манагеров
+        self.tableWidget_eng.setHorizontalHeaderLabels(('ID', 'Имя', 'Отчество', 'Фамилия',  'ФИО', 'Логин', 'Админ', '№КП', '№Дог', 'Активен', 'Телефон', 'e-mail'))
+        #----------------------------------------------------------------------------------------------------------------------------------
+        # Назначаем действием на клик мышки по ячейки таблицы манагеров, а именно функцию cell_was_clicked_manager
+        self.tableWidget_eng.cellClicked.connect(cell_was_clicked_eng)
+        #----------------------------------------------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
     import sys
