@@ -260,9 +260,7 @@ class MyWindow(QtGui.QMainWindow, Form):
               CONSTRAINT engeneer_fio_pkey PRIMARY KEY (engeneer_id),
               CONSTRAINT login_engeneer_key UNIQUE (engeneer_login)
         """
-        def ddd_eng(d_eng):
-            d_eng = d_eng
-            return d_eng
+       
         #---------------------------------------------------------------------------------------------------------------
         #запись в переменные строчек - инженеры
         #---------------------------------------------------------------------------------------------------------------
