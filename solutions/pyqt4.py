@@ -260,6 +260,9 @@ class MyWindow(QtGui.QMainWindow, Form):
               CONSTRAINT engeneer_fio_pkey PRIMARY KEY (engeneer_id),
               CONSTRAINT login_engeneer_key UNIQUE (engeneer_login)
         """
+        def ddd_eng(d_eng):
+            d_eng = d_eng
+            return d_eng
         #---------------------------------------------------------------------------------------------------------------
         #запись в переменные строчек - инженеры
         #---------------------------------------------------------------------------------------------------------------
@@ -368,7 +371,9 @@ class MyWindow(QtGui.QMainWindow, Form):
             #Создаем словарь с данными (авось потом пригодится ) аналог структуры в С-ях)
             d_eng = {"id": eng_id, "name": eng_name, "otchestvo": eng_otchestvo, "family": eng_family, "shortname": eng_shortname, "login": eng_login, "active": eng_active,
                         "admin": eng_admin, "email": eng_email,"tel": eng_tel}
+
             #-----------------------------------------------------------------------------------------------------
+            ddd_eng(d_eng)
             #----------------------------------------------------------
             #Записываем данные в LineEdits
             self.lineEdit_name_eng.insert(eng_name)
@@ -386,7 +391,28 @@ class MyWindow(QtGui.QMainWindow, Form):
             print("Row %d and Column %d was clicked engeneer" % (row, column))
             item = self.tableWidget_eng.item(row, column).text()
             print (item, d_eng)
-            #-----------------------------------------------------------------------------------------------
+            #-----------------------------------------------------------------------------------------------------------
+        def update_eng():
+            #d_eng = {"id": eng_id, "name": eng_name, "otchestvo": eng_otchestvo, "family": eng_family, "shortname": eng_shortname, "login": eng_login, "active": eng_active,
+            #            "admin": eng_admin, "email": eng_email,"tel": eng_tel}
+            d_eng = ddd_eng()
+            print("update_eng ddd_eng = ", d_eng)
+            eng_id =  d_eng['id']
+            eng_name = d_eng['name']
+            eng_otchestvo = d_eng['otchestvo']
+            eng_family = d_eng['family']
+            eng_shortname = d_eng['shortname']
+            eng_login = d_eng['login']
+            eng_active = d_eng['active']
+            eng_admin = d_eng['admin']
+            eng_email = d_eng['email']
+            eng_tel = d_eng['tel']
+
+            sql = "UPDATE engeneer_fio SET engeneer_login_ok = " + eng_active + ", engeneer_admin_ok = " + eng_admin + "," \
+                " engeneer_name = " + eng_name + ", engeneer_family = " + eng_family + ", engeneer_otchestvo = " + eng_otchestvo + "," \
+                " engeneer_short_fio = " + eng_shortname + ", engeneer_login = " + eng_login + ", engeneer_tel = " + eng_tel + ", " \
+                "engeneer_email = " + eng_email + " WHERE engeneer_id_integer = " + eng_id + ";"
+            print("запрос на апдейт инженеров sql = ", sql)
 
         self.setupUi(self)
         #---------------------------------------------------------------------------------------------------
@@ -429,7 +455,8 @@ class MyWindow(QtGui.QMainWindow, Form):
         QtCore.QObject.connect(self.pushButton_table1_refresh, QtCore.SIGNAL("clicked()"), refresh_mtab)
         #----------------------------------------------------------------------------------------------------------------------------------
         # Инженеры! ******************************************** Инженеры! *****************************************************************
-        #----------------------------------------------------------------------------------------------------------------------------------
+        #---------------------------------------------------update eng-------------------------------------------------------------------------------
+        QtCore.QObject.connect(self.pushButton_edit_eng_table, QtCore.SIGNAL("clicked()"), update_eng)
         #------------------------------------------------------------------------------------------------------------------------
         # Назначаем действием на клик мышки по кнопке Обновить таблицу, обновляем таблицу манагеров, вызывая функцию refresh_mtab
         QtCore.QObject.connect(self.pushButton_refresh_eng_table, QtCore.SIGNAL("clicked()"), refresh_etab)
