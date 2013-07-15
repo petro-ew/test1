@@ -10,7 +10,11 @@ import sys
 import psycopg2
 from PyQt4.QtCore import QSettings
 
-
+#-----------------------------------------------------------------------------------------------------------------------
+# qsettings пишем в ini файл значения по умолчанию,
+# раньше не работали, и вроде сейчас не работают - руками пишу инишник
+#  почему то сработали.
+#-----------------------------------------------------------------------------------------------------------------------
 def store_ini():
     #s = QSettings()
     s = QSettings("pyqt4.ini", QSettings.IniFormat)
@@ -20,12 +24,11 @@ def store_ini():
     s.setValue("base/ip", "127.0.0.1")
     s.setValue("base/name", "firma1")
 
-
+#-----------------------------------------------------------------------------------------------------------------------
+# qsettings читаем ini файл или берем значения по умолчанию, раньше не работали, почему то сработали.
+#-----------------------------------------------------------------------------------------------------------------------
 def read_ini():
     """
-
-
-
     :rtype : object
     :return:
     """
@@ -115,7 +118,9 @@ class MyWindow(QtGui.QMainWindow, Form):
             d1 = {"name": mname, "otchestvo": motchestvo, "family": mfamily, "shortname": mshortname, "active": mactive,
                   "admin": madmin}
             print(d1)
-
+        #---------------------------------------------------------------------------------------------------------------
+        # Удалить менеджера
+        #---------------------------------------------------------------------------------------------------------------
         def manager_del():
             """
 
@@ -137,7 +142,9 @@ class MyWindow(QtGui.QMainWindow, Form):
             d1 = {"name": mname, "otchestvo": motchestvo, "family": mfamily, "shortname": mshortname, "active": mactive,
                   "admin": madmin}
             print(d1)
-
+        #---------------------------------------------------------------------------------------------------------------
+        # обновить таблицу
+        #---------------------------------------------------------------------------------------------------------------
         def refresh_mtab():
             #формируем sql запрос
             sql = 'SELECT manager_fio.manager_id,  manager_fio.manager_name, manager_fio.manager_otchestvo,' \
@@ -253,8 +260,39 @@ class MyWindow(QtGui.QMainWindow, Form):
               CONSTRAINT engeneer_fio_pkey PRIMARY KEY (engeneer_id),
               CONSTRAINT login_engeneer_key UNIQUE (engeneer_login)
         """
+        #---------------------------------------------------------------------------------------------------------------
+        #запись в переменные строчек - инженеры
+        #---------------------------------------------------------------------------------------------------------------
+        def write_for_strok():
+            #----------------------------------------------------------------
+            #Записываем данные в переменные
+            eng_active = self.checkBox_login_na_eng.checkState()
+            print("eng_active = ", eng_active)
+            eng_admin = self.checkBox__eng_admin.checkState()
+            print("eng_admin = ", eng_admin)
+
+            eng_name = self.lineEdit_name_eng.text()
+            eng_otchestvo = self.lineEdit_otchestvo_eng.text()
+            eng_family = self.lineEdit_family_eng.text()
+            eng_shortname = self.lineEdit_fio_eng.text()
+            eng_login = self.lineEdit_login_eng.text()
+            eng_tel = self.lineEdit_tel_eng.text()
+            eng_email = self.lineEdit_email_eng.text()
+            eng_ip = self.lineEdit_ip_eng.text()
+
+            #-------------------------------------------------------------
+            #---------------------------------------------------------------------------------------------------
+            #Создаем словарь с данными (авось потом пригодится ) аналог структуры в С-ях)
+            d_strok_eng = { "name": eng_name, "otchestvo": eng_otchestvo, "family": eng_family, "shortname": eng_shortname, "login": eng_login, "active": eng_active,
+                        "admin": eng_admin, "email": eng_email,"tel": eng_tel, "ip":eng_ip}
+            #-----------------------------------------------------------------------------------------------------
+            return d_strok_eng
+        #---------------------------------------------------------------------------------------------------------------
+        # обновление таблицы инженеров
+        #---------------------------------------------------------------------------------------------------------------
         def refresh_etab():
             #формируем sql запрос
+            #self.tableWidget_eng.setHorizontalHeaderLabels(('ID', 'Имя', 'Отчество', 'Фамилия',  'ФИО', 'Логин', 'Админ', 'Активен', 'Телефон', 'E-Mail'))
             sql = 'SELECT engeneer_fio.engeneer_id,  engeneer_fio.engeneer_name, engeneer_fio.engeneer_otchestvo,' \
                 ' engeneer_fio.engeneer_family, engeneer_fio.engeneer_short_fio, engeneer_fio.engeneer_login, ' \
                 ' engeneer_fio.engeneer_admin_ok,  ' \
@@ -310,6 +348,9 @@ class MyWindow(QtGui.QMainWindow, Form):
             #----------------------------------------------------
             #----------------------------------------------------------------
             #Записываем данные в переменные
+            #d_strok_eng = write_for_strok()
+            #print("d blin = ",  d_strok_eng)
+
             eng_id = self.tableWidget_eng.item(row, 0).text()
             eng_name = self.tableWidget_eng.item(row, 1).text()
             eng_otchestvo = self.tableWidget_eng.item(row, 2).text()
@@ -317,28 +358,27 @@ class MyWindow(QtGui.QMainWindow, Form):
             eng_shortname = self.tableWidget_eng.item(row, 4).text()
             eng_login = self.tableWidget_eng.item(row, 5).text()
             eng_admin = self.tableWidget_eng.item(row, 6).text()
-            eng_active = self.tableWidget_eng.item(row, 9).text()
-            eng_email = self.tableWidget_eng.item(row, 10).text()
-            eng_tel = self.tableWidget_eng.item(row, 11).text()
-            eng_ip = self.tableWidget_eng.item(row, 12).text()
+            eng_active = self.tableWidget_eng.item(row, 7).text()
+            eng_email = self.tableWidget_eng.item(row, 8).text()
+            eng_tel = self.tableWidget_eng.item(row, 9).text()
+            #eng_ip = self.tableWidget_eng.item(row, 12).text()
             #-------------------------------------------------------------
 
             #---------------------------------------------------------------------------------------------------
             #Создаем словарь с данными (авось потом пригодится ) аналог структуры в С-ях)
             d_eng = {"id": eng_id, "name": eng_name, "otchestvo": eng_otchestvo, "family": eng_family, "shortname": eng_shortname, "login": eng_login, "active": eng_active,
-                        "admin": eng_admin, "lastkp": eng_lastkp, "lastdog": eng_lastdog, "email": eng_email,"tel": eng_tel, "ip":eng_ip}
+                        "admin": eng_admin, "email": eng_email,"tel": eng_tel}
             #-----------------------------------------------------------------------------------------------------
-
             #----------------------------------------------------------
             #Записываем данные в LineEdits
             self.lineEdit_name_eng.insert(eng_name)
             self.lineEdit_otchestvo_eng.insert(eng_otchestvo)
             self.lineEdit_family_eng.insert(eng_family)
-            self.lineEdit_shortname_eng.insert(eng_shortname)
-            self.lineEdit_login_eng.insert(eng_shortname)
+            self.lineEdit_fio_eng.insert(eng_shortname)
+            self.lineEdit_login_eng.insert(eng_login)
             self.lineEdit_tel_eng.insert(eng_tel)
             self.lineEdit_email_eng.insert(eng_email)
-            self.lineEdit_ip_eng.insert(eng_ip)
+            #self.lineEdit_ip_eng.insert(eng_ip)
             #-----------------------------------------------------------
 
             #----------------------------------------------------------------------------------------------
@@ -347,8 +387,6 @@ class MyWindow(QtGui.QMainWindow, Form):
             item = self.tableWidget_eng.item(row, column).text()
             print (item, d_eng)
             #-----------------------------------------------------------------------------------------------
-
-
 
         self.setupUi(self)
         #---------------------------------------------------------------------------------------------------
@@ -404,11 +442,13 @@ class MyWindow(QtGui.QMainWindow, Form):
         self.tableWidget_eng.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
         #---------------------------------------------------------------------------------------------------------------
         # Делаем заголовки над каждым столбцом таблицы манагеров
-        self.tableWidget_eng.setHorizontalHeaderLabels(('ID', 'Имя', 'Отчество', 'Фамилия',  'ФИО', 'Логин', 'Админ', '№КП', '№Дог', 'Активен', 'Телефон', 'e-mail'))
+        #self.tableWidget_eng.setHorizontalHeaderLabels(('ID', 'Имя', 'Отчество', 'Фамилия',  'ФИО', 'Логин', 'Админ', '№КП', '№Дог', 'Активен', 'Телефон', 'e-mail'))
+        self.tableWidget_eng.setHorizontalHeaderLabels(('ID', 'Имя', 'Отчество', 'Фамилия',  'ФИО', 'Логин', 'Админ', 'Активен', 'Телефон', 'E-Mail'))
         #----------------------------------------------------------------------------------------------------------------------------------
         # Назначаем действием на клик мышки по ячейки таблицы манагеров, а именно функцию cell_was_clicked_manager
         self.tableWidget_eng.cellClicked.connect(cell_was_clicked_eng)
         #----------------------------------------------------------------------------------------------------------------------------------
+        #нажимаем на кнопку обновить информацию о пользователе - pushButton_edit_eng_table
 
 if __name__ == "__main__":
     import sys
