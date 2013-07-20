@@ -210,6 +210,13 @@
           <item row="12" column="4">
            <widget class="QLineEdit" name="lineEdit_ip_manager"/>
           </item>
+          <item row="8" column="2">
+           <widget class="QLabel" name="label_id_manager">
+            <property name="text">
+             <string>ID Менеджера ( служ. информация )</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </widget>
         <widget class="QWidget" name="tab_2">
@@ -326,17 +333,10 @@
           <item row="8" column="1" colspan="4">
            <widget class="QTableWidget" name="tableWidget_eng"/>
           </item>
-          <item row="6" column="3">
-           <widget class="QLabel" name="label_ip_eng">
-            <property name="text">
-             <string>IP машины инженера</string>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="3">
+          <item row="7" column="4">
            <widget class="QLineEdit" name="lineEdit_ip_eng"/>
           </item>
-          <item row="6" column="4">
+          <item row="7" column="3">
            <widget class="QCheckBox" name="checkBox__eng_admin">
             <property name="font">
              <font>
@@ -346,6 +346,20 @@
             </property>
             <property name="text">
              <string>Админ! (Главный инженер !!!)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="4">
+           <widget class="QLabel" name="label_ip_eng">
+            <property name="text">
+             <string>IP машины инженера</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="3">
+           <widget class="QLabel" name="label_id_eng">
+            <property name="text">
+             <string>ID Инженера ( служ. информация )</string>
             </property>
            </widget>
           </item>

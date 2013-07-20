@@ -72,6 +72,26 @@ def sql_data(sql):
         conn.close()
         return(data)
     """
+def sql_update(sql):
+    l_db = read_ini()
+    print(l_db)
+    HOST = l_db[2]        #'127.0.0.1'
+    DB_NAME = l_db[3]     #'firma1'
+    DB_USER = l_db[0]     #'postgres'
+    DB_PASS = l_db[1]     #'texnolog'
+    print(HOST, DB_NAME, DB_USER, DB_PASS)
+    try:
+        conn = psycopg2.connect(host=HOST, database=DB_NAME, user=DB_USER, password=DB_PASS)
+    except:
+        print("Не могу подключиться к базе данных(def sql_data(sql))!! Do not connect to Database!!")
+    cur = conn.cursor()
+    cur.execute(sql)
+    #records = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return
+#---------------------------------------
 
 
 from PyQt4 import QtGui, QtCore, uic
@@ -260,13 +280,14 @@ class MyWindow(QtGui.QMainWindow, Form):
               CONSTRAINT engeneer_fio_pkey PRIMARY KEY (engeneer_id),
               CONSTRAINT login_engeneer_key UNIQUE (engeneer_login)
         """
-       
+
         #---------------------------------------------------------------------------------------------------------------
         #запись в переменные строчек - инженеры
         #---------------------------------------------------------------------------------------------------------------
         def write_for_strok():
             #----------------------------------------------------------------
             #Записываем данные в переменные
+            eng_id = self.label_id_eng.text()
             eng_active = self.checkBox_login_na_eng.checkState()
             print("eng_active = ", eng_active)
             eng_admin = self.checkBox__eng_admin.checkState()
@@ -280,13 +301,11 @@ class MyWindow(QtGui.QMainWindow, Form):
             eng_tel = self.lineEdit_tel_eng.text()
             eng_email = self.lineEdit_email_eng.text()
             eng_ip = self.lineEdit_ip_eng.text()
-
-            #-------------------------------------------------------------
-            #---------------------------------------------------------------------------------------------------
+            #-----------------------------------------------------------------------------------------------------------
             #Создаем словарь с данными (авось потом пригодится ) аналог структуры в С-ях)
-            d_strok_eng = { "name": eng_name, "otchestvo": eng_otchestvo, "family": eng_family, "shortname": eng_shortname, "login": eng_login, "active": eng_active,
+            d_strok_eng = {"id": eng_id, "name": eng_name, "otchestvo": eng_otchestvo, "family": eng_family, "shortname": eng_shortname, "login": eng_login, "active": eng_active,
                         "admin": eng_admin, "email": eng_email,"tel": eng_tel, "ip":eng_ip}
-            #-----------------------------------------------------------------------------------------------------
+            #-----------------------------------------------------------------------------------------------------------
             return d_strok_eng
         #---------------------------------------------------------------------------------------------------------------
         # обновление таблицы инженеров
@@ -360,8 +379,8 @@ class MyWindow(QtGui.QMainWindow, Form):
             eng_login = self.tableWidget_eng.item(row, 5).text()
             eng_admin = self.tableWidget_eng.item(row, 6).text()
             eng_active = self.tableWidget_eng.item(row, 7).text()
-            eng_email = self.tableWidget_eng.item(row, 8).text()
-            eng_tel = self.tableWidget_eng.item(row, 9).text()
+            eng_email = self.tableWidget_eng.item(row, 9).text()
+            eng_tel = self.tableWidget_eng.item(row, 8).text()
             #eng_ip = self.tableWidget_eng.item(row, 12).text()
             #-------------------------------------------------------------
 
@@ -371,8 +390,25 @@ class MyWindow(QtGui.QMainWindow, Form):
                         "admin": eng_admin, "email": eng_email,"tel": eng_tel}
 
             #-----------------------------------------------------------------------------------------------------
-            ddd_eng(d_eng)
+            #ddd_eng(d_eng)
             #----------------------------------------------------------
+            #print ("ENG_ADMIN = ", eng_admin)
+            #print ("ENG_ACTIVE = ", eng_active)
+
+            if eng_active == "True":
+                #print("зашли в иф на True")
+                self.checkBox_login_na_eng.setCheckState(2)
+                #self.checkBox_ok.setCheckState(2)  # пока не получается сделать так ччто бы когда ид_акт_услуг труе одноразово включался чек бокс на труе с возможностью переключения
+            else:
+                self.checkBox_login_na_eng.setCheckState(0)  #поменял на фалсе
+
+            if eng_admin == "True":
+                #print("зашли в иф на True")
+                self.checkBox__eng_admin.setCheckState(2)
+                #self.checkBox_ok.setCheckState(2)  # пока не получается сделать так ччто бы когда ид_акт_услуг труе одноразово включался чек бокс на труе с возможностью переключения
+            else:
+                self.checkBox__eng_admin.setCheckState(0)  #поменял на фалсе
+
             #Записываем данные в LineEdits
             self.lineEdit_name_eng.insert(eng_name)
             self.lineEdit_otchestvo_eng.insert(eng_otchestvo)
@@ -381,6 +417,7 @@ class MyWindow(QtGui.QMainWindow, Form):
             self.lineEdit_login_eng.insert(eng_login)
             self.lineEdit_tel_eng.insert(eng_tel)
             self.lineEdit_email_eng.insert(eng_email)
+            self.label_id_eng.setText(eng_id)
             #self.lineEdit_ip_eng.insert(eng_ip)
             #-----------------------------------------------------------
 
@@ -393,8 +430,10 @@ class MyWindow(QtGui.QMainWindow, Form):
         def update_eng():
             #d_eng = {"id": eng_id, "name": eng_name, "otchestvo": eng_otchestvo, "family": eng_family, "shortname": eng_shortname, "login": eng_login, "active": eng_active,
             #            "admin": eng_admin, "email": eng_email,"tel": eng_tel}
-            d_eng = ddd_eng()
-            print("update_eng ddd_eng = ", d_eng)
+            #d_eng = ddd_eng()
+            #print("update_eng ddd_eng = ", d_eng)
+            #id_eng = self.label_id_eng.text()
+            d_eng  = write_for_strok()
             eng_id =  d_eng['id']
             eng_name = d_eng['name']
             eng_otchestvo = d_eng['otchestvo']
@@ -405,12 +444,26 @@ class MyWindow(QtGui.QMainWindow, Form):
             eng_admin = d_eng['admin']
             eng_email = d_eng['email']
             eng_tel = d_eng['tel']
-
-            sql = "UPDATE engeneer_fio SET engeneer_login_ok = " + eng_active + ", engeneer_admin_ok = " + eng_admin + "," \
-                " engeneer_name = " + eng_name + ", engeneer_family = " + eng_family + ", engeneer_otchestvo = " + eng_otchestvo + "," \
-                " engeneer_short_fio = " + eng_shortname + ", engeneer_login = " + eng_login + ", engeneer_tel = " + eng_tel + ", " \
-                "engeneer_email = " + eng_email + " WHERE engeneer_id_integer = " + eng_id + ";"
+            #print ("UPDATE ENG!!!! ",eng_admin, eng_active)
+            if eng_active == 2:
+                eng_active = "True"
+            elif eng_active == 0:
+                eng_active = "False"
+            if eng_admin == 2:
+                eng_admin = "True"
+            elif eng_admin == 0:
+                eng_admin = "False"
+            #print ("UPDATE ENG22222 ",eng_admin, eng_active)
+            #собстно сам запрос
+            sql = "UPDATE engeneer_fio SET engeneer_login_ok = '" + eng_active + "', engeneer_admin_ok = '" + eng_admin + "'," \
+                " engeneer_name = '" + eng_name + "', engeneer_family = '" + eng_family + "', engeneer_otchestvo = '" + eng_otchestvo + "'," \
+                " engeneer_short_fio = '" + eng_shortname + "', engeneer_login = '" + eng_login + "', engeneer_tel = '" + eng_tel + "', " \
+                "engeneer_email = '" + eng_email + "' WHERE engeneer_id = " + eng_id + ";"
             print("запрос на апдейт инженеров sql = ", sql)
+            sql_update(sql)
+            refresh_etab()
+
+
 
         self.setupUi(self)
         #---------------------------------------------------------------------------------------------------
