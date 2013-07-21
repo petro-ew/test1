@@ -1,0 +1,985 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1047</width>
+    <height>689</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout_6">
+    <item row="0" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetMaximumSize</enum>
+      </property>
+      <item>
+       <widget class="QTabWidget" name="tabWidget">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>218</horstretch>
+          <verstretch>224</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>1021</width>
+          <height>360</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <weight>50</weight>
+          <bold>false</bold>
+          <stylestrategy>PreferAntialias</stylestrategy>
+         </font>
+        </property>
+        <property name="currentIndex">
+         <number>3</number>
+        </property>
+        <widget class="QWidget" name="tab">
+         <property name="font">
+          <font>
+           <stylestrategy>PreferAntialias</stylestrategy>
+          </font>
+         </property>
+         <property name="accessibleName">
+          <string/>
+         </property>
+         <attribute name="title">
+          <string>Список менеджеров</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="14" column="1">
+           <widget class="QLineEdit" name="lineEdit_shortname"/>
+          </item>
+          <item row="5" column="2">
+           <widget class="QLineEdit" name="lineEdit_login_manager"/>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>Отчество менеджера</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QLineEdit" name="lineEdit_otchestvo"/>
+          </item>
+          <item row="14" column="4">
+           <widget class="QPushButton" name="pushButton_add_manager">
+            <property name="text">
+             <string>Добавить менеджера</string>
+            </property>
+           </widget>
+          </item>
+          <item row="14" column="0">
+           <widget class="QLineEdit" name="lineEdit_family"/>
+          </item>
+          <item row="14" column="2" colspan="2">
+           <widget class="QCheckBox" name="checkBox_admin">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+              <stylestrategy>PreferAntialias</stylestrategy>
+             </font>
+            </property>
+            <property name="text">
+             <string>Менеджер имеет Администраторские права!</string>
+            </property>
+           </widget>
+          </item>
+          <item row="15" column="2">
+           <widget class="QLabel" name="label_tel_manager">
+            <property name="text">
+             <string>Телефон менеджера</string>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="0" rowspan="2">
+           <widget class="QLabel" name="label_2">
+            <property name="text">
+             <string>Фамилия менеджера</string>
+            </property>
+           </widget>
+          </item>
+          <item row="15" column="3">
+           <widget class="QLabel" name="label_email_manager">
+            <property name="text">
+             <string>E-mail менеджера</string>
+            </property>
+           </widget>
+          </item>
+          <item row="15" column="0">
+           <widget class="QLabel" name="label_number_m_lastkp">
+            <property name="text">
+             <string>Номер последнего коммерческого предложения </string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>Логин менеджера</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="3">
+           <widget class="QCheckBox" name="checkBox_active">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Менеджер активен/неактивен !</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLineEdit" name="lineEdit_name"/>
+          </item>
+          <item row="15" column="1">
+           <widget class="QLabel" name="label_number_m_lastdog">
+            <property name="text">
+             <string>Номер последнего договора</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label">
+            <property name="text">
+             <string>Имя менеджера</string>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="1" rowspan="2">
+           <widget class="QLabel" name="label_3">
+            <property name="text">
+             <string>Короткое имя менеджера</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="3" colspan="2">
+           <widget class="QPushButton" name="pushButton_upg_manager">
+            <property name="text">
+             <string>Обновить данные о менеджере</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="4">
+           <widget class="QPushButton" name="pushButton_insert_table1">
+            <property name="text">
+             <string>Записать в таблицу</string>
+            </property>
+           </widget>
+          </item>
+          <item row="16" column="0">
+           <widget class="QLineEdit" name="lineEdit_number_m_lastkp"/>
+          </item>
+          <item row="16" column="2">
+           <widget class="QLineEdit" name="lineEdit_tel_manager"/>
+          </item>
+          <item row="17" column="0" colspan="5">
+           <widget class="QTableWidget" name="tableWidget_manager">
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="16" column="3">
+           <widget class="QLineEdit" name="lineEdit_email_manager"/>
+          </item>
+          <item row="15" column="4">
+           <widget class="QPushButton" name="pushButton_manager_delete">
+            <property name="text">
+             <string>Удалить данные о менеджере</string>
+            </property>
+           </widget>
+          </item>
+          <item row="16" column="4">
+           <widget class="QPushButton" name="pushButton_table1_refresh">
+            <property name="text">
+             <string>Обновить таблицу менеджеров</string>
+            </property>
+           </widget>
+          </item>
+          <item row="16" column="1">
+           <widget class="QLineEdit" name="lineEdit_number_m_lastdog"/>
+          </item>
+          <item row="8" column="2">
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QLabel" name="label_id_manager">
+              <property name="minimumSize">
+               <size>
+                <width>21</width>
+                <height>21</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>21</width>
+                <height>21</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>ID </string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_6">
+              <property name="text">
+               <string>№ ID Менеджера ( служ. информация )</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="tab_2">
+         <attribute name="title">
+          <string>Список инженеров</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_5">
+          <item row="0" column="0">
+           <layout class="QGridLayout" name="gridLayout_2"/>
+          </item>
+          <item row="4" column="1">
+           <widget class="QLineEdit" name="lineEdit_family_eng"/>
+          </item>
+          <item row="3" column="2">
+           <widget class="QLabel" name="label_fio_eng">
+            <property name="text">
+             <string>Введите ФИО инженера</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QLabel" name="label_otch_eng">
+            <property name="text">
+             <string>Введите отчество инженера</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="3">
+           <widget class="QLineEdit" name="lineEdit_login_eng"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLabel" name="label_name_eng">
+            <property name="text">
+             <string>Введите имя инженера</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3">
+           <widget class="QLabel" name="label_login_eng">
+            <property name="text">
+             <string>Введите логин инженра (латиница)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="4">
+           <widget class="QPushButton" name="pushButton_add_eng">
+            <property name="text">
+             <string>Добавить нового инженера в список </string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="lineEdit_name_eng"/>
+          </item>
+          <item row="1" column="4">
+           <widget class="QPushButton" name="pushButton_edit_eng_table">
+            <property name="text">
+             <string>Обновить информацию о данном инженере</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLabel" name="label_family_eng">
+            <property name="text">
+             <string>Введите фамилию инженера</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QLineEdit" name="lineEdit_otchestvo_eng"/>
+          </item>
+          <item row="4" column="2">
+           <widget class="QLineEdit" name="lineEdit_fio_eng"/>
+          </item>
+          <item row="8" column="2">
+           <widget class="QLineEdit" name="lineEdit_email_eng"/>
+          </item>
+          <item row="8" column="1">
+           <widget class="QLineEdit" name="lineEdit_tel_eng"/>
+          </item>
+          <item row="7" column="2">
+           <widget class="QLabel" name="label_email_eng">
+            <property name="text">
+             <string>E-Mail инженера</string>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="1">
+           <widget class="QLabel" name="label_tel_eng">
+            <property name="text">
+             <string>Моб. телефон инженера</string>
+            </property>
+           </widget>
+          </item>
+          <item row="9" column="1" colspan="4">
+           <widget class="QTableWidget" name="tableWidget_eng">
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="4">
+           <widget class="QPushButton" name="pushButton_eng_del">
+            <property name="text">
+             <string>Удалить инженера из базы ( НАВСЕГДА! )</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="4">
+           <widget class="QPushButton" name="pushButton_refresh_eng_table">
+            <property name="text">
+             <string>Обновить таблицу инженеров</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="3">
+           <widget class="QCheckBox" name="checkBox_login_na_eng">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Логин инженера активен/неактивен !</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="3">
+           <widget class="QCheckBox" name="checkBox__eng_admin">
+            <property name="font">
+             <font>
+              <weight>50</weight>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Админ/инженер ! (Главный инженер !!!)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="3">
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <widget class="QLabel" name="label_id_eng">
+              <property name="minimumSize">
+               <size>
+                <width>21</width>
+                <height>21</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>21</width>
+                <height>21</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>ID </string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_7">
+              <property name="text">
+               <string>№ ID Инженера ( служ. информация )</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="tab_3">
+         <attribute name="title">
+          <string>Список услуг</string>
+         </attribute>
+         <widget class="QLineEdit" name="lineEdit_name_uslug">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>50</y>
+            <width>351</width>
+            <height>20</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit_number_uslug">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>90</y>
+            <width>113</width>
+            <height>20</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label__name_uslug">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>30</y>
+            <width>161</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Введите наименование услуги</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_number_uslug">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>70</y>
+            <width>121</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Введите номер услуги</string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit_type_uslug">
+          <property name="geometry">
+           <rect>
+            <x>150</x>
+            <y>90</y>
+            <width>391</width>
+            <height>20</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_type_uslug">
+          <property name="geometry">
+           <rect>
+            <x>160</x>
+            <y>70</y>
+            <width>111</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Введите тип услуги</string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="lineEdit_number_type_uslug">
+          <property name="geometry">
+           <rect>
+            <x>550</x>
+            <y>90</y>
+            <width>141</width>
+            <height>20</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_number_type_uslug">
+          <property name="geometry">
+           <rect>
+            <x>550</x>
+            <y>70</y>
+            <width>141</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Введите № типа (Важно!)</string>
+          </property>
+         </widget>
+         <widget class="QPlainTextEdit" name="plainTextEdit_uslug">
+          <property name="geometry">
+           <rect>
+            <x>380</x>
+            <y>10</y>
+            <width>371</width>
+            <height>61</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="plainText">
+           <string>В программе используется именно № типа  услуги, а не наименование услуги для внутренней работы программы. Внимательно заполняйте цифровое поле &quot;№ типа&quot;!!</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_edit_uslug">
+          <property name="geometry">
+           <rect>
+            <x>760</x>
+            <y>10</y>
+            <width>251</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Перезаписать услугу!</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_insert_uslug">
+          <property name="geometry">
+           <rect>
+            <x>760</x>
+            <y>40</y>
+            <width>251</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Добавить новую услугу!</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_delet_uslug">
+          <property name="geometry">
+           <rect>
+            <x>760</x>
+            <y>70</y>
+            <width>251</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Удалить услугу</string>
+          </property>
+         </widget>
+         <widget class="QTableWidget" name="tableWidget_uslug">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>130</y>
+            <width>991</width>
+            <height>401</height>
+           </rect>
+          </property>
+          <property name="sortingEnabled">
+           <bool>true</bool>
+          </property>
+          <attribute name="horizontalHeaderCascadingSectionResizes">
+           <bool>false</bool>
+          </attribute>
+         </widget>
+         <widget class="QWidget" name="gridLayoutWidget_2">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>10</y>
+            <width>2</width>
+            <height>2</height>
+           </rect>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_3"/>
+         </widget>
+         <widget class="QPushButton" name="pushButton_refresh_uslug_table">
+          <property name="geometry">
+           <rect>
+            <x>760</x>
+            <y>100</y>
+            <width>251</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>Обновить таблицу</string>
+          </property>
+         </widget>
+         <widget class="QWidget" name="horizontalLayoutWidget_3">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>10</y>
+            <width>321</width>
+            <height>23</height>
+           </rect>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <item>
+            <widget class="QLabel" name="label_id_uslug">
+             <property name="minimumSize">
+              <size>
+               <width>21</width>
+               <height>21</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>21</width>
+               <height>21</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>ID</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_8">
+             <property name="text">
+              <string>№ ID Услуги ( Служебная информация )</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <zorder>lineEdit_name_uslug</zorder>
+         <zorder>lineEdit_number_uslug</zorder>
+         <zorder>label__name_uslug</zorder>
+         <zorder>label_number_uslug</zorder>
+         <zorder>lineEdit_type_uslug</zorder>
+         <zorder>label_type_uslug</zorder>
+         <zorder>lineEdit_number_type_uslug</zorder>
+         <zorder>label_number_type_uslug</zorder>
+         <zorder>plainTextEdit_uslug</zorder>
+         <zorder>pushButton_edit_uslug</zorder>
+         <zorder>pushButton_insert_uslug</zorder>
+         <zorder>pushButton_delet_uslug</zorder>
+         <zorder>tableWidget_uslug</zorder>
+         <zorder>gridLayoutWidget_2</zorder>
+         <zorder>pushButton_refresh_uslug_table</zorder>
+         <zorder>horizontalLayoutWidget_3</zorder>
+         <zorder>label_8</zorder>
+        </widget>
+        <widget class="QWidget" name="tab_4">
+         <attribute name="title">
+          <string>Поиск по Базе</string>
+         </attribute>
+         <layout class="QGridLayout" name="gridLayout_4">
+          <item row="1" column="5" rowspan="2">
+           <widget class="QCheckBox" name="checkBox_datee_search">
+            <property name="text">
+             <string>По Датам (формат - 31.12.2013)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="4" rowspan="3">
+           <widget class="QCheckBox" name="checkBox_memo_search">
+            <property name="text">
+             <string>По Напоминаниям</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="3" rowspan="2">
+           <widget class="QCheckBox" name="checkBox_manager_search">
+            <property name="text">
+             <string>По менеджерам</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="4" rowspan="2">
+           <widget class="QCheckBox" name="checkBox_adres_search">
+            <property name="text">
+             <string>По Адресам</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0" rowspan="2" colspan="2">
+           <widget class="QPushButton" name="pushButton_search_base">
+            <property name="text">
+             <string>Поиск по Базе</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="0" colspan="2">
+           <widget class="QPushButton" name="pushButton_search_result">
+            <property name="text">
+             <string>Поиск в найденном</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLabel" name="label_search">
+            <property name="text">
+             <string>Введите искомое ( предпочтительно одно слово )</string>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="0" colspan="7">
+           <widget class="QTableWidget" name="tableWidget_search"/>
+          </item>
+          <item row="6" column="6" rowspan="3">
+           <widget class="QPushButton" name="pushButton_clear_table_search">
+            <property name="text">
+             <string>Очистить таблицу</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="5" rowspan="2">
+           <widget class="QCheckBox" name="checkBox_log_search">
+            <property name="text">
+             <string>По Логам</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="3" rowspan="3">
+           <widget class="QCheckBox" name="checkBox_number_dog_search">
+            <property name="text">
+             <string>По № Договора</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="4" rowspan="2">
+           <widget class="QCheckBox" name="checkBox_tel_search">
+            <property name="text">
+             <string>По телефонам</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="3" rowspan="2">
+           <widget class="QCheckBox" name="checkBox_fio_client_search">
+            <property name="text">
+             <string>По ФИО Клиента</string>
+            </property>
+           </widget>
+          </item>
+          <item row="6" column="5" rowspan="3">
+           <widget class="QCheckBox" name="checkBox_all_search">
+            <property name="text">
+             <string>По Всему (много мусора)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" colspan="2">
+           <widget class="QLineEdit" name="lineEdit_search"/>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="tab_5">
+         <attribute name="title">
+          <string>Статистика</string>
+         </attribute>
+         <widget class="QTableWidget" name="tableWidget">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>180</y>
+            <width>1011</width>
+            <height>351</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton">
+          <property name="geometry">
+           <rect>
+            <x>920</x>
+            <y>0</y>
+            <width>87</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>PushButton</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="geometry">
+           <rect>
+            <x>920</x>
+            <y>30</y>
+            <width>87</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>PushButton</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_3">
+          <property name="geometry">
+           <rect>
+            <x>920</x>
+            <y>60</y>
+            <width>87</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>PushButton</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_4">
+          <property name="geometry">
+           <rect>
+            <x>920</x>
+            <y>90</y>
+            <width>87</width>
+            <height>27</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>PushButton</string>
+          </property>
+         </widget>
+         <widget class="QCalendarWidget" name="calendarWidget">
+          <property name="geometry">
+           <rect>
+            <x>360</x>
+            <y>10</y>
+            <width>200</width>
+            <height>157</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QCalendarWidget" name="calendarWidget_2">
+          <property name="geometry">
+           <rect>
+            <x>570</x>
+            <y>10</y>
+            <width>200</width>
+            <height>157</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QWidget" name="layoutWidget">
+          <property name="geometry">
+           <rect>
+            <x>9</x>
+            <y>12</y>
+            <width>190</width>
+            <height>104</height>
+           </rect>
+          </property>
+          <layout class="QFormLayout" name="formLayout">
+           <item row="0" column="0">
+            <widget class="QCheckBox" name="checkBox">
+             <property name="text">
+              <string>CheckBox</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QCheckBox" name="checkBox_4">
+             <property name="text">
+              <string>CheckBox</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QCheckBox" name="checkBox_2">
+             <property name="text">
+              <string>CheckBox</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QCheckBox" name="checkBox_6">
+             <property name="text">
+              <string>CheckBox</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QCheckBox" name="checkBox_3">
+             <property name="text">
+              <string>CheckBox</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QCheckBox" name="checkBox_7">
+             <property name="text">
+              <string>CheckBox</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QCheckBox" name="checkBox_5">
+             <property name="text">
+              <string>CheckBox</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QCheckBox" name="checkBox_8">
+             <property name="text">
+              <string>CheckBox</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="tab_6">
+         <attribute name="title">
+          <string>Создание файлов графиков</string>
+         </attribute>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="0">
+     <widget class="QPushButton" name="pushButton_connect">
+      <property name="text">
+       <string>Коннект к базе</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QPushButton" name="pushButton_exit">
+      <property name="text">
+       <string>Выход из программы</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1047</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuO_Ghjuhfvvt">
+    <property name="title">
+     <string>О программе</string>
+    </property>
+    <addaction name="action"/>
+    <addaction name="action_2"/>
+   </widget>
+   <addaction name="menuO_Ghjuhfvvt"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="action">
+   <property name="text">
+    <string>О программе</string>
+   </property>
+  </action>
+  <action name="action_2">
+   <property name="text">
+    <string>Помощь</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
