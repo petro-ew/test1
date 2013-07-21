@@ -92,18 +92,15 @@ import numpy as np
 import os
 from matplotlib import rc
 import matplotlib.pyplot as plt
-
 fn = u'./test/solutions/akko.slmp'
 channels = 4
 rows = os.path.getsize(f)/2/channels
 print rows
-
 X = np.memmap(f, dtype=np.int16, mode='r', shape=(rows,ch), offset=0)
 # Iarm=X[:,0]
 # Kf=X[:,1]
 # Sync=X[:,2]
 # Omega=X[:,3]
-
 plt.plot(X)
 plt.show()
 #plt.savefig(fn+'.png')
@@ -127,26 +124,19 @@ from matplotlib import pyplot
 data1 = numpy.genfromtxt('akko.txt', usecols = [1,]) 
 data2 = numpy.genfromtxt('akko.txt', usecols = [2,])
 data3 = numpy.genfromtxt('akko.txt', usecols = [3,])
-
 locs = np.arange(1, len(data1)+1)
 width = 0.27
 # Задаем заголовок диаграммы
-
 plt.title('AKKO',{'fontname':'Arial','fontsize':16})
 #plt.title(u'AKKO')
 # Задаем подписи к осям X и Y
-
 #plt.xlabel(u'Дни с начала года')
 #plt.ylabel(u'Значения')
 plt.xlabel('Дни с начала года',{'fontname':'Arial','fontsize':16})
 plt.ylabel('Значения',{'fontname':'Arial','fontsize':16})
-
 # Включаем сетку
-
 plt.grid()
-
 plt.xticks(locs + width * 1.5, locs)
-
 #ax = plt.subplot(1, 1, 1)
 #p1, = plt.bar(locs, data1, width = width, label = 'ls < 10')
 #p2, = plt.bar(locs + width, data2, width = width, color = 'red', label = 'sl > 10')
@@ -154,18 +144,12 @@ plt.xticks(locs + width * 1.5, locs)
 pylab.bar(locs, data1, width = width, label = 'ls < 10')
 pylab.bar(locs + width, data2, width = width, color = 'red', label = 'ls > 10')
 pylab.bar(locs + 2 * width, data3, width = width, color = 'green', label = 'mp > 10')
-
 pylab.legend()
 #handles, labels = ax.get_legend_handles_labels()
-
 #handles, labels = plt.ax.get_legend_handles_labels()
-
 #plt.ax.legend(handles[::-1], labels[::-1])
- 
 # Задаем исходные данные для легенды и ее размещение
-
 #plt.legend( (p1, p2, p3), ('sl < 10', 'sl > 10', 'mp < 10 '), loc = 'best')
-
 
 #plt.show()
 #read_data = load("myfile.txt")
@@ -174,8 +158,6 @@ pylab.legend()
 #plt.savefig('spirit.png', format = 'png')
 plt.show()
 plt.savefig('spirit.pdf', format = 'pdf')
-
-
 """
 plt.rcParams['savefig.facecolor'] = "0.8"
 def example_plot(ax, fontsize=12):
