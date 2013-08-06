@@ -86,10 +86,9 @@ from PyQt4 import QtGui, QtCore, uic
 import threading
 #---------------------------------------------------------------------------------------------------------------------
 
-def go(zz):
-
+def go():
     #print(zz)
-    zz.hide()
+    window.hide()
     print ('ok')
     window2.show()
 
@@ -102,7 +101,8 @@ class MyLogin(QtGui.QDialog):
         zz = "sjkldfnjkasdfh"
         #t = threading.Timer(2.0, go, [self.ui])
         #t = threading.Timer(2.0, go, [zz])
-        QtCore.QObject.connect(self.ui.login, QtCore.SIGNAL("clicked()"), lambda: go(self.ui))
+        #QtCore.QObject.connect(self.ui.login, QtCore.SIGNAL("clicked()"), lambda: go(self.ui))
+        QtCore.QObject.connect(self.ui.login, QtCore.SIGNAL("clicked()"), go)
         #t.start()
         print( 'wait 10 s...')
 
