@@ -19,7 +19,7 @@ def store_ini():
     #s.settings(QSettings.IniFormat, QSettings.UserScope, "MySoft", "Star Runner")
     s.setValue("base/login", "postgres")
     s.setValue("base/password", "texnolog")
-    s.setValue("base/ip", "127.0.0.1")
+    s.setValue("base/ip", "192.168.1.18")
     s.setValue("base/name", "firma1")
     s.setValue("pass/eng_login", "eng")
     s.setValue("pass/eng_password", "engeneer")
@@ -27,10 +27,10 @@ def store_ini():
 
 def read_ini():
     s = QSettings("pyqt4.ini", QSettings.IniFormat)
-    base_login = str(s.value("base/login", "postgres"))
-    base_password = str(s.value("base/password", "texnolog"))
-    ip_base = str(s.value("base/ip", "127.0.0.1"))
-    base_name = str(s.value("base/name", "firma1"))
+    base_login = str(s.value("base/login"))
+    base_password = str(s.value("base/password"))
+    ip_base = str(s.value("base/ip"))
+    base_name = str(s.value("base/name"))
     l1 = (base_login, base_password, ip_base, base_name)
     #print(base_login, base_password, ip_base, base_name)
     return l1

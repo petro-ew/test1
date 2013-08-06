@@ -18,7 +18,6 @@ from PyQt4.QtCore import QSettings
 def store_ini():
     #s = QSettings()
     s = QSettings("pyqt4.ini", QSettings.IniFormat)
-    #s.settings(QSettings.IniFormat, QSettings.UserScope, "MySoft", "Star Runner")
     s.setValue("base/login", "postgres")
     s.setValue("base/password", "texnolog")
     s.setValue("base/ip", "127.0.0.1")
@@ -82,10 +81,33 @@ def sql_update(sql):
     conn.close()
     return
 #-----------------------------------------------------------------------------------------------------------------------
+
 from PyQt4 import QtGui, QtCore, uic
+import threading
+#---------------------------------------------------------------------------------------------------------------------
 
+def go(zz):
+
+    #print(zz)
+    zz.hide()
+    print ('ok')
+    window2.show()
+
+class MyLogin(QtGui.QDialog):
+    def __init__(self):
+
+        QtGui.QDialog.__init__(self)
+        self.ui = uic.loadUi("login_v2.ui")
+        self.ui.show()
+        zz = "sjkldfnjkasdfh"
+        #t = threading.Timer(2.0, go, [self.ui])
+        #t = threading.Timer(2.0, go, [zz])
+        QtCore.QObject.connect(self.ui.login, QtCore.SIGNAL("clicked()"), lambda: go(self.ui))
+        #t.start()
+        print( 'wait 10 s...')
+
+#-----------------------------------------------------------------------------------------------------------------------
 Form, Base = uic.loadUiType("pyqt4.ui")
-
 
 class MyWindow(QtGui.QMainWindow, Form):
     def __init__(self, parent=None):
@@ -101,8 +123,8 @@ class MyWindow(QtGui.QMainWindow, Form):
 
 
             """
-            qb = MessageBox()
-            qb.show()
+            #qb = MessageBox()
+            #qb.show()
             #sys.exit(app.exec_())
 
 
@@ -1001,7 +1023,9 @@ if __name__ == "__main__":
     import sys
     #store_ini()
     app = QtGui.QApplication(sys.argv)
-    window = MyWindow()
-    window.show()
+    window = MyLogin()
+    window2 = MyWindow()
+    #window = MyWindow()
+    #window2.show()
     sys.exit(app.exec_())
 

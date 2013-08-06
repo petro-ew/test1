@@ -7,6 +7,7 @@ __author__ = 'petro-ew'
 import sys
 import os
 import psycopg2
+from PyQt4.QtCore import QSettings
 #-----------------------------------------------------------------------------
 # чтение из INI файла, почему то на массе операционных систем на работает ...
 
@@ -15,10 +16,10 @@ import PyQt4.QtCore
 #Функция которая достает из файла ini настройки.
 def store_ini():
     #s = QSettings()
-    s = PyQt4.QtCore.QSettings("geng.ini", PyQt4.QtCore.QSettings.IniFormat)
+    s = QSettings("geng.ini", QSettings.IniFormat)
     s.setValue("base/login", "postgres")
     s.setValue("base/password", "texnolog")
-    s.setValue("base/ip", "127.0.0.1")
+    s.setValue("base/ip", "192.168.1.18")
     s.setValue("base/name", "firma1")
     s.setValue("pass/geng_login", "geng")
     s.setValue("pass/geng_password", "gengeneer")
@@ -26,17 +27,24 @@ def store_ini():
 #----------------------------------------------------------------------------------------------------------
 #Функция которая читает из файла ini настройки.
 def read_ini():
-    s = PyQt4.QtCore.QSettings("geng.ini", PyQt4.QtCore.QSettings.IniFormat)
-     #QSettings settings("/home/petra/misc/myapp.ini", QSettings::IniFormat);
-    s.beginGroup("base");
-    base_login = str(s.value("base/login"))
-    base_password = str(s.value("base/password"))
-    ip_base = str(s.value("base/ip"))
-    base_name = str(s.value("base/name"))
+    s = QSettings("geng.ini", QSettings.IniFormat)
+    #QSettings settings("/home/petra/misc/myapp.ini", QSettings::IniFormat);
+    s.beginGroup("base")
+    base_login = str(s.value("login"))
+    base_password = str(s.value("password"))
+    ip_base = str(s.value("ip"))
+    base_name = str(s.value("name"))
+    s.endGroup()
+    #base_login = str(s.value("base/login"))
+    #base_password = str(s.value("base/password"))
+    #ip_base = str(s.value("base/ip"))
+    #base_name = str(s.value("base/name"))
     s.beginGroup("pass");
-    login = str(s.value("pass/geng_login"))
-    password = str(s.value("pass/geng_password"))
+    login = str(s.value("geng_login"))
+    password = str(s.value("geng_password"))
+    s.endGroup()
     l1 = (base_login, base_password, ip_base, base_name, login, password)
+    print("l1", l1)
     #print(base_login, base_password, ip_base, base_name)
     return l1
 
@@ -45,7 +53,7 @@ def read_ini():
 #Исполнение SQL запросов, коннект к базе данных
 def sql_data(sql):
     l_db = read_ini()
-    print(l_db)
+    print("l_db1", l_db)
     HOST = l_db[2]        #'127.0.0.1'
     DB_NAME = l_db[3]     #'firma1'
     DB_USER = l_db[0]     #'postgres'
