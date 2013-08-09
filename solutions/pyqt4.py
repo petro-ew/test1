@@ -98,6 +98,8 @@ class MyLogin(QtGui.QDialog):
         QtGui.QDialog.__init__(self)
         self.ui = uic.loadUi("login_v2.ui")
         self.ui.show()
+        sql = "select usename from pg_user where usesysid in (SELECT UNNEST(grolist) FROM pg_group where groname = 'managers');"
+       # sql = "select *  from pg_user where usename NOT IN ('postgres', 'test');"
         zz = "sjkldfnjkasdfh"
         #t = threading.Timer(2.0, go, [self.ui])
         #t = threading.Timer(2.0, go, [zz])
