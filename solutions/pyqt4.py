@@ -39,8 +39,49 @@ def read_ini():
     l1 = (base_login, base_password, ip_base, base_name)
     #print(base_login, base_password, ip_base, base_name)
     return l1
+#-----------------------------------------------------------------------------------------------------------------------
+#-----для гостевого входа в базу
+def sql_data_guest(sql):
+    l_db = read_ini()
+    print(l_db)
+    HOST = l_db[2]        #'127.0.0.1'
+    DB_NAME = l_db[3]     #'firma1'
+    DB_USER = l_db[0]     #'postgres'
+    DB_PASS = l_db[1]     #'texnolog'
+    print(HOST, DB_NAME, DB_USER, DB_PASS)
+    try:
+        conn = psycopg2.connect(host=HOST, database=DB_NAME, user=DB_USER, password=DB_PASS)
+    except:
+        print("Не могу подключиться к базе данных!! Do not connect to Database!!")
+    cur = conn.cursor()
+    cur.execute(sql)
+    records = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return records
 
-
+def sql_update_guest(sql):
+    l_db = read_ini()
+    print(l_db)
+    HOST = l_db[2]        #'127.0.0.1'
+    DB_NAME = l_db[3]     #'firma1'
+    DB_USER = l_db[0]     #'postgres'
+    DB_PASS = l_db[1]     #'texnolog'
+    print(HOST, DB_NAME, DB_USER, DB_PASS)
+    try:
+        conn = psycopg2.connect(host=HOST, database=DB_NAME, user=DB_USER, password=DB_PASS)
+    except:
+        print("Не могу подключиться к базе данных(def sql_data(sql))!! Do not connect to Database!!")
+    cur = conn.cursor()
+    cur.execute(sql)
+    #records = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
+    return
+#-----------------------------------------------------------------------------------------------------------------------
+#---после того как нашли кто узер
 def sql_data(sql):
     l_db = read_ini()
     print(l_db)
@@ -98,8 +139,22 @@ class MyLogin(QtGui.QDialog):
         QtGui.QDialog.__init__(self)
         self.ui = uic.loadUi("login_v2.ui")
         self.ui.show()
+        #---------------------------------------------------------------------------------------------------------------
+        #----------------- запрос на получение группы манагеров --------------------------------------------------------
+        #----к базе по созданию группы манагеров
+        ##-CREATE GROUP managers WITH USER igovorova, ssorokina, ubahvalova, tmaximova sysid 1;
+        ##CREATE GROUP loginz WITH USER test;
+
+        ##-SELECT usename FROM pg_user WHERE usesysid IN (SELECT UNNEST(grolist) FROM pg_group WHERE groname = 'managers');
+        #---------------------------------------------------------------------------------------------------------------
         sql = "select usename from pg_user where usesysid in (SELECT UNNEST(grolist) FROM pg_group where groname = 'managers');"
-       # sql = "select *  from pg_user where usename NOT IN ('postgres', 'test');"
+        #---------------------------------------------------------------------------------------------------------------
+        #sql = "select *  from pg_user where usename NOT IN ('postgres', 'test');"
+        #sql = "SELECT grolist FROM pg_group WHERE groname = 'managers';"
+        data = sql_data_guest(sql)
+        print(len(data))
+        print(data)
+        
         zz = "sjkldfnjkasdfh"
         #t = threading.Timer(2.0, go, [self.ui])
         #t = threading.Timer(2.0, go, [zz])
