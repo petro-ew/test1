@@ -7,6 +7,7 @@ __author__ = 'petro-ew'
 Программа Админка
 """
 import sys
+import re
 import psycopg2
 from PyQt4.QtCore import QSettings
 
@@ -84,11 +85,10 @@ def sql_update_guest(sql):
 #---после того как нашли кто узер
 def sql_data(sql):
     l_db = read_ini()
-    print(l_db)
     HOST = l_db[2]        #'127.0.0.1'
     DB_NAME = l_db[3]     #'firma1'
-    DB_USER = l_db[0]     #'postgres'
-    DB_PASS = l_db[1]     #'texnolog'
+    DB_USER = l_lp[0]     #'postgres'
+    DB_PASS = l_lp[1]     #'texnolog'
     print(HOST, DB_NAME, DB_USER, DB_PASS)
     try:
         conn = psycopg2.connect(host=HOST, database=DB_NAME, user=DB_USER, password=DB_PASS)
@@ -104,11 +104,10 @@ def sql_data(sql):
 
 def sql_update(sql):
     l_db = read_ini()
-    print(l_db)
     HOST = l_db[2]        #'127.0.0.1'
     DB_NAME = l_db[3]     #'firma1'
-    DB_USER = l_db[0]     #'postgres'
-    DB_PASS = l_db[1]     #'texnolog'
+    DB_USER = l_lp[0]     #'postgres'
+    DB_PASS = l_lp[1]     #'texnolog'
     print(HOST, DB_NAME, DB_USER, DB_PASS)
     try:
         conn = psycopg2.connect(host=HOST, database=DB_NAME, user=DB_USER, password=DB_PASS)
@@ -121,31 +120,36 @@ def sql_update(sql):
     cur.close()
     conn.close()
     return
-#-----------------------------------------------------------------------------------------------------------------------
 
+def go(lp):
+    lp = lp
+    print(lp)
+    window.hide()
+    window2.show()
+
+#-----------------------------------------------------------------------------------------------------------------------
 from PyQt4 import QtGui, QtCore, uic
 import threading
 #---------------------------------------------------------------------------------------------------------------------
-
-def go():
-    #print(zz)
-    window.hide()
-    print ('ok')
-    window2.show()
-
 class MyLogin(QtGui.QDialog):
     def __init__(self):
 
         QtGui.QDialog.__init__(self)
         self.ui = uic.loadUi("login_v2.ui")
-        self.ui.show()
+        #print (self.ui.__dict__)
         #---------------------------------------------------------------------------------------------------------------
         #----------------- запрос на получение группы манагеров --------------------------------------------------------
         #----к базе по созданию группы манагеров
-        ##-CREATE GROUP managers WITH USER igovorova, ssorokina, ubahvalova, tmaximova sysid 1;
-        ##CREATE GROUP loginz WITH USER test;
-
-        ##-SELECT usename FROM pg_user WHERE usesysid IN (SELECT UNNEST(grolist) FROM pg_group WHERE groname = 'managers');
+        #---CREATE GROUP proektns WITH USER vpavlovich, saliev, skostrukova, kalonceva sysid 3;
+        #---GRANT ALL ON adresa, akt_uslug, clients_card, contact_lico, engeneer_fio, files, log_table, manager_fio, napominanie_card, telefones_clients, test, uslugi, zametki TO GROUP proektns;
+        #---CREATE GROUP engeneers WITH USER aevdokimov, mgorbach, ssokolov, dmoshenskiy, skoksharov, earsentev, imusin sysid 4;
+        #---GRANT ALL ON adresa, akt_uslug, clients_card, contact_lico, engeneer_fio, files, log_table, manager_fio, napominanie_card, telefones_clients, test, uslugi, zametki TO GROUP engeneers;
+        #---GRANT ALL ON adresa, akt_uslug, clients_card, contact_lico, engeneer_fio, files, log_table, manager_fio, napominanie_card, telefones_clients, test, uslugi, zametki TO GROUP managers;
+        #---CREATE GROUP managers WITH USER igovorova, ssorokina, ubahvalova, tmaximova sysid 1;
+        #---CREATE GROUP loginz WITH USER test;
+        #---SELECT usename FROM pg_user WHERE usesysid IN (SELECT UNNEST(grolist) FROM pg_group WHERE groname = 'managers');
+        #---CREATE GROUP admins WITH USER vpetroew, dplatonov sysid 5;
+        #---GRANT ALL ON adresa, akt_uslug, clients_card, contact_lico, engeneer_fio, files, log_table, manager_fio, napominanie_card, telefones_clients, test, uslugi, zametki TO GROUP admins;
         #---------------------------------------------------------------------------------------------------------------
         sql = "select usename from pg_user where usesysid in (SELECT UNNEST(grolist) FROM pg_group where groname = 'managers');"
         #---------------------------------------------------------------------------------------------------------------
@@ -154,12 +158,54 @@ class MyLogin(QtGui.QDialog):
         data = sql_data_guest(sql)
         print(len(data))
         print(data)
-        
+        list1 = []
+        delete = re.compile('\W+?')
+        for i in data:
+            i =str(i)
+            i = (delete.sub(' ', i))
+            i = i.replace(' ','')
+            list1.append(i)
+
+        print(list1)
+        comb_ch = 'zz'
+        def combo_chosen(text):
+            """
+            Handler called when a distro is chosen from the combo box
+            """
+            comb_ch = text
+            return comb_ch
+
+
+        self.ui.comboBox_login.clear()
+        self.ui.comboBox_login.setSizeAdjustPolicy(0)
+        self.ui.comboBox_login.showPopup()
+        self.ui.comboBox_login.addItems(list1)
+        #------------------------ отладочный принт на проверку есть ли элемент в списке . ---------
+        #print(self.ui.comboBox_login.itemText(1))
+        #------------------------------------------------------------------------------------------
+
+        def go_summers():
+            login = self.ui.comboBox_login.currentText()
+            print(login)
+            password = self.ui.lineEdit_pass.text()
+            print(password)
+            lp = []
+            #lp.append(login) #добавляем логин
+            #lp.append(password) #добавляем пароль
+            lp.append('kalonceva')
+            lp.append('ByVrCS')
+            global l_lp
+            l_lp = lp  # передаем данные с логином и паролем
+            go(lp)
+            return l_lp
+
         zz = "sjkldfnjkasdfh"
         #t = threading.Timer(2.0, go, [self.ui])
         #t = threading.Timer(2.0, go, [zz])
+        self.ui.connect(self.ui.comboBox_login, QtCore.SIGNAL('activated(QString)'), combo_chosen)
         #QtCore.QObject.connect(self.ui.login, QtCore.SIGNAL("clicked()"), lambda: go(self.ui))
-        QtCore.QObject.connect(self.ui.login, QtCore.SIGNAL("clicked()"), go)
+        QtCore.QObject.connect(self.ui.login, QtCore.SIGNAL("clicked()"), go_summers)
+        self.ui.show()
         #t.start()
         print( 'wait 10 s...')
 
