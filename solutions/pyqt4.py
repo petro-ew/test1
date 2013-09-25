@@ -136,9 +136,11 @@ class MyLogin(QtGui.QDialog):
 
         QtGui.QDialog.__init__(self)
         self.ui = uic.loadUi("login_v2.ui")
-        #print (self.ui.__dict__)
+        print (self.ui.__dict__)
         #---------------------------------------------------------------------------------------------------------------
         #----------------- запрос на получение группы манагеров --------------------------------------------------------
+        #        psql -h 192.168.1.18 -U ssorokina firma1  заход с консоли
+        #
         #----к базе по созданию группы манагеров
         #---CREATE GROUP proektns WITH USER vpavlovich, saliev, skostrukova, kalonceva sysid 3;
         #---GRANT ALL ON adresa, akt_uslug, clients_card, contact_lico, engeneer_fio, files, log_table, manager_fio, napominanie_card, telefones_clients, test, uslugi, zametki TO GROUP proektns;
@@ -190,24 +192,46 @@ class MyLogin(QtGui.QDialog):
             password = self.ui.lineEdit_pass.text()
             print(password)
             lp = []
-            #lp.append(login) #добавляем логин
-            #lp.append(password) #добавляем пароль
-            lp.append('kalonceva')
-            lp.append('ByVrCS')
+            lp.append(login) #добавляем логин
+            lp.append(password) #добавляем пароль
+            #lp.append('kalonceva')
+            #lp.append('ByVrCS')
             global l_lp
             l_lp = lp  # передаем данные с логином и паролем
             go(lp)
             return l_lp
+        #bg = self.ui.buttonGroup
+        #создаем QButtonGroup
+        #bg = QtGui.QButtonGroup(self.ui)
+        #gb =
+        #rb1 = self.ui.radioButton
+        #rb2 = self.ui.radioButton_2
+        #rb3 = self.ui.radioButton_3
+        #bg.setId(rb1, 0)
+        #bg.setId(rb2, 1)
+        #bg.setId(rb3, 2)
 
-        zz = "sjkldfnjkasdfh"
+        #a = [self.ui.radioButton, self.ui.radioButton_2, self.ui.radioButton_3]
+        #self.ui.groupBox.setCheckable(False)
+        def sbros():
+            print("зашли блин")
+            #self.ui.groupBox.setCheckable(True)
+           # for i in a:
+            #    i.setCheckable(False)
+             #   i.setCheckable(True)
+            #self.ui.groupBox.setCheckable(False)
+        #self.ui.groupBox.toggled.connect(sbros)
+        self.ui.connect(self.ui.radioButton, QtCore.SIGNAL('toggled(bool)'), sbros)
+        #zz = "sjkldfnjkasdfh"
         #t = threading.Timer(2.0, go, [self.ui])
         #t = threading.Timer(2.0, go, [zz])
         self.ui.connect(self.ui.comboBox_login, QtCore.SIGNAL('activated(QString)'), combo_chosen)
         #QtCore.QObject.connect(self.ui.login, QtCore.SIGNAL("clicked()"), lambda: go(self.ui))
         QtCore.QObject.connect(self.ui.login, QtCore.SIGNAL("clicked()"), go_summers)
+        #self.ui.connect(self.ui.groupBox, QtCore.SIGNAL('clicked()'), sbros)
         self.ui.show()
         #t.start()
-        print( 'wait 10 s...')
+        print('wait 10 s...')
 
 #-----------------------------------------------------------------------------------------------------------------------
 Form, Base = uic.loadUiType("pyqt4.ui")
