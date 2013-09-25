@@ -200,28 +200,20 @@ class MyLogin(QtGui.QDialog):
             l_lp = lp  # передаем данные с логином и паролем
             go(lp)
             return l_lp
-        #bg = self.ui.buttonGroup
-        #создаем QButtonGroup
-        #bg = QtGui.QButtonGroup(self.ui)
-        #gb =
-        #rb1 = self.ui.radioButton
-        #rb2 = self.ui.radioButton_2
-        #rb3 = self.ui.radioButton_3
-        #bg.setId(rb1, 0)
-        #bg.setId(rb2, 1)
-        #bg.setId(rb3, 2)
 
-        #a = [self.ui.radioButton, self.ui.radioButton_2, self.ui.radioButton_3]
-        #self.ui.groupBox.setCheckable(False)
-        def sbros():
-            print("зашли блин")
-            #self.ui.groupBox.setCheckable(True)
-           # for i in a:
-            #    i.setCheckable(False)
-             #   i.setCheckable(True)
-            #self.ui.groupBox.setCheckable(False)
-        #self.ui.groupBox.toggled.connect(sbros)
-        self.ui.connect(self.ui.radioButton, QtCore.SIGNAL('toggled(bool)'), sbros)
+        self.ui.buttonGroup_2 = QtGui.QButtonGroup(self.ui)
+        self.ui.buttonGroup_2.addButton(self.ui.radioButton)
+        self.ui.buttonGroup_2.addButton(self.ui.radioButton_2)
+        self.ui.buttonGroup_2.addButton(self.ui.radioButton_3)
+
+        self.ui.buttonGroup_2.setId(self.ui.radioButton, 0)
+        self.ui.buttonGroup_2.setId(self.ui.radioButton_2, 1)
+        self.ui.buttonGroup_2.setId(self.ui.radioButton_3, 2)
+
+        def sbros(var):
+            print("зашли блин", var)
+
+        QtCore.QObject.connect(self.ui.buttonGroup_2, QtCore.SIGNAL('buttonClicked(int)'), sbros)
         #zz = "sjkldfnjkasdfh"
         #t = threading.Timer(2.0, go, [self.ui])
         #t = threading.Timer(2.0, go, [zz])

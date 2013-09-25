@@ -49,7 +49,7 @@
     <string>Менеджеры</string>
    </property>
    <attribute name="buttonGroup">
-    <string notr="true">buttonGroup</string>
+    <string notr="true">buttonGroup_2</string>
    </attribute>
   </widget>
   <widget class="QRadioButton" name="radioButton_2">
@@ -65,7 +65,7 @@
     <string>Инженеры</string>
    </property>
    <attribute name="buttonGroup">
-    <string notr="true">buttonGroup</string>
+    <string notr="true">buttonGroup_2</string>
    </attribute>
   </widget>
   <widget class="QRadioButton" name="radioButton_3">
@@ -81,7 +81,7 @@
     <string>Руководство</string>
    </property>
    <attribute name="buttonGroup">
-    <string notr="true">buttonGroup</string>
+    <string notr="true">buttonGroup_2</string>
    </attribute>
   </widget>
   <widget class="QLabel" name="label">
@@ -140,6 +140,10 @@
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroup"/>
+  <buttongroup name="buttonGroup_2">
+   <property name="exclusive">
+    <bool>false</bool>
+   </property>
+  </buttongroup>
  </buttongroups>
 </ui>
