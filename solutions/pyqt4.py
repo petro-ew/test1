@@ -212,6 +212,8 @@ class MyLogin(QtGui.QDialog):
 
         def sbros(var):
             print("зашли блин", var)
+            #тут надо указать какой запрос будут передаваться тестовому логину ))
+
 
         QtCore.QObject.connect(self.ui.buttonGroup_2, QtCore.SIGNAL('buttonClicked(int)'), sbros)
         #zz = "sjkldfnjkasdfh"
