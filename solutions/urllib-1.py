@@ -14,7 +14,7 @@ import threading
 o = urlparse("http://127.0.0.1:88/")
 print(o.geturl())
 
-host = "127.0.0.1"
+host = "192.168.1.147"
 port = 88
 
 def sendproc(buffer):
@@ -22,8 +22,7 @@ def sendproc(buffer):
     :param buffer: переменная которую передаем по UDP
     """
     #print("buffer = ", buffer)
-    sock1.sendto(buffer.encode("utf-8"), ('255.255.255.255', 11719))
-
+    sock1.sendto(buffer.encode("utf-8"), ('192.168.1.255', 11719))
 
 class Connect(threading.Thread):
     def __init__(self, sock, addr):
@@ -34,9 +33,11 @@ class Connect(threading.Thread):
         while True:
             buf = self.sock.recv(1024)
             if buf:
+                print("ЗАШЛИ В БУФ БУФ ЕСТЬ !!!!!")
                 b = buf
                 b = b.decode("utf-8")
                 b = b[6:18]
+                b = "c" + b
                 #print("из хттп:", b)
                 print(b)
                 sendproc(b)

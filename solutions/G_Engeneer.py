@@ -10,7 +10,7 @@ import psycopg2
 from PyQt4.QtCore import QSettings
 #-----------------------------------------------------------------------------
 # чтение из INI файла, почему то на массе операционных систем на работает ...
-
+# уже вроде работает )
 import PyQt4.QtCore
 #----------------------------------------------------------------------------------
 #Функция которая достает из файла ini настройки.
@@ -19,7 +19,7 @@ def store_ini():
     s = QSettings("geng.ini", QSettings.IniFormat)
     s.setValue("base/login", "postgres")
     s.setValue("base/password", "texnolog")
-    s.setValue("base/ip", "192.168.1.18")
+    #s.setValue("base/ip", "192.168.1.18")
     s.setValue("base/name", "firma1")
     s.setValue("pass/geng_login", "geng")
     s.setValue("pass/geng_password", "gengeneer")
@@ -29,20 +29,24 @@ def store_ini():
 def read_ini():
     s = QSettings("geng.ini", QSettings.IniFormat)
     #QSettings settings("/home/petra/misc/myapp.ini", QSettings::IniFormat);
-    s.beginGroup("base")
-    base_login = str(s.value("login"))
-    base_password = str(s.value("password"))
-    ip_base = str(s.value("ip"))
-    base_name = str(s.value("name"))
-    s.endGroup()
-    #base_login = str(s.value("base/login"))
-    #base_password = str(s.value("base/password"))
-    #ip_base = str(s.value("base/ip"))
-    #base_name = str(s.value("base/name"))
-    s.beginGroup("pass");
-    login = str(s.value("geng_login"))
-    password = str(s.value("geng_password"))
-    s.endGroup()
+    #s.beginGroup("base")
+    #base_login = str(s.value("base/login", "postgres"))
+    #base_login = str(s.value("login"))
+    #base_password = str(s.value("password"))
+    #ip_base = str(s.value("ip"))
+    #base_name = str(s.value("name"))
+    #s.endGroup()
+    base_login = str(s.value("base/login"))
+    base_password = str(s.value("base/password"))
+    ip_base = str(s.value("base/ip"))
+    base_name = str(s.value("base/name"))
+    login = str(s.value("pass/geng_login"))
+    password = str(s.value("pass/geng_password"))
+
+    #s.beginGroup("pass");
+    #login = str(s.value("geng_login"))
+    #password = str(s.value("geng_password"))
+    #s.endGroup()
     l1 = (base_login, base_password, ip_base, base_name, login, password)
     print("l1", l1)
     #print(base_login, base_password, ip_base, base_name)
